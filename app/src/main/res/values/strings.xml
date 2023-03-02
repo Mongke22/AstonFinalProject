@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">AstonFinalProject</string>
+    <string name="characters_title">Персонажи</string>
+    <string name="location_title">Локакции</string>
+    <string name="episodes_title">Эпизоды</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
