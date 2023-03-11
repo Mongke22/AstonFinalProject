@@ -1,7 +1,7 @@
-package com.example.astonfinalproject.network.Model.Episodes
+package com.example.astonfinalproject.data.network.Model.Episodes
 
-import com.example.astonfinalproject.network.Model.Characters.LocationDto
-import com.example.astonfinalproject.network.Model.Characters.OriginDto
+import com.example.astonfinalproject.data.network.Model.Characters.LocationDto
+import com.example.astonfinalproject.data.network.Model.Characters.OriginDto
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 

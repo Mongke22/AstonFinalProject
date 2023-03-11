@@ -1,6 +1,6 @@
-package com.example.astonfinalproject.network.Model.Characters
+package com.example.astonfinalproject.data.network.Model.Characters
 
-import com.example.astonfinalproject.network.Model.InfoDto
+import com.example.astonfinalproject.data.network.Model.InfoDto
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
