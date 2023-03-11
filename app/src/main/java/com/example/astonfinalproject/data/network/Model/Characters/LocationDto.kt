@@ -1,4 +1,4 @@
-package com.example.astonfinalproject.network.Model.Characters
+package com.example.astonfinalproject.data.network.Model.Characters
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName

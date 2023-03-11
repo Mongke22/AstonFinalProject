@@ -1,4 +1,4 @@
-package com.example.astonfinalproject.network.Model
+package com.example.astonfinalproject.data.network.Model
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName

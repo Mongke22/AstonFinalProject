@@ -1,14 +1,13 @@
-package com.example.astonfinalproject
+package com.example.astonfinalproject.presentation
 
-import android.annotation.SuppressLint
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log
+import com.example.astonfinalproject.R
 import com.example.astonfinalproject.databinding.ActivityMainBinding
-import com.example.astonfinalproject.network.ApiFactory
-import com.example.astonfinalproject.network.ApiService
+import com.example.astonfinalproject.data.network.ApiFactory
+import com.example.astonfinalproject.presentation.fragments.CharacterFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 

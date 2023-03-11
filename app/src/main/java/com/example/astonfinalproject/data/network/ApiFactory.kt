@@ -1,4 +1,4 @@
-package com.example.astonfinalproject.network
+package com.example.astonfinalproject.data.network
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
