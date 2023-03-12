@@ -1,4 +1,9 @@
 package com.example.astonfinalproject.domain.usecase
 
-class GetLocationsListUseCase {
+import com.example.astonfinalproject.domain.LogicRepository
+
+class GetLocationsListUseCase(
+    private val repository: LogicRepository
+) {
+    operator fun invoke() = repository.getLocationsList()
 }

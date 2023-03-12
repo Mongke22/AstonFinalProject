@@ -20,4 +20,16 @@ interface LogicRepository {
     suspend fun getLocationInfo(url: String): LocationInfo
 
 
+    fun loadSingleCharacterInfo(url: String)
+
+    fun loadCharactersInfo()
+
+    fun loadSingleEpisodeInfo(url: String)
+
+    fun loadEpisodesInfo()
+
+    fun loadSingleLocationInfo(url: String)
+
+    fun loadLocationsInfo()
+
 }
