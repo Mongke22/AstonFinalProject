@@ -9,27 +9,27 @@ interface LogicRepository {
 
     fun getCharactersList(): LiveData<List<CharacterInfo>>
 
-    suspend fun getCharacterInfo(url: String): CharacterInfo
+    suspend fun getCharacterInfo(id: Int): CharacterInfo
 
     fun getEpisodesList(): LiveData<List<EpisodeInfo>>
 
-    suspend fun getEpisodeInfo(url: String): EpisodeInfo
+    suspend fun getEpisodeInfo(id: Int): EpisodeInfo
 
     fun getLocationsList(): LiveData<List<LocationInfo>>
 
-    suspend fun getLocationInfo(url: String): LocationInfo
+    suspend fun getLocationInfo(id: Int): LocationInfo
 
 
-    fun loadSingleCharacterInfo(url: String)
+    fun loadSingleCharacterInfo(id: Int)
 
-    fun loadCharactersInfo()
+    fun loadCharactersInfo(page: Int)
 
-    fun loadSingleEpisodeInfo(url: String)
+    fun loadSingleEpisodeInfo(id: Int)
 
-    fun loadEpisodesInfo()
+    fun loadEpisodesInfo(page: Int)
 
-    fun loadSingleLocationInfo(url: String)
+    fun loadSingleLocationInfo(id: Int)
 
-    fun loadLocationsInfo()
+    fun loadLocationsInfo(page: Int)
 
 }
