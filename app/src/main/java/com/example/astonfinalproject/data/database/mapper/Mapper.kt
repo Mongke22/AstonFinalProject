@@ -79,4 +79,21 @@ class Mapper {
             locationDb.dimension
         )
     }
+
+    fun mapURLtoId(url: String): Int{
+        val result = url.split("/").last()
+        return if(isNumeric(result)){
+            result.toInt()
+        }
+        else{
+            -1
+        }
+    }
+
+    private fun isNumeric(s: String): Boolean {
+        return s.chars().allMatch { char ->
+            Character.isDigit(char)
+        }
+    }
+
 }
