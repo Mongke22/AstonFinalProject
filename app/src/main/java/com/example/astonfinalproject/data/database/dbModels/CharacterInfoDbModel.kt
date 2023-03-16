@@ -10,6 +10,7 @@ import com.example.astonfinalproject.data.database.StringListConverter
 data class CharacterInfoDbModel(
     @PrimaryKey
     val apiRequest: String,
+    val id: Int,
     val name: String,
     val species: String,
     val status: String,
@@ -19,7 +20,6 @@ data class CharacterInfoDbModel(
     val originLocationApiRequest: String,
     val currentLocationName: String,
     val currentLocationApiRequest: String,
-    @TypeConverters(StringListConverter::class)
     val episodeList: List<String>?
 
 )

@@ -9,9 +9,9 @@ import com.example.astonfinalproject.data.database.StringListConverter
 data class LocationInfoDbModel (
     @PrimaryKey
     val apiRequest: String,
+    val id: Int,
     val name: String,
     val type: String,
     val dimension: String,
-    @TypeConverters(StringListConverter::class)
     val residents: List<String>?
 )

@@ -5,5 +5,5 @@ import com.example.astonfinalproject.domain.LogicRepository
 class GetLocationInfoUseCase(
     private val repository: LogicRepository
 ) {
-    suspend operator fun invoke(url: String) = repository.getLocationInfo(url)
+    suspend operator fun invoke(id: Int) = repository.getLocationInfo(id)
 }

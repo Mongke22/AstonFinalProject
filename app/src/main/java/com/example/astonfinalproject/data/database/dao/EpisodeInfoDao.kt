@@ -13,12 +13,12 @@ interface EpisodeInfoDao {
     @Query("SELECT * FROM episodes")
     fun getEpisodeInfoList(): LiveData<List<EpisodeInfoDbModel>>
 
-    @Query("SELECT * FROM episodes WHERE apiRequest == :episodeRequest LIMIT 1")
-    fun getEpisodeInfo(episodeRequest: String): EpisodeInfoDbModel
+    @Query("SELECT * FROM episodes WHERE id == :getId LIMIT 1")
+    fun getEpisodeInfo(getId: Int): EpisodeInfoDbModel
 
-    @Query("SELECT COUNT(*) FROM episodes where apiRequest == :episodeRequest")
-    suspend fun checkEpisodeExists(episodeRequest: String): Int
+    @Query("SELECT COUNT(*) FROM episodes where id == :getId")
+    fun checkEpisodeExists(getId: Int): Int
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertEpisodeInfo(episode: EpisodeInfoDbModel)
+    fun insertEpisodeInfo(episode: EpisodeInfoDbModel)
 }

@@ -5,5 +5,5 @@ import com.example.astonfinalproject.domain.LogicRepository
 class GetCharacterInfoUseCase(
     private val repository: LogicRepository
 ) {
-    suspend operator fun invoke(url: String) = repository.getCharacterInfo(url)
+    suspend operator fun invoke(id: Int) = repository.getCharacterInfo(id)
 }

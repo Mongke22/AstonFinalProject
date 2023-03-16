@@ -12,12 +12,12 @@ interface CharacterInfoDao {
     @Query("SELECT * FROM characters")
     fun getCharacterInfoList(): LiveData<List<CharacterInfoDbModel>>
 
-    @Query("SELECT * FROM characters WHERE apiRequest == :characterRequest LIMIT 1")
-    fun getCharacterInfo(characterRequest: String): CharacterInfoDbModel
+    @Query("SELECT * FROM characters WHERE id == :getId LIMIT 1")
+    fun getCharacterInfo(getId: Int): CharacterInfoDbModel
 
-    @Query("SELECT COUNT(*) FROM characters where apiRequest == :characterRequest")
-    suspend fun checkCharacterExists(characterRequest: String): Int
+    @Query("SELECT COUNT(*) FROM characters where id == :getId")
+    fun checkCharacterExists(getId: Int): Int
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertCharacterInfo(character: CharacterInfoDbModel)
+    fun insertCharacterInfo(character: CharacterInfoDbModel)
 }

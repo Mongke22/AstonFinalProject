@@ -9,9 +9,9 @@ import com.example.astonfinalproject.data.database.StringListConverter
 data class EpisodeInfoDbModel (
     @PrimaryKey
     val apiRequest: String,
+    val id: Int,
     val name: String,
     val airDate: String,
     val episodeNumber: String,
-    @TypeConverters(StringListConverter::class)
     val characters: List<String>?
 )

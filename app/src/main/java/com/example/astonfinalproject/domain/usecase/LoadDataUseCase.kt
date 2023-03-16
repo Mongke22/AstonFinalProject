@@ -5,27 +5,27 @@ import com.example.astonfinalproject.domain.LogicRepository
 class LoadDataUseCase(
     private val repository: LogicRepository
 ) {
-    fun loadCharactersList(){
-        repository.loadCharactersInfo()
+    fun loadCharactersList(page: Int){
+        repository.loadCharactersInfo(page)
     }
 
-    fun loadCharacter(url: String){
-        repository.loadSingleCharacterInfo(url)
+    fun loadCharacter(id: Int){
+        repository.loadSingleCharacterInfo(id)
     }
 
-    fun loadEpisodesList(){
-        repository.loadEpisodesInfo()
+    fun loadEpisodesList(page: Int){
+        repository.loadEpisodesInfo(page)
     }
 
-    fun loadEpisode(url: String){
-        repository.loadSingleEpisodeInfo(url)
+    fun loadEpisode(id: Int){
+        repository.loadSingleEpisodeInfo(id)
     }
 
-    fun loadLocationsList(){
-        repository.loadLocationsInfo()
+    fun loadLocationsList(page: Int){
+        repository.loadLocationsInfo(page)
     }
 
-    fun loadLocation(url: String){
-        repository.loadSingleLocationInfo(url)
+    fun loadLocation(id: Int){
+        repository.loadSingleLocationInfo(id)
     }
 }

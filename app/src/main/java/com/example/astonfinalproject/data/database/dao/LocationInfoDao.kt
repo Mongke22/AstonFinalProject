@@ -13,12 +13,12 @@ interface LocationInfoDao {
     @Query("SELECT * FROM locations")
     fun getLocationInfoList(): LiveData<List<LocationInfoDbModel>>
 
-    @Query("SELECT * FROM locations WHERE apiRequest == :locationRequest LIMIT 1")
-    fun getLocationInfo(locationRequest: String): LocationInfoDbModel
+    @Query("SELECT * FROM locations WHERE id == :getId LIMIT 1")
+    fun getLocationInfo(getId: Int): LocationInfoDbModel
 
-    @Query("SELECT COUNT(*) FROM locations where apiRequest == :locationRequest")
-    suspend fun checkLocationExists(locationRequest: String): Int
+    @Query("SELECT COUNT(*) FROM locations where id == :getId")
+    fun checkLocationExists(getId: Int): Int
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertLocationInfo(location: LocationInfoDbModel)
+    fun insertLocationInfo(location: LocationInfoDbModel)
 }

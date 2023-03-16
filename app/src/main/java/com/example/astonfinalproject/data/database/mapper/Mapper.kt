@@ -14,6 +14,7 @@ class Mapper {
     fun mapCharacterDtoToDbModel(characterDto: CharactersResultDto): CharacterInfoDbModel {
         return CharacterInfoDbModel(
             characterDto.url ?: "unknown",
+            characterDto.id,
             characterDto.name ?: "unknown",
             characterDto.species ?: "unknown",
             characterDto.status ?: "unknown",
@@ -30,6 +31,7 @@ class Mapper {
     fun mapEpisodeDtoToDbModel(episodeDto: EpisodesResultDto): EpisodeInfoDbModel {
         return EpisodeInfoDbModel(
             episodeDto.url ?: "unknown",
+            episodeDto.id,
             episodeDto.name ?: "unknown",
             episodeDto.air_date ?: "unknown",
             episodeDto.episode ?: "unknown",
@@ -40,6 +42,7 @@ class Mapper {
     fun mapLocationDtoToDbModel(locationDto: LocationsResultDto): LocationInfoDbModel {
         return LocationInfoDbModel(
             locationDto.url ?: "unknown",
+            locationDto.id,
             locationDto.name ?: "unknown",
             locationDto.type ?: "unknown",
             locationDto.dimension ?: "unknown",
@@ -50,6 +53,7 @@ class Mapper {
 
     fun mapCharacterDbModelToEntity(characterDb: CharacterInfoDbModel): CharacterInfo {
         return CharacterInfo(
+            characterDb.id,
             characterDb.name,
             characterDb.imageSrc,
             characterDb.status,
@@ -60,6 +64,7 @@ class Mapper {
 
     fun mapEpisodeDbModelToEntity(episodeDb: EpisodeInfoDbModel): EpisodeInfo {
         return EpisodeInfo(
+            episodeDb.id,
             episodeDb.name,
             episodeDb.episodeNumber,
             episodeDb.airDate
@@ -68,6 +73,7 @@ class Mapper {
 
     fun mapLocationDbModelToEntity(locationDb: LocationInfoDbModel): LocationInfo {
         return LocationInfo(
+            locationDb.id,
             locationDb.name,
             locationDb.type,
             locationDb.dimension
