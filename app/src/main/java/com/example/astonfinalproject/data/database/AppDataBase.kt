@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.example.astonfinalproject.data.database.dao.CharacterInfoDao
 import com.example.astonfinalproject.data.database.dao.EpisodeInfoDao
 import com.example.astonfinalproject.data.database.dao.LocationInfoDao
@@ -13,13 +14,14 @@ import com.example.astonfinalproject.data.database.dbModels.LocationInfoDbModel
 
 @Database(
     entities = [CharacterInfoDbModel::class, EpisodeInfoDbModel::class, LocationInfoDbModel::class],
-    version = 1, exportSchema = false
+    version = 3, exportSchema = false
 )
+@TypeConverters(StringListConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     companion object {
 
         private var INSTANCE: AppDatabase? = null
-        private const val DB_NAME = "main.db"
+        private const val DB_NAME = "rick_morty.db"
         private val LOCK = Any()
 
         fun getInstance(application: Application): AppDatabase {
