@@ -145,22 +145,21 @@ class LogicRepositoryImpl(application: Application): LogicRepository {
     }
 
     override fun loadEpisodesInfo(page: Int) {
-        Log.i("load", "Loading episodes")
         apiService.getEpisodes(page)
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .subscribe(object : DisposableSingleObserver<Any?>() {
                 override fun onSuccess(obj: Any) {
                     val response = obj as EpisodesPageResultDto
-                    if(response.info?.next != null){
-                        loadEpisodesInfo(page + 1)
-                    }
                     if(response.results != null){
                         for(episodeDto in response.results) {
                             episodeInfoDao.insertEpisodeInfo(
                                 mapper.mapEpisodeDtoToDbModel(episodeDto)
                             )
                         }
+                    }
+                    if(response.info?.next != null){
+                        loadEpisodesInfo(page + 1)
                     }
                     dispose()
                 }

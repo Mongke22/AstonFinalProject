@@ -13,6 +13,17 @@ import com.example.astonfinalproject.presentation.recyclerView.adapters.Characte
 
 class CharacterFragment : BaseFragment<FragmentCharacterBinding>() {
 
+    companion object{
+
+        private lateinit var viewModel: MainViewModel
+
+        fun newInstance(vm: MainViewModel): CharacterFragment{
+            viewModel = vm
+
+            return CharacterFragment()
+        }
+    }
+
     private lateinit var charactersListAdapter: CharactersListAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -50,17 +61,6 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>() {
     private fun setupImageLoadingListener(){
         charactersListAdapter.characterSavePictureFunc = { id, path ->
             viewModel.updateImagePath(id, path)
-        }
-    }
-
-    companion object{
-
-        private lateinit var viewModel: MainViewModel
-
-        fun newInstance(vm: MainViewModel): CharacterFragment{
-            viewModel = vm
-
-            return CharacterFragment()
         }
     }
 }

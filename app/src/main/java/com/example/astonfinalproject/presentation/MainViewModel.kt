@@ -31,6 +31,14 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         loadDataUseCase.loadCharactersList(1)
     }
 
+    fun loadEpisodes(){
+        loadDataUseCase.loadEpisodesList(1)
+    }
+
+    fun loadLocations(){
+        loadDataUseCase.loadLocationsList(1)
+    }
+
     fun loadCharacter(id: Int){
         loadDataUseCase.loadCharacter(id)
     }
