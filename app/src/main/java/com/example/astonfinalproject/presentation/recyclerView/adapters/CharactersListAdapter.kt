@@ -5,11 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.example.astonfinalproject.R
 import com.example.astonfinalproject.domain.Model.CharacterInfo
-import com.example.astonfinalproject.presentation.recyclerView.callback.CharacterDiffCallBack
+import com.example.astonfinalproject.presentation.recyclerView.DiffCallBack
 import com.example.astonfinalproject.presentation.recyclerView.holders.CharacterViewHolder
 
 class CharactersListAdapter :
-    ListAdapter<CharacterInfo, CharacterViewHolder>(CharacterDiffCallBack()) {
+    ListAdapter<CharacterInfo, CharacterViewHolder>(DiffCallBack<CharacterInfo>()) {
 
     var characterClickListener: ((CharacterInfo) -> Unit)? = null
     var characterSavePictureFunc: ((Int, String)-> Unit)? = null

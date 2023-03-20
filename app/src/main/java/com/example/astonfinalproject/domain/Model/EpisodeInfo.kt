@@ -1,8 +1,8 @@
 package com.example.astonfinalproject.domain.Model
 
 data class EpisodeInfo (
-    val id: Int,
+    override val id: Int,
     val name: String,
     val number: String,
     val date: String
-)
+): BaseDataInfo(id)

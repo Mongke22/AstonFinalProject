@@ -4,15 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.example.astonfinalproject.R
-import com.example.astonfinalproject.domain.Model.CharacterInfo
 import com.example.astonfinalproject.domain.Model.EpisodeInfo
-import com.example.astonfinalproject.presentation.recyclerView.callback.CharacterDiffCallBack
-import com.example.astonfinalproject.presentation.recyclerView.callback.EpisodeDiffCallBack
-import com.example.astonfinalproject.presentation.recyclerView.holders.CharacterViewHolder
+import com.example.astonfinalproject.presentation.recyclerView.DiffCallBack
 import com.example.astonfinalproject.presentation.recyclerView.holders.EpisodeViewHolder
 
 class EpisodesListAdapter :
-    ListAdapter<EpisodeInfo, EpisodeViewHolder>(EpisodeDiffCallBack()) {
+    ListAdapter<EpisodeInfo, EpisodeViewHolder>(DiffCallBack<EpisodeInfo>()) {
 
     var episodeClickListener: ((EpisodeInfo) -> Unit)? = null
 
