@@ -28,6 +28,9 @@ data class CharactersResultDto(
     @SerializedName("location")
     @Expose
     val location: LocationDto? = null,
+    @SerializedName("image")
+    @Expose
+    val image: String? = null,
     @SerializedName("episode")
     @Expose
     val episode: List<String>? = null,
