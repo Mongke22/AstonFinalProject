@@ -9,43 +9,50 @@ import com.example.astonfinalproject.data.network.Model.Locations.LocationsResul
 import com.example.astonfinalproject.domain.Model.CharacterInfo
 import com.example.astonfinalproject.domain.Model.EpisodeInfo
 import com.example.astonfinalproject.domain.Model.LocationInfo
+import com.squareup.picasso.Picasso
 
 class Mapper {
+
+    companion object {
+        private const val UNKNOWN_STRING = "unknown"
+    }
+
     fun mapCharacterDtoToDbModel(characterDto: CharactersResultDto): CharacterInfoDbModel {
         return CharacterInfoDbModel(
-            characterDto.url ?: "unknown",
+            characterDto.url?.lowercase() ?: UNKNOWN_STRING,
             characterDto.id,
-            characterDto.name ?: "unknown",
-            characterDto.species ?: "unknown",
-            characterDto.status ?: "unknown",
-            characterDto.gender ?: "unknown",
-            characterDto.image ?: "unknown",
-            characterDto.origin?.name ?: "unknown",
-            characterDto.origin?.url ?: "unknown",
-            characterDto.location?.name ?: "unknown",
-            characterDto.location?.url ?: "unknown",
+            characterDto.name?.lowercase() ?: UNKNOWN_STRING,
+            characterDto.species?.lowercase() ?: UNKNOWN_STRING,
+            characterDto.status?.lowercase() ?: UNKNOWN_STRING,
+            characterDto.gender?.lowercase() ?: UNKNOWN_STRING,
+            UNKNOWN_STRING,
+            characterDto.image?.lowercase() ?: UNKNOWN_STRING,
+            characterDto.origin?.name?.lowercase() ?: UNKNOWN_STRING,
+            characterDto.origin?.url?.lowercase() ?: UNKNOWN_STRING,
+            characterDto.location?.name?.lowercase() ?: UNKNOWN_STRING,
+            characterDto.location?.url?.lowercase() ?: UNKNOWN_STRING,
             characterDto.episode
         )
     }
 
     fun mapEpisodeDtoToDbModel(episodeDto: EpisodesResultDto): EpisodeInfoDbModel {
         return EpisodeInfoDbModel(
-            episodeDto.url ?: "unknown",
+            episodeDto.url?.lowercase() ?: UNKNOWN_STRING,
             episodeDto.id,
-            episodeDto.name ?: "unknown",
-            episodeDto.air_date ?: "unknown",
-            episodeDto.episode ?: "unknown",
+            episodeDto.name?.lowercase() ?: UNKNOWN_STRING,
+            episodeDto.air_date?.lowercase() ?: UNKNOWN_STRING,
+            episodeDto.episode?.lowercase() ?: UNKNOWN_STRING,
             episodeDto.characters
         )
     }
 
     fun mapLocationDtoToDbModel(locationDto: LocationsResultDto): LocationInfoDbModel {
         return LocationInfoDbModel(
-            locationDto.url ?: "unknown",
+            locationDto.url?.lowercase() ?: UNKNOWN_STRING,
             locationDto.id,
-            locationDto.name ?: "unknown",
-            locationDto.type ?: "unknown",
-            locationDto.dimension ?: "unknown",
+            locationDto.name?.lowercase() ?: UNKNOWN_STRING,
+            locationDto.type?.lowercase() ?: UNKNOWN_STRING,
+            locationDto.dimension?.lowercase() ?: UNKNOWN_STRING,
             locationDto.characters
         )
     }
@@ -56,6 +63,7 @@ class Mapper {
             characterDb.id,
             characterDb.name,
             characterDb.imageSrc,
+            characterDb.imageUrl,
             characterDb.status,
             characterDb.gender,
             characterDb.species
@@ -80,12 +88,11 @@ class Mapper {
         )
     }
 
-    fun mapURLtoId(url: String): Int{
+    fun mapURLtoId(url: String): Int {
         val result = url.split("/").last()
-        return if(isNumeric(result)){
+        return if (isNumeric(result)) {
             result.toInt()
-        }
-        else{
+        } else {
             -1
         }
     }
@@ -95,5 +102,4 @@ class Mapper {
             Character.isDigit(char)
         }
     }
-
 }

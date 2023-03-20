@@ -1,7 +1,13 @@
 package com.example.astonfinalproject.data
 
 import android.app.Application
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
+import android.net.Uri
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
+import androidx.core.content.FileProvider
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.example.astonfinalproject.data.database.AppDatabase
@@ -17,9 +23,12 @@ import com.example.astonfinalproject.domain.LogicRepository
 import com.example.astonfinalproject.domain.Model.CharacterInfo
 import com.example.astonfinalproject.domain.Model.EpisodeInfo
 import com.example.astonfinalproject.domain.Model.LocationInfo
-import io.reactivex.disposables.CompositeDisposable
+import com.squareup.picasso.Picasso
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 
 
 class LogicRepositoryImpl(application: Application): LogicRepository {
@@ -27,6 +36,7 @@ class LogicRepositoryImpl(application: Application): LogicRepository {
     private val characterInfoDao = AppDatabase.getInstance(application).characterInfoDao()
     private val episodeInfoDao = AppDatabase.getInstance(application).episodeInfoDao()
     private val locationInfoDao = AppDatabase.getInstance(application).locationInfoDao()
+    private var context = application
     private val apiService = ApiFactory.apiService
     private val mapper = Mapper()
 
@@ -66,6 +76,10 @@ class LogicRepositoryImpl(application: Application): LogicRepository {
         return mapper.mapLocationDbModelToEntity(locationInfoDao.getLocationInfo(id))
     }
 
+    override suspend fun updateCharacterImagePath(id: Int, path: String) {
+        characterInfoDao.updateImagePath(path,id)
+    }
+
     override fun loadSingleCharacterInfo(id: Int) {
         apiService.getCharacter(id)
             .subscribeOn(Schedulers.io())
@@ -73,7 +87,6 @@ class LogicRepositoryImpl(application: Application): LogicRepository {
             .subscribe(object : DisposableSingleObserver<Any?>() {
                 override fun onSuccess(obj: Any) {
                     val response = obj as CharactersResultDto
-                    Log.i("loading","got character, id $id")
                     characterInfoDao.insertCharacterInfo(mapper.mapCharacterDtoToDbModel(response))
                     dispose()
                 }
@@ -87,26 +100,21 @@ class LogicRepositoryImpl(application: Application): LogicRepository {
 
 
     override fun loadCharactersInfo(page: Int) {
-        Log.i("load", "Loading characters")
         apiService.getCharacters(page)
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .subscribe(object : DisposableSingleObserver<Any?>() {
                 override fun onSuccess(obj: Any) {
                     val response = obj as CharactersPageResultDto
-                    Log.i("loading","got characters, page $page")
-                    if(response.info?.next != null){
-                        loadCharactersInfo(page + 1)
-                    }
-                    else{
-                        Log.i("loading","Всего было = $page")
-                    }
                     if(response.results != null){
                         for(characterDto in response.results) {
                             characterInfoDao.insertCharacterInfo(
                                 mapper.mapCharacterDtoToDbModel(characterDto)
                             )
                         }
+                    }
+                    if(response.info?.next != null){
+                        loadCharactersInfo(page + 1)
                     }
                     dispose()
                 }
@@ -125,7 +133,6 @@ class LogicRepositoryImpl(application: Application): LogicRepository {
             .subscribe(object : DisposableSingleObserver<Any?>() {
                 override fun onSuccess(obj: Any) {
                     val response = obj as EpisodesResultDto
-                    Log.i("loading","got character, id $id")
                     episodeInfoDao.insertEpisodeInfo(mapper.mapEpisodeDtoToDbModel(response))
                     dispose()
                 }
@@ -145,13 +152,8 @@ class LogicRepositoryImpl(application: Application): LogicRepository {
             .subscribe(object : DisposableSingleObserver<Any?>() {
                 override fun onSuccess(obj: Any) {
                     val response = obj as EpisodesPageResultDto
-                    Log.i("loading","got episodes, page $page")
-                    Log.i("episodes:", response.results.toString())
                     if(response.info?.next != null){
                         loadEpisodesInfo(page + 1)
-                    }
-                    else{
-                        Log.i("loading","Всего было = $page")
                     }
                     if(response.results != null){
                         for(episodeDto in response.results) {
@@ -219,5 +221,48 @@ class LogicRepositoryImpl(application: Application): LogicRepository {
                     dispose()
                 }
             })
+    }
+
+    private fun loadImageForCharacter(url: String, id: Int){
+        if(url.isEmpty()) return
+        val uiHandler = Handler(Looper.getMainLooper())
+        uiHandler.post{
+            Picasso.with(context)
+                .load(url)
+                .into(object: com.squareup.picasso.Target {
+                    override fun onBitmapLoaded(bitmap: Bitmap, from: Picasso.LoadedFrom?) {
+                        val path = saveImageToPhone(bitmap, "character$id")
+                        Log.i("path", path?: "empty path")
+                    }
+
+                    override fun onBitmapFailed(errorDrawable: Drawable?) {
+                        Log.i("imageLoading","failed")
+                    }
+
+                    override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
+
+                    }
+
+                })
+        }
+
+
+    }
+
+    private fun saveImageToPhone(image: Bitmap, fileName: String): String?{
+        val imagesFolder = File(context.cacheDir, "images")
+        var path: String? = null
+        try {
+            imagesFolder.mkdirs()
+            val file = File(imagesFolder, fileName)
+            val stream = FileOutputStream(file)
+            image.compress(Bitmap.CompressFormat.PNG, 90, stream)
+            stream.flush()
+            stream.close()
+            path = file.absolutePath
+        } catch (e: IOException) {
+            Log.i("IOException", "${e.message}")
+        }
+        return path
     }
 }

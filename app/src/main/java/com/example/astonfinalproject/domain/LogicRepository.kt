@@ -19,6 +19,7 @@ interface LogicRepository {
 
     suspend fun getLocationInfo(id: Int): LocationInfo
 
+    suspend fun updateCharacterImagePath(id: Int, path: String)
 
     fun loadSingleCharacterInfo(id: Int)
 

@@ -17,7 +17,7 @@ object ApiFactory {
         .addConverterFactory(GsonConverterFactory.create())
         .baseUrl(BASE_URL)
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        //.client(client.build())
+        .client(client.build())
         .build()
 
     val apiService = retrofit.create(ApiService::class.java)

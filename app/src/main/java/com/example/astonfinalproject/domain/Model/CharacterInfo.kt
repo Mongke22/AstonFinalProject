@@ -4,6 +4,7 @@ data class CharacterInfo (
     val id: Int,
     val name: String,
     val imgSrc: String,
+    val imgUrl: String,
     val status: String,
     val gender: String,
     val species: String

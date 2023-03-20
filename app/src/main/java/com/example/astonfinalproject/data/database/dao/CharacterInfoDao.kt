@@ -18,6 +18,9 @@ interface CharacterInfoDao {
     @Query("SELECT COUNT(*) FROM characters where id == :getId")
     fun checkCharacterExists(getId: Int): Int
 
+    @Query("UPDATE characters SET imageSrc = :imgSrc WHERE id == :theId")
+    suspend fun updateImagePath(imgSrc: String, theId: Int)
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertCharacterInfo(character: CharacterInfoDbModel)
 }

@@ -1,12 +1,16 @@
 package com.example.astonfinalproject.presentation
 
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log
+import androidx.lifecycle.ViewModelProvider
 import com.example.astonfinalproject.R
+import com.example.astonfinalproject.data.LogicRepositoryImpl
 import com.example.astonfinalproject.databinding.ActivityMainBinding
 import com.example.astonfinalproject.data.network.ApiFactory
+import com.example.astonfinalproject.domain.LogicRepository
 import com.example.astonfinalproject.presentation.fragments.CharacterFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -14,29 +18,19 @@ import io.reactivex.schedulers.Schedulers
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private val apiService = ApiFactory.apiService
+    private lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        Log.i("onCreate", "called")
-        val test = apiService.getCharacters()
-        test
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                { it ->
-                    val movies = it.results
-                    Log.i("movies", it.toString())
-                },
-                { error ->
-                    // Логируем ошибку
-                    Log.e("getCharacters", error.toString())
-                }
-            )
+
+        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
+
+        viewModel.loadCharacters()
+
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainer, CharacterFragment.newInstance())
+            .replace(R.id.fragmentContainer, CharacterFragment.newInstance(viewModel))
             .commit()
     }
 

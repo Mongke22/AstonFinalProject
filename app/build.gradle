@@ -65,4 +65,7 @@ dependencies {
     //dbViewer
     debugImplementation("com.infinum.dbinspector:dbinspector:5.4.8")
     releaseImplementation("com.infinum.dbinspector:dbinspector-no-op:5.4.8")
+
+    //glide
+    implementation 'com.squareup.picasso:picasso:2.5.2'
 }

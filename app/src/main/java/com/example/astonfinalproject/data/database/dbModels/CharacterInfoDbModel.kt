@@ -16,6 +16,7 @@ data class CharacterInfoDbModel(
     val status: String,
     val gender: String,
     val imageSrc: String,
+    val imageUrl: String,
     val originLocationName: String,
     val originLocationApiRequest: String,
     val currentLocationName: String,
