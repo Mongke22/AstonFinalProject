@@ -1,7 +1,7 @@
-package com.example.astonfinalproject.network
+package com.example.astonfinalproject.data.network
 
-import com.example.astonfinalproject.network.Model.Characters.CharactersPageResultDto
-import com.example.astonfinalproject.network.Model.Episodes.EpisodesPageResultDto
+import com.example.astonfinalproject.data.network.Model.Characters.CharactersPageResultDto
+import com.example.astonfinalproject.data.network.Model.Episodes.EpisodesPageResultDto
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
