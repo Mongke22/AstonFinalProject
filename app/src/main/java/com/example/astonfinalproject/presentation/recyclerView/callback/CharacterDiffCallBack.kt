@@ -1,4 +1,4 @@
-package com.example.astonfinalproject.presentation.recyclerView
+package com.example.astonfinalproject.presentation.recyclerView.callback
 
 import androidx.recyclerview.widget.DiffUtil
 import com.example.astonfinalproject.domain.Model.CharacterInfo

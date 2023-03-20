@@ -1,12 +1,11 @@
 package com.example.astonfinalproject.presentation.recyclerView.adapters
 
-import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.example.astonfinalproject.R
 import com.example.astonfinalproject.domain.Model.CharacterInfo
-import com.example.astonfinalproject.presentation.recyclerView.CharacterDiffCallBack
+import com.example.astonfinalproject.presentation.recyclerView.callback.CharacterDiffCallBack
 import com.example.astonfinalproject.presentation.recyclerView.holders.CharacterViewHolder
 
 class CharactersListAdapter :

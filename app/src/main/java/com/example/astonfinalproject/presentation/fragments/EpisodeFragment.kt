@@ -10,17 +10,8 @@ import com.example.astonfinalproject.databinding.FragmentCharacterBinding
 import com.example.astonfinalproject.databinding.FragmentEpisodeBinding
 import com.example.astonfinalproject.presentation.MainViewModel
 import com.example.astonfinalproject.presentation.recyclerView.adapters.CharactersListAdapter
+import com.example.astonfinalproject.presentation.recyclerView.adapters.EpisodesListAdapter
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [EpisodeFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class EpisodeFragment : BaseFragment<FragmentEpisodeBinding>() {
 
     companion object {
@@ -34,14 +25,14 @@ class EpisodeFragment : BaseFragment<FragmentEpisodeBinding>() {
         }
     }
 
-    private lateinit var episodesListAdapter: CharactersListAdapter
+    private lateinit var episodesListAdapter: EpisodesListAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
-        CharacterFragment.viewModel.characterList.observe(viewLifecycleOwner) { characters ->
+        viewModel.episodesList.observe(viewLifecycleOwner) { episodes ->
             //TODO(добавить текст о том, что нет данных)
-            charactersListAdapter.submitList(characters)
+            episodesListAdapter.submitList(episodes)
         }
     }
 
@@ -54,12 +45,16 @@ class EpisodeFragment : BaseFragment<FragmentEpisodeBinding>() {
     }
 
     private fun setupRecyclerView() {
-        val rvCharactersList = binding.rvCharacters
-        with(rvCharactersList) {
-            charactersListAdapter = CharactersListAdapter()
-            adapter = charactersListAdapter
+        val rvEpisodesList = binding.rvEpisodes
+        with(rvEpisodesList) {
+            episodesListAdapter = EpisodesListAdapter()
+            adapter = episodesListAdapter
         }
         setupListeners()
+    }
+
+    private fun setupListeners(){
+        //setupOnClickListener()
     }
 
 }
