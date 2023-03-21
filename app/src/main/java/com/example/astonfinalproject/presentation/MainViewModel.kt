@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.astonfinalproject.data.LogicRepositoryImpl
 import com.example.astonfinalproject.domain.Model.CharacterInfo
 import com.example.astonfinalproject.domain.Model.EpisodeInfo
+import com.example.astonfinalproject.domain.Model.LocationInfo
 import com.example.astonfinalproject.domain.usecase.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -31,6 +32,10 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     private var _episodeList = getEpisodesListUseCase()
     val episodesList: LiveData<List<EpisodeInfo>>
         get() = _episodeList
+
+    private var _locationList = getLocationsListUseCase()
+    val locationsList: LiveData<List<LocationInfo>>
+        get() = _locationList
 
     fun loadCharacters(){
         loadDataUseCase.loadCharactersList(1)

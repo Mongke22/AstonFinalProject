@@ -13,6 +13,7 @@ import com.example.astonfinalproject.data.network.ApiFactory
 import com.example.astonfinalproject.domain.LogicRepository
 import com.example.astonfinalproject.presentation.fragments.CharacterFragment
 import com.example.astonfinalproject.presentation.fragments.EpisodeFragment
+import com.example.astonfinalproject.presentation.fragments.LocationFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -29,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainer, EpisodeFragment.newInstance(viewModel))
+            .replace(R.id.fragmentContainer, LocationFragment.newInstance(viewModel))
             .commit()
     }
 
