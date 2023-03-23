@@ -66,7 +66,11 @@ class Mapper {
             characterDb.imageUrl,
             characterDb.status,
             characterDb.gender,
-            characterDb.species
+            characterDb.species,
+            characterDb.episodeList?: listOf(),
+            characterDb.currentLocationName,
+            characterDb.originLocationName
+
         )
     }
 

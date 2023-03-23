@@ -53,11 +53,25 @@ class LogicRepositoryImpl(application: Application): LogicRepository {
     }
 
     override fun getEpisodesList(): LiveData<List<EpisodeInfo>> {
-        return Transformations.map(episodeInfoDao.getEpisodeInfoList()){
-            it.map{ episode ->
+        return Transformations.map(episodeInfoDao.getEpisodeInfoList()) {
+            it.map { episode ->
                 mapper.mapEpisodeDbModelToEntity(episode)
             }
         }
+
+    }
+
+    override suspend fun getEpisodesByCharacter(episodesUrl: List<String>): List<EpisodeInfo> {
+        val episodesId: ArrayList<Int> = ArrayList()
+        for(episodeUrl in episodesUrl){
+            episodesId.add(mapper.mapURLtoId(episodeUrl))
+        }
+        val result = episodeInfoDao.getSelectedEpisodeInfoList(episodesId)
+        val a = 14
+        return result.map{
+            mapper.mapEpisodeDbModelToEntity(it)
+        }
+
     }
 
     override suspend fun getEpisodeInfo(id: Int): EpisodeInfo {

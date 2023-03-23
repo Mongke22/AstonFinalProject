@@ -55,12 +55,21 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>() {
 
     private fun setupListeners(){
         setupImageLoadingListener()
-        //setupClickListener()
+        setupClickListener()
     }
 
     private fun setupImageLoadingListener(){
         charactersListAdapter.characterSavePictureFunc = { id, path ->
             viewModel.updateImagePath(id, path)
+        }
+    }
+
+    private fun setupClickListener(){
+        charactersListAdapter.characterClickListener = {
+            val fragment = SingleCharacterFragment.newInstance(viewModel,1)
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainer, fragment)
+                .commit()
         }
     }
 }

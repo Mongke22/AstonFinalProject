@@ -13,6 +13,9 @@ interface EpisodeInfoDao {
     @Query("SELECT * FROM episodes")
     fun getEpisodeInfoList(): LiveData<List<EpisodeInfoDbModel>>
 
+    @Query("SELECT * FROM episodes WHERE id IN (:ids)")
+    suspend fun getSelectedEpisodeInfoList(ids: List<Int>): List<EpisodeInfoDbModel>
+
     @Query("SELECT * FROM episodes WHERE id == :getId LIMIT 1")
     fun getEpisodeInfo(getId: Int): EpisodeInfoDbModel
 

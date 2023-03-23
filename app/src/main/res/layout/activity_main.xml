@@ -30,7 +30,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/actionBar"
-        android:name="com.example.astonfinalproject.presentation.fragments.LocationFragment"
+        android:name="com.example.astonfinalproject.presentation.fragments.CharacterFragment"
         />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

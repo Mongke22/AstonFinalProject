@@ -7,5 +7,8 @@ data class CharacterInfo (
     val imgUrl: String,
     val status: String,
     val gender: String,
-    val species: String
+    val species: String,
+    val episodes: List<String>,
+    val currentLocation: String,
+    val origin: String
 ): BaseDataInfo(id)

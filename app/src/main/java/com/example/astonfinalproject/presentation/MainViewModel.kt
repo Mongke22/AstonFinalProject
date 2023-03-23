@@ -4,6 +4,7 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.astonfinalproject.data.LogicRepositoryImpl
 import com.example.astonfinalproject.domain.Model.CharacterInfo
@@ -20,6 +21,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     private val getCharactersListUseCase = GetCharactersListUseCase(repository)
     private val getEpisodeInfoUseCase = GetEpisodeInfoUseCase(repository)
     private val getEpisodesListUseCase = GetEpisodesListUseCase(repository)
+    private val getEpisodesByCharacterUseCase = GetEpisodesByCharacterUseCase(repository)
     private val getLocationInfoUseCase = GetLocationInfoUseCase(repository)
     private val getLocationsListUseCase = GetLocationsListUseCase(repository)
     private val updateImagePathUseCase = UpdateImagePathUseCase(repository)
@@ -37,6 +39,14 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     val locationsList: LiveData<List<LocationInfo>>
         get() = _locationList
 
+    private val _characterInfo = MutableLiveData<CharacterInfo>()
+    val characterInfo: LiveData<CharacterInfo>
+        get() = _characterInfo
+
+    private var _characterEpisodeList = MutableLiveData<List<EpisodeInfo>>()
+    val characterEpisodeList: LiveData<List<EpisodeInfo>>
+        get() = _episodeList
+
     fun loadCharacters(){
         loadDataUseCase.loadCharactersList(1)
     }
@@ -53,6 +63,16 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         loadDataUseCase.loadCharacter(id)
     }
 
+    fun getCharacter(id: Int){
+        viewModelScope.launch(Dispatchers.IO) {
+            val item: CharacterInfo = getCharacterInfoUseCase(id)
+            val stringUrlList = getStringListFromString(item.episodes.getOrNull(0))
+            val episodesList: List<EpisodeInfo> = getEpisodesByCharacterUseCase(stringUrlList)
+            _characterEpisodeList.postValue(episodesList)
+            _characterInfo.postValue(item)
+        }
+    }
+
     fun updateImagePath(id: Int, path: String){
         viewModelScope.launch(Dispatchers.IO){
             updateImagePathUseCase(id, path)
@@ -63,5 +83,9 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     override fun onCleared() {
         Log.i("viewModel","cleared")
         super.onCleared()
+    }
+
+    private fun getStringListFromString(str: String?): List<String>{
+        return str?.substring(1,str.lastIndex)?.split(',') ?: listOf()
     }
 }
