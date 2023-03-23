@@ -64,17 +64,17 @@ class SingleEpisodeFragment : BaseFragment<FragmentSingleEpisodeBinding>() {
     }
 
     private fun setupRecyclerView(){
-       /* val rvEpisodesList = binding.rvEpisodesInside
+        val rvEpisodesList = binding.rvSingleEpisodeCharacters
         with(rvEpisodesList) {
-            characterListAdapter = EpisodesListAdapter()
+            characterListAdapter = CharactersListAdapter()
             adapter = characterListAdapter
         }
-        setupListeners()*/
+        setupListeners()
     }
 
     private fun setupListeners(){
         characterListAdapter.characterClickListener = {
-            Toast.makeText(requireContext(),"Эпизод: ${it.name}", Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(),"Персонаж: ${it.name}", Toast.LENGTH_SHORT).show()
         }
     }
 

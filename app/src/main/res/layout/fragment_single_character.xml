@@ -20,7 +20,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/tvSingleName"
+                android:id="@+id/tvSingleCharacterName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -33,7 +33,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tvIdText"
+                android:id="@+id/tvCharacterIdText"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_marginStart="10dp"
@@ -41,21 +41,21 @@
                 android:text="Досье №"
                 android:textColor="@color/white"
                 android:textSize="24sp"
-                app:layout_constraintBottom_toBottomOf="@id/tvSingleName"
-                app:layout_constraintStart_toEndOf="@id/tvSingleName"
-                app:layout_constraintTop_toTopOf="@id/tvSingleName" />
+                app:layout_constraintBottom_toBottomOf="@id/tvSingleCharacterName"
+                app:layout_constraintStart_toEndOf="@id/tvSingleCharacterName"
+                app:layout_constraintTop_toTopOf="@id/tvSingleCharacterName" />
 
             <TextView
-                android:id="@+id/tvSingleId"
+                android:id="@+id/tvSingleCharacterId"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:gravity="center"
                 android:text="123"
                 android:textColor="@color/white"
                 android:textSize="28sp"
-                app:layout_constraintBottom_toBottomOf="@id/tvSingleName"
-                app:layout_constraintStart_toEndOf="@id/tvIdText"
-                app:layout_constraintTop_toTopOf="@id/tvSingleName" />
+                app:layout_constraintBottom_toBottomOf="@id/tvSingleCharacterName"
+                app:layout_constraintStart_toEndOf="@id/tvCharacterIdText"
+                app:layout_constraintTop_toTopOf="@id/tvSingleCharacterName" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -100,7 +100,7 @@
                     android:text="Имя:" />
 
                 <TextView
-                    android:id="@+id/tvIdInside"
+                    android:id="@+id/tvCharacterNameInside"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -124,7 +124,7 @@
                     android:text="Пол:" />
 
                 <TextView
-                    android:id="@+id/tvGenderInside"
+                    android:id="@+id/tvCharacterGenderInside"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -148,7 +148,7 @@
                     android:text="Вид:" />
 
                 <TextView
-                    android:id="@+id/tvSpeciesInside"
+                    android:id="@+id/tvCharacterSpeciesInside"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -179,7 +179,7 @@
                     android:text="@string/text_origin" />
 
                 <TextView
-                    android:id="@+id/tvOriginInside"
+                    android:id="@+id/tvCharacterOriginInside"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Earth" />
@@ -202,7 +202,7 @@
                     android:text="@string/text_current_location" />
 
                 <TextView
-                    android:id="@+id/tvCurrentLocationInside"
+                    android:id="@+id/tvCharacterCurrentLocationInside"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -233,7 +233,7 @@
                     android:text="@string/text_episodes" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvEpisodesInside"
+                    android:id="@+id/rvCharacterEpisodesInside"
                     android:layout_width="wrap_content"
                     android:layout_height="200dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

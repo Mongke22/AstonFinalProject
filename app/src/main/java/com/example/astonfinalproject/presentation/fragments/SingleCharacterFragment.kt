@@ -66,17 +66,16 @@ class SingleCharacterFragment : BaseFragment<FragmentSingleCharacterBinding>() {
         setupRecyclerView()
         viewModel.getCharacter(characterId)
         viewModel.characterInfo.observe(viewLifecycleOwner){
-            Log.i("episodeList","got a character")
             character = it
+            setupInfo()
         }
         viewModel.characterEpisodeList.observe(viewLifecycleOwner){
-            Log.i("episodeList","got")
             episodesListAdapter.submitList(it)
         }
     }
 
     private fun setupRecyclerView(){
-        val rvEpisodesList = binding.rvEpisodesInside
+        val rvEpisodesList = binding.rvCharacterEpisodesInside
         with(rvEpisodesList) {
             episodesListAdapter = EpisodesListAdapter()
             adapter = episodesListAdapter
@@ -99,6 +98,19 @@ class SingleCharacterFragment : BaseFragment<FragmentSingleCharacterBinding>() {
         binding.llCurrentLocation.setOnClickListener {
             Toast.makeText(requireContext(),"Текущая локация", Toast.LENGTH_LONG).show()
         }
+    }
+
+    private fun setupInfo(){
+        with(binding){
+            tvCharacterOriginInside.text = character.origin
+            tvSingleCharacterId.text = character.id.toString()
+            tvSingleCharacterName.text = character.name
+            tvCharacterCurrentLocationInside.text = character.currentLocation
+            tvCharacterGenderInside.text = character.gender
+            tvCharacterNameInside.text = character.name
+            tvCharacterSpeciesInside.text = character.species
+        }
+
     }
 
 }
