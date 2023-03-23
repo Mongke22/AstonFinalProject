@@ -14,7 +14,13 @@ import com.example.astonfinalproject.domain.usecase.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class MainViewModel(application: Application): AndroidViewModel(application) {
+class MainViewModel(application: Application) : AndroidViewModel(application) {
+
+    companion object {
+        enum class Screen {
+            CHARACTER_DETAIL, CHARACTERS, EPISODE_DETAIL, EPISODES, LOCATION_DETAIL, LOCATIONS
+        }
+    }
 
     private val repository = LogicRepositoryImpl(application)
     private val getCharacterInfoUseCase = GetCharacterInfoUseCase(repository)
@@ -26,6 +32,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     private val getLocationsListUseCase = GetLocationsListUseCase(repository)
     private val updateImagePathUseCase = UpdateImagePathUseCase(repository)
     private val loadDataUseCase = LoadDataUseCase(repository)
+
 
     private var _characterList = getCharactersListUseCase()
     val characterList: LiveData<List<CharacterInfo>>
@@ -47,23 +54,23 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     val characterEpisodeList: LiveData<List<EpisodeInfo>>
         get() = _episodeList
 
-    fun loadCharacters(){
+    fun loadCharacters() {
         loadDataUseCase.loadCharactersList(1)
     }
 
-    fun loadEpisodes(){
+    fun loadEpisodes() {
         loadDataUseCase.loadEpisodesList(1)
     }
 
-    fun loadLocations(){
+    fun loadLocations() {
         loadDataUseCase.loadLocationsList(1)
     }
 
-    fun loadCharacter(id: Int){
+    fun loadCharacter(id: Int) {
         loadDataUseCase.loadCharacter(id)
     }
 
-    fun getCharacter(id: Int){
+    fun getCharacter(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             val item: CharacterInfo = getCharacterInfoUseCase(id)
             val stringUrlList = getStringListFromString(item.episodes.getOrNull(0))
@@ -73,19 +80,30 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         }
     }
 
-    fun updateImagePath(id: Int, path: String){
-        viewModelScope.launch(Dispatchers.IO){
+    fun updateImagePath(id: Int, path: String) {
+        viewModelScope.launch(Dispatchers.IO) {
             updateImagePathUseCase(id, path)
+        }
+    }
+
+    fun moveToScreen(moveToScreen: Screen) {
+        when(moveToScreen){
+            Screen.LOCATION_DETAIL -> {
+
+            }
+            else -> {
+
+            }
         }
     }
 
 
     override fun onCleared() {
-        Log.i("viewModel","cleared")
+        Log.i("viewModel", "cleared")
         super.onCleared()
     }
 
-    private fun getStringListFromString(str: String?): List<String>{
-        return str?.substring(1,str.lastIndex)?.split(',') ?: listOf()
+    private fun getStringListFromString(str: String?): List<String> {
+        return str?.substring(1, str.lastIndex)?.split(',') ?: listOf()
     }
 }
