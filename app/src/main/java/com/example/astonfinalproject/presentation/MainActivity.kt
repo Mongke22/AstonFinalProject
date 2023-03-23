@@ -30,8 +30,6 @@ class MainActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
-        viewModel.loadEpisodes()
-
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainer, CharacterFragment.newInstance(viewModel))
             .commit()

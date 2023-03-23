@@ -1,60 +1,81 @@
 package com.example.astonfinalproject.presentation.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.example.astonfinalproject.R
+import com.example.astonfinalproject.databinding.FragmentSingleCharacterBinding
+import com.example.astonfinalproject.databinding.FragmentSingleEpisodeBinding
+import com.example.astonfinalproject.domain.Model.CharacterInfo
+import com.example.astonfinalproject.presentation.MainViewModel
+import com.example.astonfinalproject.presentation.recyclerView.adapters.CharactersListAdapter
+import com.example.astonfinalproject.presentation.recyclerView.adapters.EpisodesListAdapter
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class SingleEpisodeFragment : BaseFragment<FragmentSingleEpisodeBinding>() {
+    companion object {
 
-/**
- * A simple [Fragment] subclass.
- * Use the [SingleEpisodeFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class SingleEpisodeFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+        private const val ID = "id"
+        private const val UNDEFINED = -1
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+        private lateinit var viewModel: MainViewModel
+
+        fun newInstance(vm: MainViewModel, myId: Int): SingleEpisodeFragment {
+            viewModel = vm
+            return SingleEpisodeFragment().apply {
+                arguments = Bundle().apply {
+                    putInt(ID, myId)
+                }
+            }
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_single_episode, container, false)
+    private lateinit var characterListAdapter: CharactersListAdapter
+    private var characterId = UNDEFINED
+
+    override fun loadData() {
+        parseParams()
+        viewModel.loadCharacter(characterId)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SingleEpisodeFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SingleEpisodeFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    private fun parseParams() {
+        val args = arguments
+        if(args == null){
+            Toast.makeText(requireContext(),"no params", Toast.LENGTH_SHORT).show()
+        }
+        else{
+            if (args.containsKey(ID)) {
+                characterId = args.getInt(ID)
             }
+        }
     }
+
+    override fun getViewBinding(): FragmentSingleEpisodeBinding {
+        return FragmentSingleEpisodeBinding.inflate(layoutInflater)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupRecyclerView()
+
+    }
+
+    private fun setupRecyclerView(){
+       /* val rvEpisodesList = binding.rvEpisodesInside
+        with(rvEpisodesList) {
+            characterListAdapter = EpisodesListAdapter()
+            adapter = characterListAdapter
+        }
+        setupListeners()*/
+    }
+
+    private fun setupListeners(){
+        characterListAdapter.characterClickListener = {
+            Toast.makeText(requireContext(),"Эпизод: ${it.name}", Toast.LENGTH_LONG).show()
+        }
+    }
+
 }
