@@ -22,56 +22,65 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: MainViewModel
+    private lateinit var navigator: Navigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        navigator = Navigator()
+        navigator.activity = this
+
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        viewModel.navigator = navigator
+
+        viewModel.loadEpisodes()
 
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainer, CharacterFragment.newInstance(viewModel))
             .commit()
+
+        setNavigationMenu()
+
     }
 
-    override fun onStart() {
-        Log.i("onStart", "called")
-        super.onStart()
+    private fun setNavigationMenu() {
+        setToolBarMenu()
+        setBottomNavMenu()
     }
 
-    override fun onResume() {
-        Log.i("onResume", "called")
-        super.onResume()
+    private fun setToolBarMenu() {
+        binding.toolBar.setNavigationOnClickListener {
+            supportFragmentManager.popBackStack()
+            binding.toolBar.title = "Персонажи"
+            viewModel.moveToScreen(MainViewModel.Companion.Screen.CHARACTERS)
+        }
     }
 
-    override fun onRestart() {
-        Log.i("onReStart", "called")
-        super.onRestart()
+    private fun setBottomNavMenu() {
+        binding.bottomNavigationView.setOnItemReselectedListener {
+            when (it.itemId) {
+                R.id.characters_fragment -> {
+                    binding.toolBar.title = "Персонажи"
+                    viewModel.moveToScreen(MainViewModel.Companion.Screen.CHARACTERS)
+                }
+                R.id.episodes_fragment -> {
+                    binding.toolBar.title = "Персонажи"
+                    viewModel.moveToScreen(MainViewModel.Companion.Screen.EPISODES)
+                }
+                R.id.locations_fragment -> {
+                    binding.toolBar.title = "Персонажи"
+                    viewModel.moveToScreen(MainViewModel.Companion.Screen.LOCATIONS)
+                }
+            }
+        }
     }
 
-    override fun onPause() {
-        Log.i("onPause", "called")
-        super.onPause()
-    }
-
-    override fun onStop() {
-        Log.i("onStop", "called")
-        super.onStop()
-    }
 
     override fun onDestroy() {
         Log.i("onDestroy", "called")
+        navigator.activity = null
         super.onDestroy()
-    }
-
-    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
-        Log.i("onSaveInstance", "called")
-        super.onSaveInstanceState(outState, outPersistentState)
-    }
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        Log.i("onRestore", "called")
-        super.onRestoreInstanceState(savedInstanceState)
     }
 }

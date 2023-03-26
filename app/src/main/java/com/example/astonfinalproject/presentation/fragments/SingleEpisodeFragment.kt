@@ -23,22 +23,22 @@ class SingleEpisodeFragment : BaseFragment<FragmentSingleEpisodeBinding>() {
 
         private lateinit var viewModel: MainViewModel
 
-        fun newInstance(vm: MainViewModel, myId: Int): SingleEpisodeFragment {
+        fun newInstance(vm: MainViewModel, getId: Int): SingleEpisodeFragment {
             viewModel = vm
             return SingleEpisodeFragment().apply {
                 arguments = Bundle().apply {
-                    putInt(ID, myId)
+                    putInt(ID, getId)
                 }
             }
         }
     }
 
     private lateinit var characterListAdapter: CharactersListAdapter
-    private var characterId = UNDEFINED
+    private var episodeId = UNDEFINED
 
     override fun loadData() {
         parseParams()
-        viewModel.loadCharacter(characterId)
+        viewModel.loadEpisode(episodeId)
     }
 
     private fun parseParams() {
@@ -48,7 +48,7 @@ class SingleEpisodeFragment : BaseFragment<FragmentSingleEpisodeBinding>() {
         }
         else{
             if (args.containsKey(ID)) {
-                characterId = args.getInt(ID)
+                episodeId = args.getInt(ID)
             }
         }
     }
@@ -60,7 +60,14 @@ class SingleEpisodeFragment : BaseFragment<FragmentSingleEpisodeBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
+        viewModel.getEpisode(episodeId)
 
+        viewModel.episodeCharacterList.observe(viewLifecycleOwner){
+            for(item in it){
+                Log.i("singleEpisode", item.toString())
+            }
+            characterListAdapter.submitList(it)
+        }
     }
 
     private fun setupRecyclerView(){
@@ -75,6 +82,10 @@ class SingleEpisodeFragment : BaseFragment<FragmentSingleEpisodeBinding>() {
     private fun setupListeners(){
         characterListAdapter.characterClickListener = {
             Toast.makeText(requireContext(),"Персонаж: ${it.name}", Toast.LENGTH_SHORT).show()
+            viewModel.moveToScreen(MainViewModel.Companion.Screen.CHARACTER_DETAIL, it.id)
+        }
+        characterListAdapter.characterSavePictureFunc = { id, path ->
+            viewModel.updateImagePath(id, path)
         }
     }
 

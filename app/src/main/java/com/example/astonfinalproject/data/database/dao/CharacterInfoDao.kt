@@ -5,7 +5,9 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.example.astonfinalproject.data.database.dbModels.CharacterInfoDbModel
+import com.example.astonfinalproject.data.database.dbModels.EpisodeInfoDbModel
 
 @Dao
 interface CharacterInfoDao {
@@ -19,7 +21,10 @@ interface CharacterInfoDao {
     fun checkCharacterExists(getId: Int): Int
 
     @Query("UPDATE characters SET imageSrc = :imgSrc WHERE id == :theId")
-    suspend fun updateImagePath(imgSrc: String, theId: Int)
+    suspend fun updateImagePath(imgSrc: String, theId: Int): Int
+
+    @Query("SELECT * FROM characters WHERE id IN (:ids)")
+    suspend fun getSelectedCharacterInfoList(ids: List<Int>): List<CharacterInfoDbModel>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertCharacterInfo(character: CharacterInfoDbModel)

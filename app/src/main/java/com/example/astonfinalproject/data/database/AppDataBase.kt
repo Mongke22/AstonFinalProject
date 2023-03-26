@@ -14,7 +14,7 @@ import com.example.astonfinalproject.data.database.dbModels.LocationInfoDbModel
 
 @Database(
     entities = [CharacterInfoDbModel::class, EpisodeInfoDbModel::class, LocationInfoDbModel::class],
-    version = 6, exportSchema = false
+    version = 7, exportSchema = false
 )
 @TypeConverters(StringListConverter::class)
 abstract class AppDatabase : RoomDatabase() {

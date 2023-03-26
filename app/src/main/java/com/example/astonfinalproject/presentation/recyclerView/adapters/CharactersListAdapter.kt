@@ -31,4 +31,8 @@ class CharactersListAdapter :
             characterClickListener?.invoke(character)
         }
     }
+
+    override fun submitList(list: List<CharacterInfo>?) {
+        super.submitList(list?.let { ArrayList(it) })
+    }
 }

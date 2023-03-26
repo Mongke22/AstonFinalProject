@@ -15,6 +15,8 @@ interface LogicRepository {
 
     suspend fun getEpisodesByCharacter(episodesUrl: List<String>): List<EpisodeInfo>
 
+    suspend fun getCharactersByEpisode(episodesUrl: List<String>): List<CharacterInfo>
+
     suspend fun getEpisodeInfo(id: Int): EpisodeInfo
 
     fun getLocationsList(): LiveData<List<LocationInfo>>

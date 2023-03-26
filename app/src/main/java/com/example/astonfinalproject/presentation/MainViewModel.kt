@@ -17,10 +17,15 @@ import kotlinx.coroutines.launch
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     companion object {
+
+        const val UNKNOWN_INT = -1
+
         enum class Screen {
             CHARACTER_DETAIL, CHARACTERS, EPISODE_DETAIL, EPISODES, LOCATION_DETAIL, LOCATIONS
         }
     }
+
+    lateinit var navigator: Navigator
 
     private val repository = LogicRepositoryImpl(application)
     private val getCharacterInfoUseCase = GetCharacterInfoUseCase(repository)
@@ -28,6 +33,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val getEpisodeInfoUseCase = GetEpisodeInfoUseCase(repository)
     private val getEpisodesListUseCase = GetEpisodesListUseCase(repository)
     private val getEpisodesByCharacterUseCase = GetEpisodesByCharacterUseCase(repository)
+    private val getCharactersByEpisodeUseCase = GetCharactersByEpisodeUseCase(repository)
     private val getLocationInfoUseCase = GetLocationInfoUseCase(repository)
     private val getLocationsListUseCase = GetLocationsListUseCase(repository)
     private val updateImagePathUseCase = UpdateImagePathUseCase(repository)
@@ -50,9 +56,21 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val characterInfo: LiveData<CharacterInfo>
         get() = _characterInfo
 
+    private val _episodeInfo = MutableLiveData<EpisodeInfo>()
+    val episodeInfo: LiveData<EpisodeInfo>
+        get() = _episodeInfo
+
+    private val _locationInfo = MutableLiveData<LocationInfo>()
+    val locationInfo: LiveData<LocationInfo>
+        get() = _locationInfo
+
     private var _characterEpisodeList = MutableLiveData<List<EpisodeInfo>>()
     val characterEpisodeList: LiveData<List<EpisodeInfo>>
-        get() = _episodeList
+        get() = _characterEpisodeList
+
+    private var _episodeCharacterList = MutableLiveData<List<CharacterInfo>>()
+    val episodeCharacterList: LiveData<List<CharacterInfo>>
+        get() = _episodeCharacterList
 
     fun loadCharacters() {
         loadDataUseCase.loadCharactersList(1)
@@ -70,13 +88,25 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         loadDataUseCase.loadCharacter(id)
     }
 
+    fun loadEpisode(id: Int){
+        loadDataUseCase.loadEpisode(id)
+    }
+
     fun getCharacter(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             val item: CharacterInfo = getCharacterInfoUseCase(id)
-            val stringUrlList = getStringListFromString(item.episodes.getOrNull(0))
-            val episodesList: List<EpisodeInfo> = getEpisodesByCharacterUseCase(stringUrlList)
+            val episodesList: List<EpisodeInfo> = getEpisodesByCharacterUseCase(item.episodes)
             _characterEpisodeList.postValue(episodesList)
             _characterInfo.postValue(item)
+        }
+    }
+
+    fun getEpisode(id: Int){
+        viewModelScope.launch(Dispatchers.IO) {
+            val item: EpisodeInfo = getEpisodeInfoUseCase(id)
+            val characterList: List<CharacterInfo> = getCharactersByEpisodeUseCase(item.characters)
+            _episodeCharacterList.postValue(characterList)
+            _episodeInfo.postValue(item)
         }
     }
 
@@ -86,13 +116,28 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun moveToScreen(moveToScreen: Screen) {
+    fun moveToScreen(moveToScreen: Screen, id: Int = UNKNOWN_INT, place: String = "") {
         when(moveToScreen){
             Screen.LOCATION_DETAIL -> {
-
+                navigator.moveToLocationDetailScreen(this, id)
+            }
+            Screen.CHARACTER_DETAIL -> {
+                navigator.moveToCharacterDetailScreen(this, id)
+            }
+            Screen.EPISODE_DETAIL -> {
+                navigator.moveToEpisodeDetailScreen(this, id)
+            }
+            Screen.CHARACTERS -> {
+                navigator.moveToCharactersScreen(this)
+            }
+            Screen.EPISODES -> {
+                navigator.moveToEpisodesScreen(this)
+            }
+            Screen.LOCATIONS -> {
+                navigator.moveToLocationsScreen(this)
             }
             else -> {
-
+                throw Exception("Unknown screen $moveToScreen")
             }
         }
     }
@@ -101,9 +146,5 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     override fun onCleared() {
         Log.i("viewModel", "cleared")
         super.onCleared()
-    }
-
-    private fun getStringListFromString(str: String?): List<String> {
-        return str?.substring(1, str.lastIndex)?.split(',') ?: listOf()
     }
 }

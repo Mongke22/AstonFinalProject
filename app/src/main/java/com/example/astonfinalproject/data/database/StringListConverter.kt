@@ -12,6 +12,6 @@ class StringListConverter {
 
     @TypeConverter
     fun toStringToList(data: String): List<String> {
-        return listOf(data.split(",").toString())
+        return data.split(",")
     }
 }

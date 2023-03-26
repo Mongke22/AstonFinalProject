@@ -9,18 +9,18 @@ import com.example.astonfinalproject.data.database.StringListConverter
 @Entity(tableName = "characters")
 data class CharacterInfoDbModel(
     @PrimaryKey
-    val apiRequest: String,
-    val id: Int,
-    val name: String,
-    val species: String,
-    val status: String,
-    val gender: String,
-    val imageSrc: String,
-    val imageUrl: String,
-    val originLocationName: String,
-    val originLocationApiRequest: String,
-    val currentLocationName: String,
-    val currentLocationApiRequest: String,
-    val episodeList: List<String>?
+    var apiRequest: String,
+    var id: Int,
+    var name: String,
+    var species: String,
+    var status: String,
+    var gender: String,
+    var imageSrc: String,
+    var imageUrl: String,
+    var originLocationName: String,
+    var originLocationApiRequest: String,
+    var currentLocationName: String,
+    var currentLocationApiRequest: String,
+    var episodeList: List<String>?
 
 )

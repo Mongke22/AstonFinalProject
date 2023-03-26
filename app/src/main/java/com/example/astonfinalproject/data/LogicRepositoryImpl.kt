@@ -61,19 +61,6 @@ class LogicRepositoryImpl(application: Application): LogicRepository {
 
     }
 
-    override suspend fun getEpisodesByCharacter(episodesUrl: List<String>): List<EpisodeInfo> {
-        val episodesId: ArrayList<Int> = ArrayList()
-        for(episodeUrl in episodesUrl){
-            episodesId.add(mapper.mapURLtoId(episodeUrl))
-        }
-        val result = episodeInfoDao.getSelectedEpisodeInfoList(episodesId)
-        val a = 14
-        return result.map{
-            mapper.mapEpisodeDbModelToEntity(it)
-        }
-
-    }
-
     override suspend fun getEpisodeInfo(id: Int): EpisodeInfo {
         return mapper.mapEpisodeDbModelToEntity(episodeInfoDao.getEpisodeInfo(id))
     }
@@ -83,6 +70,28 @@ class LogicRepositoryImpl(application: Application): LogicRepository {
             it.map{ location ->
                 mapper.mapLocationDbModelToEntity(location)
             }
+        }
+
+    }
+
+    override suspend fun getEpisodesByCharacter(episodesUrl: List<String>): List<EpisodeInfo> {
+        val episodesId: ArrayList<Int> = ArrayList()
+        for(episodeUrl in episodesUrl){
+            episodesId.add(mapper.mapURLtoId(episodeUrl))
+        }
+        return episodeInfoDao.getSelectedEpisodeInfoList(episodesId).map{
+            mapper.mapEpisodeDbModelToEntity(it)
+        }
+
+    }
+
+    override suspend fun getCharactersByEpisode(charactersUrl: List<String>): List<CharacterInfo> {
+        val charactersId: ArrayList<Int> = ArrayList()
+        for(characterUrl in charactersUrl){
+            charactersId.add(mapper.mapURLtoId(characterUrl))
+        }
+        return characterInfoDao.getSelectedCharacterInfoList(charactersId).map{
+            mapper.mapCharacterDbModelToEntity(it)
         }
     }
 
@@ -101,7 +110,7 @@ class LogicRepositoryImpl(application: Application): LogicRepository {
             .subscribe(object : DisposableSingleObserver<Any?>() {
                 override fun onSuccess(obj: Any) {
                     val response = obj as CharactersResultDto
-                    characterInfoDao.insertCharacterInfo(mapper.mapCharacterDtoToDbModel(response))
+                    insertOrUpdateCharacter(response)
                     dispose()
                 }
 
@@ -122,9 +131,7 @@ class LogicRepositoryImpl(application: Application): LogicRepository {
                     val response = obj as CharactersPageResultDto
                     if(response.results != null){
                         for(characterDto in response.results) {
-                            characterInfoDao.insertCharacterInfo(
-                                mapper.mapCharacterDtoToDbModel(characterDto)
-                            )
+                            insertOrUpdateCharacter(characterDto)
                         }
                     }
                     if(response.info?.next != null){
@@ -138,6 +145,18 @@ class LogicRepositoryImpl(application: Application): LogicRepository {
                     dispose()
                 }
             })
+    }
+
+    private fun insertOrUpdateCharacter(characterDto: CharactersResultDto){
+        val character = mapper.mapCharacterDtoToDbModel(characterDto)
+        if(characterInfoDao.checkCharacterExists(character.id) == 1){
+            val dbCharacter = characterInfoDao.getCharacterInfo(character.id)
+            character.imageSrc = dbCharacter.imageSrc
+            if(character == dbCharacter) return
+        }
+        Log.i("insertion", character.toString())
+        characterInfoDao.insertCharacterInfo(character)
+
     }
 
     override fun loadSingleEpisodeInfo(id: Int) {
@@ -234,48 +253,5 @@ class LogicRepositoryImpl(application: Application): LogicRepository {
                     dispose()
                 }
             })
-    }
-
-    private fun loadImageForCharacter(url: String, id: Int){
-        if(url.isEmpty()) return
-        val uiHandler = Handler(Looper.getMainLooper())
-        uiHandler.post{
-            Picasso.with(context)
-                .load(url)
-                .into(object: com.squareup.picasso.Target {
-                    override fun onBitmapLoaded(bitmap: Bitmap, from: Picasso.LoadedFrom?) {
-                        val path = saveImageToPhone(bitmap, "character$id")
-                        Log.i("path", path?: "empty path")
-                    }
-
-                    override fun onBitmapFailed(errorDrawable: Drawable?) {
-                        Log.i("imageLoading","failed")
-                    }
-
-                    override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
-
-                    }
-
-                })
-        }
-
-
-    }
-
-    private fun saveImageToPhone(image: Bitmap, fileName: String): String?{
-        val imagesFolder = File(context.cacheDir, "images")
-        var path: String? = null
-        try {
-            imagesFolder.mkdirs()
-            val file = File(imagesFolder, fileName)
-            val stream = FileOutputStream(file)
-            image.compress(Bitmap.CompressFormat.PNG, 90, stream)
-            stream.flush()
-            stream.close()
-            path = file.absolutePath
-        } catch (e: IOException) {
-            Log.i("IOException", "${e.message}")
-        }
-        return path
     }
 }

@@ -79,7 +79,8 @@ class Mapper {
             episodeDb.id,
             episodeDb.name,
             episodeDb.episodeNumber,
-            episodeDb.airDate
+            episodeDb.airDate,
+            episodeDb.characters?: listOf()
         )
     }
 
@@ -88,7 +89,8 @@ class Mapper {
             locationDb.id,
             locationDb.name,
             locationDb.type,
-            locationDb.dimension
+            locationDb.dimension,
+            locationDb.residents ?: listOf()
         )
     }
 

@@ -1,14 +1,14 @@
 package com.example.astonfinalproject.domain.Model
 
 data class CharacterInfo (
-    override val id: Int,
-    val name: String,
-    val imgSrc: String,
-    val imgUrl: String,
-    val status: String,
-    val gender: String,
-    val species: String,
-    val episodes: List<String>,
-    val currentLocation: String,
-    val origin: String
+    override var id: Int,
+    var name: String,
+    var imgSrc: String,
+    var imgUrl: String,
+    var status: String,
+    var gender: String,
+    var species: String,
+    var episodes: List<String>,
+    var currentLocation: String,
+    var origin: String
 ): BaseDataInfo(id)
