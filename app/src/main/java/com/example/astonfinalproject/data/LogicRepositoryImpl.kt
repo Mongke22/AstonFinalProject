@@ -36,7 +36,6 @@ class LogicRepositoryImpl(application: Application): LogicRepository {
     private val characterInfoDao = AppDatabase.getInstance(application).characterInfoDao()
     private val episodeInfoDao = AppDatabase.getInstance(application).episodeInfoDao()
     private val locationInfoDao = AppDatabase.getInstance(application).locationInfoDao()
-    private var context = application
     private val apiService = ApiFactory.apiService
     private val mapper = Mapper()
 
