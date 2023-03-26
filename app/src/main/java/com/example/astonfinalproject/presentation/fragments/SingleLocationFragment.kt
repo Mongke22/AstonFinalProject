@@ -13,12 +13,6 @@ import com.example.astonfinalproject.presentation.MainViewModel
 class SingleLocationFragment : BaseFragment<FragmentSingleLocationBinding>() {
 
     companion object{
-
-        private const val ID = "id"
-        private const val UNDEFINED = -1
-
-        private lateinit var viewModel: MainViewModel
-
         fun newInstance(vm: MainViewModel, getId: Int): SingleLocationFragment{
            viewModel = vm
             return SingleLocationFragment().apply {

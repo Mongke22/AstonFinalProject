@@ -16,11 +16,8 @@ class EpisodeFragment : BaseFragment<FragmentEpisodeBinding>() {
 
     companion object {
 
-        private lateinit var viewModel: MainViewModel
-
         fun newInstance(vm: MainViewModel): EpisodeFragment {
             viewModel = vm
-
             return EpisodeFragment()
         }
     }
@@ -30,10 +27,16 @@ class EpisodeFragment : BaseFragment<FragmentEpisodeBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
+
+        setNoDataTextView()
         viewModel.episodesList.observe(viewLifecycleOwner) { episodes ->
             //TODO(добавить текст о том, что нет данных)
             episodesListAdapter.submitList(episodes)
         }
+    }
+
+    private fun setNoDataTextView(){
+        noAvailableDataText = binding.tvNoData
     }
 
     override fun loadData() {

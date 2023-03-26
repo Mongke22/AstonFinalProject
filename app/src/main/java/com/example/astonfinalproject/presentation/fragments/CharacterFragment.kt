@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.core.widget.doOnTextChanged
 import com.example.astonfinalproject.R
 import com.example.astonfinalproject.databinding.FragmentCharacterBinding
@@ -20,13 +21,9 @@ import java.util.concurrent.TimeUnit
 
 class CharacterFragment : BaseFragment<FragmentCharacterBinding>() {
 
-    companion object{
-
-        private lateinit var viewModel: MainViewModel
-
-        fun newInstance(vm: MainViewModel): CharacterFragment{
+    companion object {
+        fun newInstance(vm: MainViewModel): CharacterFragment {
             viewModel = vm
-
             return CharacterFragment()
         }
     }
@@ -37,14 +34,36 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        setNoDataTextView()
         setupRecyclerView()
+        setupObserver()
+
+    }
+
+    private fun setupObserver() {
         viewModel.characterList.observe(viewLifecycleOwner) { characters ->
-            //TODO(добавить текст о том, что нет данных)
-            if(itemsList.size != characters.size){
+
+            viewModel.hideFragmentIfNoAvailableData(characters.isNullOrEmpty())
+
+            if (itemsList.size != characters.size) {
                 itemsList = characters
                 charactersListAdapter.submitList(characters)
             }
         }
+    }
+
+    private fun setNoDataTextView(){
+        noAvailableDataText = binding.tvNoData
+    }
+
+    override fun setUpOnBackPressed() {
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(false) {
+                override fun handleOnBackPressed() {
+                }
+            })
     }
 
     override fun getViewBinding(): FragmentCharacterBinding {
@@ -66,19 +85,19 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>() {
         setupListeners()
     }
 
-    private fun setupListeners(){
+    private fun setupListeners() {
         setupImageLoadingListener()
         setupClickListener()
         setupTextChangedListener()
     }
 
-    private fun setupImageLoadingListener(){
+    private fun setupImageLoadingListener() {
         charactersListAdapter.characterSavePictureFunc = { id, path ->
             viewModel.updateImagePath(id, path)
         }
     }
 
-    private fun setupClickListener(){
+    private fun setupClickListener() {
         charactersListAdapter.characterClickListener = {
             viewModel.moveToScreen(MainViewModel.Companion.Screen.CHARACTER_DETAIL, it.id)
         }
@@ -87,22 +106,23 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>() {
     }
 
     @SuppressLint("CheckResult")
-    private fun setupTextChangedListener(){
+    private fun setupTextChangedListener() {
         var characterListToShow: ArrayList<CharacterInfo> = ArrayList()
-        binding.searchField.etSearch.doOnTextChanged{ text,_ ,_ ,_ ->
+        binding.searchField.etSearch.doOnTextChanged { text, _, _, _ ->
             editTextSubject.onNext(text.toString())
         }
         editTextSubject.debounce(2, TimeUnit.SECONDS)
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe{
+            .subscribe {
                 characterListToShow.clear()
-                for(character in itemsList){
-                    if(character.name.contains(it)){
+                for (character in itemsList) {
+                    if (character.name.contains(it)) {
                         characterListToShow.add(character)
                     }
                 }
-                Log.i("searched",characterListToShow.size.toString())
+                viewModel.hideFragmentIfNoAvailableData(characterListToShow.isEmpty())
+
                 charactersListAdapter.submitList(characterListToShow)
-        }
+            }
     }
 }

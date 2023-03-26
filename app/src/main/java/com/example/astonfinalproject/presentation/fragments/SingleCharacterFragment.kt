@@ -22,11 +22,6 @@ class SingleCharacterFragment : BaseFragment<FragmentSingleCharacterBinding>() {
 
     companion object {
 
-        private const val ID = "id"
-        private const val UNDEFINED = -1
-
-        private lateinit var viewModel: MainViewModel
-
         fun newInstance(vm: MainViewModel, getId: Int): SingleCharacterFragment {
             viewModel = vm
             return SingleCharacterFragment().apply {

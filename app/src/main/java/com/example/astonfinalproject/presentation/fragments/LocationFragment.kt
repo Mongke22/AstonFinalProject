@@ -10,12 +10,8 @@ import com.example.astonfinalproject.presentation.recyclerView.adapters.Location
 class LocationFragment : BaseFragment<FragmentLocationBinding>() {
 
     companion object {
-
-        private lateinit var viewModel: MainViewModel
-
         fun newInstance(vm: MainViewModel): LocationFragment {
             viewModel = vm
-
             return LocationFragment()
         }
     }
@@ -24,6 +20,8 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        setNoDataTextView()
         setupRecyclerView()
         viewModel.locationsList.observe(viewLifecycleOwner) { locations ->
             //TODO(добавить текст о том, что нет данных)
@@ -31,6 +29,9 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>() {
         }
     }
 
+    private fun setNoDataTextView(){
+        noAvailableDataText = binding.tvNoData
+    }
     override fun loadData() {
         viewModel.loadLocations()
     }

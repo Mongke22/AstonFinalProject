@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.example.astonfinalproject.R
 import com.example.astonfinalproject.data.LogicRepositoryImpl
@@ -52,8 +53,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun setToolBarMenu() {
         binding.toolBar.setNavigationOnClickListener {
-            supportFragmentManager.popBackStack()
-            binding.toolBar.title = "Персонажи"
             viewModel.moveToScreen(MainViewModel.Companion.Screen.CHARACTERS)
         }
     }
@@ -62,15 +61,12 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigationView.setOnItemReselectedListener {
             when (it.itemId) {
                 R.id.characters_fragment -> {
-                    binding.toolBar.title = "Персонажи"
                     viewModel.moveToScreen(MainViewModel.Companion.Screen.CHARACTERS)
                 }
                 R.id.episodes_fragment -> {
-                    binding.toolBar.title = "Персонажи"
                     viewModel.moveToScreen(MainViewModel.Companion.Screen.EPISODES)
                 }
                 R.id.locations_fragment -> {
-                    binding.toolBar.title = "Персонажи"
                     viewModel.moveToScreen(MainViewModel.Companion.Screen.LOCATIONS)
                 }
             }

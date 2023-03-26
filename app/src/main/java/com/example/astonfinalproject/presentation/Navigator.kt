@@ -4,12 +4,14 @@ import androidx.lifecycle.ViewModel
 import com.example.astonfinalproject.R
 import com.example.astonfinalproject.presentation.fragments.*
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class Navigator {
     var activity: MainActivity? = null
 
     fun moveToCharacterDetailScreen(viewModel: MainViewModel, characterId: Int){
         setupBackButton()
+        setToolBarTitle("О персонаже")
         activity!!.supportFragmentManager
             .beginTransaction()
             .replace(R.id.fragmentContainer, SingleCharacterFragment.newInstance(viewModel, characterId))
@@ -18,6 +20,7 @@ class Navigator {
 
     fun moveToEpisodeDetailScreen(viewModel: MainViewModel, episodeId: Int){
         setupBackButton()
+        setToolBarTitle("Об эпизоде")
         activity!!.supportFragmentManager
             .beginTransaction()
             .replace(R.id.fragmentContainer, SingleEpisodeFragment.newInstance(viewModel, episodeId))
@@ -26,6 +29,7 @@ class Navigator {
 
     fun moveToLocationDetailScreen(viewModel: MainViewModel, locationId: Int){
         setupBackButton()
+        setToolBarTitle("О локации")
         activity!!.supportFragmentManager
             .beginTransaction()
             .replace(R.id.fragmentContainer, SingleLocationFragment.newInstance(viewModel, locationId))
@@ -34,6 +38,9 @@ class Navigator {
 
     fun moveToCharactersScreen(viewModel: MainViewModel){
         hideBackButton()
+        displayCurrentMenuPositionOnCharacter()
+        setToolBarTitle("Персонажи")
+        activity!!.supportFragmentManager.popBackStack()
         activity!!.supportFragmentManager
             .beginTransaction()
             .replace(R.id.fragmentContainer, CharacterFragment.newInstance(viewModel))
@@ -42,6 +49,7 @@ class Navigator {
 
     fun moveToEpisodesScreen(viewModel: MainViewModel){
         setupBackButton()
+        setToolBarTitle("Эпизоды")
         activity!!.supportFragmentManager
             .beginTransaction()
             .replace(R.id.fragmentContainer, EpisodeFragment.newInstance(viewModel))
@@ -50,6 +58,7 @@ class Navigator {
 
     fun moveToLocationsScreen(viewModel: MainViewModel){
         setupBackButton()
+        setToolBarTitle("Локации")
         activity!!.supportFragmentManager
             .beginTransaction()
             .replace(R.id.fragmentContainer, LocationFragment.newInstance(viewModel))
@@ -60,7 +69,16 @@ class Navigator {
         activity!!.findViewById<MaterialToolbar>(R.id.toolBar).setNavigationIcon(R.drawable.ic_arrow_back)
     }
 
+    private fun displayCurrentMenuPositionOnCharacter(){
+        activity!!.findViewById<BottomNavigationView>(R.id.bottomNavigationView).menu
+            .findItem(R.id.characters_fragment).isChecked = true
+    }
+
     private fun hideBackButton(){
         activity!!.findViewById<MaterialToolbar>(R.id.toolBar).navigationIcon = null
+    }
+
+    private fun setToolBarTitle(title: String){
+        activity!!.findViewById<MaterialToolbar>(R.id.toolBar).title = title
     }
 }

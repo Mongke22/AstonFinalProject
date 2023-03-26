@@ -17,12 +17,6 @@ import com.example.astonfinalproject.presentation.recyclerView.adapters.Episodes
 
 class SingleEpisodeFragment : BaseFragment<FragmentSingleEpisodeBinding>() {
     companion object {
-
-        private const val ID = "id"
-        private const val UNDEFINED = -1
-
-        private lateinit var viewModel: MainViewModel
-
         fun newInstance(vm: MainViewModel, getId: Int): SingleEpisodeFragment {
             viewModel = vm
             return SingleEpisodeFragment().apply {

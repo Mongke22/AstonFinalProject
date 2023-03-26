@@ -72,6 +72,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val episodeCharacterList: LiveData<List<CharacterInfo>>
         get() = _episodeCharacterList
 
+    private val _dataAvailable = MutableLiveData<Boolean>()
+    val dataAvailable: LiveData<Boolean>
+        get() = _dataAvailable
+
     fun loadCharacters() {
         loadDataUseCase.loadCharactersList(1)
     }
@@ -142,6 +146,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    fun hideFragmentIfNoAvailableData(noAvailableData: Boolean){
+        _dataAvailable.value = !noAvailableData
+    }
 
     override fun onCleared() {
         Log.i("viewModel", "cleared")
