@@ -13,6 +13,8 @@ import com.example.astonfinalproject.R
 import com.example.astonfinalproject.databinding.FragmentCharacterBinding
 import com.example.astonfinalproject.domain.Model.CharacterInfo
 import com.example.astonfinalproject.presentation.MainViewModel
+import com.example.astonfinalproject.presentation.filter.CharacterFilterDialog
+import com.example.astonfinalproject.presentation.filter.model.CharacterFilter
 import com.example.astonfinalproject.presentation.recyclerView.adapters.CharactersListAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.PublishSubject
@@ -29,6 +31,7 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>() {
     }
 
     private lateinit var charactersListAdapter: CharactersListAdapter
+    private  var filter = CharacterFilter("", "", "")
     private var itemsList: List<CharacterInfo> = listOf()
     private val editTextSubject = PublishSubject.create<String>()
 
@@ -50,6 +53,11 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>() {
                 itemsList = characters
                 charactersListAdapter.submitList(characters)
             }
+        }
+
+        viewModel.filterCharacter.observe(viewLifecycleOwner){ newFilter ->
+            filter = newFilter
+            applyFilter(binding.searchField.etSearch.text.toString())
         }
     }
 
@@ -102,27 +110,48 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>() {
             viewModel.moveToScreen(MainViewModel.Companion.Screen.CHARACTER_DETAIL, it.id)
         }
         binding.searchField.ivFilter.setOnClickListener {
+            val myDialogFragment = CharacterFilterDialog()
+            myDialogFragment.initCharacterFilter = {
+                viewModel.filterCharacter.value ?: CharacterFilter("","","")
+            }
+            myDialogFragment.onApplyFunc = {
+                viewModel.setFilter(myDialogFragment.filter)
+            }
+            val manager = childFragmentManager
+            myDialogFragment.show(manager, "dialog")
         }
     }
 
     @SuppressLint("CheckResult")
     private fun setupTextChangedListener() {
-        var characterListToShow: ArrayList<CharacterInfo> = ArrayList()
         binding.searchField.etSearch.doOnTextChanged { text, _, _, _ ->
             editTextSubject.onNext(text.toString())
         }
         editTextSubject.debounce(2, TimeUnit.SECONDS)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
-                characterListToShow.clear()
-                for (character in itemsList) {
-                    if (character.name.contains(it)) {
-                        characterListToShow.add(character)
-                    }
-                }
-                viewModel.hideFragmentIfNoAvailableData(characterListToShow.isEmpty())
-
-                charactersListAdapter.submitList(characterListToShow)
+                applyFilter(it)
             }
+    }
+
+    private fun applyFilter(text: String){
+        var characterListToShow: ArrayList<CharacterInfo> = ArrayList()
+        characterListToShow.clear()
+        for (character in itemsList) {
+            if (character.name.contains(text)) {
+                characterListToShow.add(character)
+            }
+        }
+
+        characterListToShow.filter { character ->
+            character.gender.indexOf(filter.gender) == 0
+                    && character.status.contains(filter.status)
+                    && character.species.contains(filter.species)
+        }
+
+        viewModel.hideFragmentIfNoAvailableData(characterListToShow.isEmpty())
+
+        charactersListAdapter.submitList(characterListToShow)
+
     }
 }

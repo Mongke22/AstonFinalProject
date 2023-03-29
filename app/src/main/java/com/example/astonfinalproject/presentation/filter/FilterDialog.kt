@@ -18,11 +18,15 @@ abstract class FilterDialog<VB: ViewBinding> : DialogFragment() {
 
     abstract fun initFilter()
 
+    abstract fun filterLogic()
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
             val builder = AlertDialog.Builder(it)
 
             initFilter()
+
+            filterLogic()
 
             _binding = getViewBinding()
 
@@ -30,7 +34,7 @@ abstract class FilterDialog<VB: ViewBinding> : DialogFragment() {
                 .setView(binding.root)
                 .setPositiveButton("Применить"
                 ) { dialog, id ->
-                    onApplyFunc?.invoke() ?: throw RuntimeException("Определите запись фильтра")
+                    onApplyFunc?.invoke()
                     dialog.cancel()
                 }
                 .setNegativeButton("Отмена") {

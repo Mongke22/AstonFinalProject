@@ -11,6 +11,9 @@ import com.example.astonfinalproject.domain.Model.CharacterInfo
 import com.example.astonfinalproject.domain.Model.EpisodeInfo
 import com.example.astonfinalproject.domain.Model.LocationInfo
 import com.example.astonfinalproject.domain.usecase.*
+import com.example.astonfinalproject.presentation.filter.model.CharacterFilter
+import com.example.astonfinalproject.presentation.filter.model.EpisodeFilter
+import com.example.astonfinalproject.presentation.filter.model.LocationFilter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -79,6 +82,18 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val _dataAvailable = MutableLiveData<Boolean>()
     val dataAvailable: LiveData<Boolean>
         get() = _dataAvailable
+
+    private var _filterCharacter = MutableLiveData<CharacterFilter>()
+    val filterCharacter: LiveData<CharacterFilter>
+        get() = _filterCharacter
+
+    private var _filterEpisode = MutableLiveData<EpisodeFilter>()
+    val filterEpisode: LiveData<EpisodeFilter>
+        get() = _filterEpisode
+
+    private var _filterLocation = MutableLiveData<LocationFilter>()
+    val filterLocation: LiveData<LocationFilter>
+        get() = _filterLocation
 
     fun loadCharacters() {
         loadDataUseCase.loadCharactersList(1)
@@ -171,6 +186,18 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun hideFragmentIfNoAvailableData(noAvailableData: Boolean){
         _dataAvailable.value = !noAvailableData
+    }
+
+    fun setFilter(filter: CharacterFilter){
+        _filterCharacter.value = filter
+    }
+
+    fun setFilter(filter: EpisodeFilter){
+        _filterEpisode.value = filter
+    }
+
+    fun setFilter(filter: LocationFilter){
+        _filterLocation.value = filter
     }
 
     override fun onCleared() {

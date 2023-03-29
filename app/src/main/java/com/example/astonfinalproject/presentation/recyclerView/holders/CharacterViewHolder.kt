@@ -83,6 +83,10 @@ class CharacterViewHolder(
             image.setImageResource(R.drawable.default_picture)
             return
         }
+        if(src != "unknown"){
+            image.setImageURI(Uri.parse(src))
+            return
+        }
         val uiHandler = Handler(Looper.getMainLooper())
         uiHandler.post {
             Picasso.with(view.context)
