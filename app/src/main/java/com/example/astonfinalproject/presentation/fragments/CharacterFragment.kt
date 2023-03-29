@@ -2,17 +2,12 @@ package com.example.astonfinalproject.presentation.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.core.widget.doOnTextChanged
-import com.example.astonfinalproject.R
 import com.example.astonfinalproject.databinding.FragmentCharacterBinding
 import com.example.astonfinalproject.domain.Model.CharacterInfo
-import com.example.astonfinalproject.presentation.MainViewModel
+import com.example.astonfinalproject.presentation.viewModel.MainViewModel
 import com.example.astonfinalproject.presentation.filter.CharacterFilterDialog
 import com.example.astonfinalproject.presentation.filter.model.CharacterFilter
 import com.example.astonfinalproject.presentation.recyclerView.adapters.CharactersListAdapter

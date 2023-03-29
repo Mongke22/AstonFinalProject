@@ -2,22 +2,13 @@ package com.example.astonfinalproject.presentation.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
-import com.example.astonfinalproject.R
-import com.example.astonfinalproject.databinding.FragmentCharacterBinding
 import com.example.astonfinalproject.databinding.FragmentEpisodeBinding
-import com.example.astonfinalproject.domain.Model.CharacterInfo
 import com.example.astonfinalproject.domain.Model.EpisodeInfo
-import com.example.astonfinalproject.presentation.MainViewModel
-import com.example.astonfinalproject.presentation.filter.CharacterFilterDialog
+import com.example.astonfinalproject.presentation.viewModel.MainViewModel
 import com.example.astonfinalproject.presentation.filter.EpisodeFilterDialog
-import com.example.astonfinalproject.presentation.filter.model.CharacterFilter
 import com.example.astonfinalproject.presentation.filter.model.EpisodeFilter
-import com.example.astonfinalproject.presentation.recyclerView.adapters.CharactersListAdapter
 import com.example.astonfinalproject.presentation.recyclerView.adapters.EpisodesListAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.PublishSubject

@@ -1,18 +1,16 @@
-package com.example.astonfinalproject.presentation
+package com.example.astonfinalproject.presentation.viewModel
 
-import android.app.Application
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.astonfinalproject.data.LogicRepositoryImpl
 import com.example.astonfinalproject.data.database.dbModels.DataStateDbModel
 import com.example.astonfinalproject.domain.Model.CharacterInfo
 import com.example.astonfinalproject.domain.Model.EpisodeInfo
 import com.example.astonfinalproject.domain.Model.LocationInfo
 import com.example.astonfinalproject.domain.usecase.*
+import com.example.astonfinalproject.presentation.Navigator
 import com.example.astonfinalproject.presentation.filter.model.CharacterFilter
 import com.example.astonfinalproject.presentation.filter.model.EpisodeFilter
 import com.example.astonfinalproject.presentation.filter.model.LocationFilter

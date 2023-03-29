@@ -6,10 +6,8 @@ import android.view.View
 import androidx.core.widget.doOnTextChanged
 import com.example.astonfinalproject.databinding.FragmentLocationBinding
 import com.example.astonfinalproject.domain.Model.LocationInfo
-import com.example.astonfinalproject.presentation.MainViewModel
-import com.example.astonfinalproject.presentation.filter.EpisodeFilterDialog
+import com.example.astonfinalproject.presentation.viewModel.MainViewModel
 import com.example.astonfinalproject.presentation.filter.LocationFilterDialog
-import com.example.astonfinalproject.presentation.filter.model.EpisodeFilter
 import com.example.astonfinalproject.presentation.filter.model.LocationFilter
 import com.example.astonfinalproject.presentation.recyclerView.adapters.LocationsListAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers

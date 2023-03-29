@@ -1,16 +1,11 @@
 package com.example.astonfinalproject.presentation.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
-import com.example.astonfinalproject.R
 import com.example.astonfinalproject.databinding.FragmentSingleLocationBinding
-import com.example.astonfinalproject.domain.Model.EpisodeInfo
 import com.example.astonfinalproject.domain.Model.LocationInfo
-import com.example.astonfinalproject.presentation.MainViewModel
+import com.example.astonfinalproject.presentation.viewModel.MainViewModel
 import com.example.astonfinalproject.presentation.recyclerView.adapters.CharactersListAdapter
 
 

@@ -1,8 +1,8 @@
 package com.example.astonfinalproject.presentation
 
-import androidx.lifecycle.ViewModel
 import com.example.astonfinalproject.R
 import com.example.astonfinalproject.presentation.fragments.*
+import com.example.astonfinalproject.presentation.viewModel.MainViewModel
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import javax.inject.Inject

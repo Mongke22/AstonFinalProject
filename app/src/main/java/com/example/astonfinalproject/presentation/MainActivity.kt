@@ -7,23 +7,34 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.astonfinalproject.R
 import com.example.astonfinalproject.databinding.ActivityMainBinding
 import com.example.astonfinalproject.presentation.fragments.CharacterFragment
+import com.example.astonfinalproject.presentation.viewModel.MainViewModel
+import com.example.astonfinalproject.presentation.viewModel.ViewModelFactory
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+
     private lateinit var viewModel: MainViewModel
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
     @Inject
     lateinit var navigator: Navigator
 
+    private val component by lazy{
+        (application as AstonApp).component
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        component.inject(this)
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         navigator.activity = this
 
-        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        viewModel = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
         viewModel.navigator = navigator
 
         viewModel.loadEpisodes()
