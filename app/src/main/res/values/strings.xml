@@ -8,4 +8,5 @@
     <string name="text_origin"><u>Происхождение</u></string>
     <string name="text_current_location"><u>Текущая локация</u></string>
     <string name="text_episodes"><u>Эпизоды</u></string>
+    <string name="string_unknown">unknown</string>
 </resources>
