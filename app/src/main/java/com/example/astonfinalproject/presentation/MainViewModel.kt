@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.astonfinalproject.data.LogicRepositoryImpl
+import com.example.astonfinalproject.data.database.dbModels.DataStateDbModel
 import com.example.astonfinalproject.domain.Model.CharacterInfo
 import com.example.astonfinalproject.domain.Model.EpisodeInfo
 import com.example.astonfinalproject.domain.Model.LocationInfo
@@ -54,6 +55,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private var _locationList = getLocationsListUseCase()
     val locationsList: LiveData<List<LocationInfo>>
         get() = _locationList
+
+    private var _stateList = loadDataUseCase.getDataStateList()
+    val stateList: LiveData<List<DataStateDbModel>>
+        get() = _stateList
 
     private val _characterInfo = MutableLiveData<CharacterInfo>()
     val characterInfo: LiveData<CharacterInfo>

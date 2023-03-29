@@ -1,5 +1,7 @@
 package com.example.astonfinalproject.domain.usecase
 
+import androidx.lifecycle.LiveData
+import com.example.astonfinalproject.data.database.dbModels.DataStateDbModel
 import com.example.astonfinalproject.domain.LogicRepository
 
 class LoadDataUseCase(
@@ -27,5 +29,9 @@ class LoadDataUseCase(
 
     fun loadLocation(id: Int){
         repository.loadSingleLocationInfo(id)
+    }
+
+    fun getDataStateList(): LiveData<List<DataStateDbModel>> {
+        return repository.getDataStateList()
     }
 }

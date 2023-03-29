@@ -11,6 +11,7 @@ import androidx.core.content.FileProvider
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.example.astonfinalproject.data.database.AppDatabase
+import com.example.astonfinalproject.data.database.dbModels.DataStateDbModel
 import com.example.astonfinalproject.data.database.mapper.Mapper
 import com.example.astonfinalproject.data.network.ApiFactory
 import com.example.astonfinalproject.data.network.Model.Characters.CharactersPageResultDto
@@ -36,6 +37,7 @@ class LogicRepositoryImpl(application: Application): LogicRepository {
     private val characterInfoDao = AppDatabase.getInstance(application).characterInfoDao()
     private val episodeInfoDao = AppDatabase.getInstance(application).episodeInfoDao()
     private val locationInfoDao = AppDatabase.getInstance(application).locationInfoDao()
+    private val dataStateDao = AppDatabase.getInstance(application).dataStateDao()
     private val apiService = ApiFactory.apiService
     private val mapper = Mapper()
 
@@ -58,6 +60,10 @@ class LogicRepositoryImpl(application: Application): LogicRepository {
             }
         }
 
+    }
+
+    override fun getDataStateList(): LiveData<List<DataStateDbModel>> {
+        return dataStateDao.getDataStateList()
     }
 
     override suspend fun getEpisodeInfo(id: Int): EpisodeInfo {
@@ -127,6 +133,7 @@ class LogicRepositoryImpl(application: Application): LogicRepository {
 
 
     override fun loadCharactersInfo(page: Int) {
+        dataStateDao.insertDataState(DataStateDbModel("characters",false))
         apiService.getCharacters(page)
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
@@ -140,6 +147,9 @@ class LogicRepositoryImpl(application: Application): LogicRepository {
                     }
                     if(response.info?.next != null){
                         loadCharactersInfo(page + 1)
+                    }
+                    else{
+                        dataStateDao.insertDataState(DataStateDbModel("characters",true))
                     }
                     dispose()
                 }
@@ -182,6 +192,7 @@ class LogicRepositoryImpl(application: Application): LogicRepository {
     }
 
     override fun loadEpisodesInfo(page: Int) {
+        dataStateDao.insertDataState(DataStateDbModel("episodes",false))
         apiService.getEpisodes(page)
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
@@ -197,6 +208,9 @@ class LogicRepositoryImpl(application: Application): LogicRepository {
                     }
                     if(response.info?.next != null){
                         loadEpisodesInfo(page + 1)
+                    }
+                    else{
+                        dataStateDao.insertDataState(DataStateDbModel("episodes",true))
                     }
                     dispose()
                 }
@@ -215,7 +229,6 @@ class LogicRepositoryImpl(application: Application): LogicRepository {
             .subscribe(object : DisposableSingleObserver<Any?>() {
                 override fun onSuccess(obj: Any) {
                     val response = obj as LocationsResultDto
-                    Log.i("loading","got character, id $id")
                     locationInfoDao.insertLocationInfo(mapper.mapLocationDtoToDbModel(response))
                     dispose()
                 }
@@ -228,19 +241,18 @@ class LogicRepositoryImpl(application: Application): LogicRepository {
     }
 
     override fun loadLocationsInfo(page: Int) {
-        Log.i("load", "Loading locations")
+        dataStateDao.insertDataState(DataStateDbModel("locations",false))
         apiService.getLocations(page)
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .subscribe(object : DisposableSingleObserver<Any?>() {
                 override fun onSuccess(obj: Any) {
                     val response = obj as LocationsPageResultDto
-                    Log.i("loading","got locations, page $page")
                     if(response.info?.next != null){
                         loadLocationsInfo(page + 1)
                     }
                     else{
-                        Log.i("loading","Всего было = $page")
+                        dataStateDao.insertDataState(DataStateDbModel("locations",true))
                     }
                     if(response.results != null){
                         for(locationDto in response.results) {

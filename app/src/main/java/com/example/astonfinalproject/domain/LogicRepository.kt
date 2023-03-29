@@ -1,6 +1,8 @@
 package com.example.astonfinalproject.domain
 
 import androidx.lifecycle.LiveData
+import com.example.astonfinalproject.data.database.dao.DataStateDao
+import com.example.astonfinalproject.data.database.dbModels.DataStateDbModel
 import com.example.astonfinalproject.domain.Model.CharacterInfo
 import com.example.astonfinalproject.domain.Model.EpisodeInfo
 import com.example.astonfinalproject.domain.Model.LocationInfo
@@ -12,6 +14,8 @@ interface LogicRepository {
     suspend fun getCharacterInfo(id: Int): CharacterInfo
 
     fun getEpisodesList(): LiveData<List<EpisodeInfo>>
+
+    fun getDataStateList(): LiveData<List<DataStateDbModel>>
 
     suspend fun getEpisodesByCharacter(episodesUrl: List<String>): List<EpisodeInfo>
 

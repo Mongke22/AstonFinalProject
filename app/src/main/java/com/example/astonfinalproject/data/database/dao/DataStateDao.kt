@@ -11,7 +11,7 @@ import com.example.astonfinalproject.data.database.dbModels.LocationInfoDbModel
 @Dao
 interface DataStateDao {
 
-    @Query("SELECT * FROM episodes")
+    @Query("SELECT * FROM states")
     fun getDataStateList(): LiveData<List<DataStateDbModel>>
 
 
