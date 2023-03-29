@@ -118,7 +118,6 @@ class SingleCharacterFragment : BaseFragment<FragmentSingleCharacterBinding>() {
             tvCharacterGenderInside.text = character.gender
             tvCharacterNameInside.text = character.name
             tvCharacterSpeciesInside.text = character.species
-            Log.i("uriImage", character.imgSrc)
             ivSingleCharacterImage.setImageURI(Uri.parse(character.imgSrc))
         }
 

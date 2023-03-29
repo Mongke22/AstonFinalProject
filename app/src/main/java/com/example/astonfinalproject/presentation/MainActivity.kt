@@ -37,7 +37,9 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
         viewModel.navigator = navigator
 
+        viewModel.loadCharacters()
         viewModel.loadEpisodes()
+        viewModel.loadLocations()
 
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainer, CharacterFragment.newInstance(viewModel))

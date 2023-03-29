@@ -83,7 +83,6 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>() {
         noAvailableDataText = binding.tvNoData
     }
     override fun loadData() {
-        viewModel.loadLocations()
     }
 
     override fun getViewBinding(): FragmentLocationBinding {

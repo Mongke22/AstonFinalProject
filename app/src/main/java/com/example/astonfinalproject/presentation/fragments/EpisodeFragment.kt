@@ -84,7 +84,6 @@ class EpisodeFragment : BaseFragment<FragmentEpisodeBinding>() {
     }
 
     override fun loadData() {
-        viewModel.loadEpisodes()
     }
 
     override fun getViewBinding(): FragmentEpisodeBinding {

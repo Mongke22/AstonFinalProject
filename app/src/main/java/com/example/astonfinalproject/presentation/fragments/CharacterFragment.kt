@@ -101,7 +101,6 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>() {
     }
 
     override fun loadData() {
-        viewModel.loadCharacters()
     }
 
 

@@ -1,5 +1,6 @@
 package com.example.astonfinalproject.data.database.mapper
 
+import android.app.Application
 import com.example.astonfinalproject.data.database.dbModels.CharacterInfoDbModel
 import com.example.astonfinalproject.data.database.dbModels.EpisodeInfoDbModel
 import com.example.astonfinalproject.data.database.dbModels.LocationInfoDbModel
@@ -12,7 +13,7 @@ import com.example.astonfinalproject.domain.Model.LocationInfo
 import com.squareup.picasso.Picasso
 import javax.inject.Inject
 
-class Mapper @Inject constructor(){
+class Mapper @Inject constructor(application: Application){
 
     companion object {
         private const val UNKNOWN_STRING = "unknown"
@@ -22,7 +23,7 @@ class Mapper @Inject constructor(){
         return CharacterInfoDbModel(
             characterDto.url?.lowercase() ?: UNKNOWN_STRING,
             characterDto.id,
-            characterDto.name?.lowercase() ?: UNKNOWN_STRING,
+            characterDto.name ?: UNKNOWN_STRING,
             characterDto.species?.lowercase() ?: UNKNOWN_STRING,
             characterDto.status?.lowercase() ?: UNKNOWN_STRING,
             characterDto.gender?.lowercase() ?: UNKNOWN_STRING,
