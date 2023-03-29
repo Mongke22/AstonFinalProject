@@ -123,7 +123,6 @@ class SingleCharacterFragment : BaseFragment<FragmentSingleCharacterBinding>() {
         with(binding) {
             tvCharacterOriginInside.text = character.origin
             tvSingleCharacterId.text = character.id.toString()
-            tvSingleCharacterName.text = character.name
             tvCharacterCurrentLocationInside.text = character.currentLocation
             tvCharacterGenderInside.text = character.gender
             tvCharacterNameInside.text = character.name

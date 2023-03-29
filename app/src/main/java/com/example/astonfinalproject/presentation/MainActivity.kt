@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import com.example.astonfinalproject.R
 import com.example.astonfinalproject.databinding.ActivityMainBinding
+import com.example.astonfinalproject.presentation.fragments.BaseFragment
 import com.example.astonfinalproject.presentation.fragments.CharacterFragment
 import com.example.astonfinalproject.presentation.viewModel.MainViewModel
 import com.example.astonfinalproject.presentation.viewModel.ViewModelFactory
@@ -56,7 +57,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun setToolBarMenu() {
         binding.toolBar.setNavigationOnClickListener {
-            viewModel.moveToScreen(MainViewModel.Companion.Screen.CHARACTERS)
+            supportFragmentManager.popBackStack()
+            BaseFragment.viewModel.updateMenu()
         }
     }
 

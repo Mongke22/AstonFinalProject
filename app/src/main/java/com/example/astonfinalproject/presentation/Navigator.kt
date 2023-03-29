@@ -63,7 +63,6 @@ class Navigator @Inject constructor() {
 
     fun moveToCharactersScreen(viewModel: MainViewModel){
         hideBackButton()
-        //displayCurrentMenuPositionOnCharacter()
         setToolBarTitle("Персонажи")
         activity!!.supportFragmentManager.popBackStack("characters", POP_BACK_STACK_INCLUSIVE)
         popLocalBackStack("characters")
