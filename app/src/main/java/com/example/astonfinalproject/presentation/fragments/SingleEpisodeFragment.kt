@@ -1,12 +1,15 @@
 package com.example.astonfinalproject.presentation.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import com.example.astonfinalproject.databinding.FragmentSingleEpisodeBinding
 import com.example.astonfinalproject.domain.Model.EpisodeInfo
+import com.example.astonfinalproject.presentation.AstonApp
 import com.example.astonfinalproject.presentation.viewModel.MainViewModel
 import com.example.astonfinalproject.presentation.recyclerView.adapters.CharactersListAdapter
+import javax.inject.Inject
 
 class SingleEpisodeFragment : BaseFragment<FragmentSingleEpisodeBinding>() {
     companion object {
@@ -20,9 +23,19 @@ class SingleEpisodeFragment : BaseFragment<FragmentSingleEpisodeBinding>() {
         }
     }
 
-    private lateinit var characterListAdapter: CharactersListAdapter
+    @Inject
+    lateinit var characterListAdapter: CharactersListAdapter
     private var episodeId = UNDEFINED
     private lateinit var episode: EpisodeInfo
+
+    private val component by lazy{
+        (requireActivity().application as AstonApp).component
+    }
+
+    override fun onAttach(context: Context) {
+        component.inject(this)
+        super.onAttach(context)
+    }
 
     override fun loadData() {
         parseParams()

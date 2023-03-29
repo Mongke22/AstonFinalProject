@@ -30,9 +30,12 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>() {
 
     @Inject
     lateinit var charactersListAdapter: CharactersListAdapter
-    private var filter = CharacterFilter("", "", "")
+    @Inject
+    lateinit var filter: CharacterFilter
+
     private var itemsList: List<CharacterInfo> = listOf()
     private val editTextSubject = PublishSubject.create<String>()
+
     private val component by lazy{
         (requireActivity().application as AstonApp).component
     }

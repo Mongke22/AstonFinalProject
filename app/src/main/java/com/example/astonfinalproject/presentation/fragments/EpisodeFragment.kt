@@ -1,11 +1,13 @@
 package com.example.astonfinalproject.presentation.fragments
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.core.widget.doOnTextChanged
 import com.example.astonfinalproject.databinding.FragmentEpisodeBinding
 import com.example.astonfinalproject.domain.Model.EpisodeInfo
+import com.example.astonfinalproject.presentation.AstonApp
 import com.example.astonfinalproject.presentation.viewModel.MainViewModel
 import com.example.astonfinalproject.presentation.filter.EpisodeFilterDialog
 import com.example.astonfinalproject.presentation.filter.model.EpisodeFilter
@@ -13,6 +15,7 @@ import com.example.astonfinalproject.presentation.recyclerView.adapters.Episodes
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.PublishSubject
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
 class EpisodeFragment : BaseFragment<FragmentEpisodeBinding>() {
 
@@ -24,10 +27,23 @@ class EpisodeFragment : BaseFragment<FragmentEpisodeBinding>() {
         }
     }
 
-    private lateinit var episodesListAdapter: EpisodesListAdapter
+    @Inject
+    lateinit var episodesListAdapter: EpisodesListAdapter
+
+    @Inject
+    lateinit var filter: EpisodeFilter
+
     private var itemsList: List<EpisodeInfo> = listOf()
     private val editTextSubject = PublishSubject.create<String>()
-    private var filter = EpisodeFilter("", "")
+
+    private val component by lazy{
+        (requireActivity().application as AstonApp).component
+    }
+
+    override fun onAttach(context: Context) {
+        component.inject(this)
+        super.onAttach(context)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -7,8 +7,9 @@ import com.example.astonfinalproject.R
 import com.example.astonfinalproject.domain.Model.EpisodeInfo
 import com.example.astonfinalproject.presentation.recyclerView.DiffCallBack
 import com.example.astonfinalproject.presentation.recyclerView.holders.EpisodeViewHolder
+import javax.inject.Inject
 
-class EpisodesListAdapter :
+class EpisodesListAdapter @Inject constructor():
     ListAdapter<EpisodeInfo, EpisodeViewHolder>(DiffCallBack<EpisodeInfo>()) {
 
     var episodeClickListener: ((EpisodeInfo) -> Unit)? = null

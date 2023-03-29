@@ -1,11 +1,13 @@
 package com.example.astonfinalproject.presentation.fragments
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.core.widget.doOnTextChanged
 import com.example.astonfinalproject.databinding.FragmentLocationBinding
 import com.example.astonfinalproject.domain.Model.LocationInfo
+import com.example.astonfinalproject.presentation.AstonApp
 import com.example.astonfinalproject.presentation.viewModel.MainViewModel
 import com.example.astonfinalproject.presentation.filter.LocationFilterDialog
 import com.example.astonfinalproject.presentation.filter.model.LocationFilter
@@ -13,6 +15,7 @@ import com.example.astonfinalproject.presentation.recyclerView.adapters.Location
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.PublishSubject
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
 
 class LocationFragment : BaseFragment<FragmentLocationBinding>() {
@@ -24,10 +27,23 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>() {
         }
     }
 
-    private lateinit var locationsListAdapter: LocationsListAdapter
+    @Inject
+    lateinit var locationsListAdapter: LocationsListAdapter
+
+    @Inject
+    lateinit var filter: LocationFilter
+
     private var itemsList: List<LocationInfo> = listOf()
     private val editTextSubject = PublishSubject.create<String>()
-    private var filter = LocationFilter("", "")
+
+    private val component by lazy{
+        (requireActivity().application as AstonApp).component
+    }
+
+    override fun onAttach(context: Context) {
+        component.inject(this)
+        super.onAttach(context)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

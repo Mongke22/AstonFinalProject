@@ -7,8 +7,9 @@ import com.example.astonfinalproject.R
 import com.example.astonfinalproject.domain.Model.LocationInfo
 import com.example.astonfinalproject.presentation.recyclerView.DiffCallBack
 import com.example.astonfinalproject.presentation.recyclerView.holders.LocationViewHolder
+import javax.inject.Inject
 
-class LocationsListAdapter :
+class LocationsListAdapter @Inject constructor() :
     ListAdapter<LocationInfo, LocationViewHolder>(DiffCallBack<LocationInfo>()) {
 
     var locationClickListener: ((LocationInfo) -> Unit)? = null

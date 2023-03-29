@@ -2,14 +2,15 @@ package com.example.astonfinalproject.di
 
 import android.app.Application
 import com.example.astonfinalproject.presentation.MainActivity
-import com.example.astonfinalproject.presentation.fragments.CharacterFragment
+import com.example.astonfinalproject.presentation.fragments.*
 import dagger.BindsInstance
 import dagger.Component
 
 @Component(
     modules = [
         DataModule::class,
-        ViewModelModule::class
+        ViewModelModule::class,
+        PresentationModule::class
     ]
 )
 interface ApplicationComponent {
@@ -18,11 +19,21 @@ interface ApplicationComponent {
 
     fun inject(fragment: CharacterFragment)
 
+    fun inject(fragment: EpisodeFragment)
+
+    fun inject(fragment: LocationFragment)
+
+    fun inject(fragment: SingleEpisodeFragment)
+
+    fun inject(fragment: SingleLocationFragment)
+
+    fun inject(fragment: SingleCharacterFragment)
+
     @Component.Factory
-    interface Factory{
+    interface Factory {
 
         fun create(
-            @BindsInstance application: Application
+            @BindsInstance application: Application,
         ): ApplicationComponent
     }
 }
