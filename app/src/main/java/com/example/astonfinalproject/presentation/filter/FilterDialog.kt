@@ -5,6 +5,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import androidx.viewbinding.ViewBinding
+import com.example.astonfinalproject.R
+import com.example.astonfinalproject.databinding.FilterCharactersBinding
 
 abstract class FilterDialog<VB: ViewBinding> : DialogFragment() {
 
@@ -24,11 +26,10 @@ abstract class FilterDialog<VB: ViewBinding> : DialogFragment() {
         return activity?.let {
             val builder = AlertDialog.Builder(it)
 
-            initFilter()
-
-            filterLogic()
-
             _binding = getViewBinding()
+
+            initFilter()
+            filterLogic()
 
             builder.setTitle("Фильтр персонажей")
                 .setView(binding.root)

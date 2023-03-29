@@ -31,7 +31,7 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>() {
     }
 
     private lateinit var charactersListAdapter: CharactersListAdapter
-    private  var filter = CharacterFilter("", "", "")
+    private var filter = CharacterFilter("", "", "")
     private var itemsList: List<CharacterInfo> = listOf()
     private val editTextSubject = PublishSubject.create<String>()
 
@@ -55,13 +55,13 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>() {
             }
         }
 
-        viewModel.filterCharacter.observe(viewLifecycleOwner){ newFilter ->
+        viewModel.filterCharacter.observe(viewLifecycleOwner) { newFilter ->
             filter = newFilter
             applyFilter(binding.searchField.etSearch.text.toString())
         }
     }
 
-    private fun setNoDataTextView(){
+    private fun setNoDataTextView() {
         noAvailableDataText = binding.tvNoData
     }
 
@@ -112,7 +112,7 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>() {
         binding.searchField.ivFilter.setOnClickListener {
             val myDialogFragment = CharacterFilterDialog()
             myDialogFragment.initCharacterFilter = {
-                viewModel.filterCharacter.value ?: CharacterFilter("","","")
+                viewModel.filterCharacter.value ?: CharacterFilter("", "", "")
             }
             myDialogFragment.onApplyFunc = {
                 viewModel.setFilter(myDialogFragment.filter)
@@ -134,17 +134,10 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>() {
             }
     }
 
-    private fun applyFilter(text: String){
-        var characterListToShow: ArrayList<CharacterInfo> = ArrayList()
-        characterListToShow.clear()
-        for (character in itemsList) {
-            if (character.name.contains(text)) {
-                characterListToShow.add(character)
-            }
-        }
-
-        characterListToShow.filter { character ->
-            character.gender.indexOf(filter.gender) == 0
+    private fun applyFilter(text: String) {
+        var characterListToShow = itemsList.filter { character ->
+            character.name.contains(text)
+                    && character.gender.indexOf(filter.gender) == 0
                     && character.status.contains(filter.status)
                     && character.species.contains(filter.species)
         }

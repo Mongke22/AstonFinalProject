@@ -58,6 +58,7 @@ class CharacterViewHolder(
         return when (theGender) {
             "male" -> R.drawable.ic_male
             "female" -> R.drawable.ic_female
+            "genderless" -> R.drawable.ic_genderless
             else -> R.drawable.ic_unknown
         }
     }
