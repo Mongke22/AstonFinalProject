@@ -151,6 +151,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             } else{
                 getLocationInfoUseCase(place)
             }
+            Log.i("getLocation", item.residents.toString())
             val characterList: List<CharacterInfo> = getCharactersByUrlListUseCase(item.residents)
             _locationCharacterList.postValue(characterList)
             _locationInfo.postValue(item)

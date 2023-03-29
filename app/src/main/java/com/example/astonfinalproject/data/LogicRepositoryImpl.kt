@@ -94,6 +94,7 @@ class LogicRepositoryImpl(application: Application): LogicRepository {
     override suspend fun getCharactersByUrlList(charactersUrl: List<String>): List<CharacterInfo> {
         val charactersId: ArrayList<Int> = ArrayList()
         for(characterUrl in charactersUrl){
+            if(characterUrl != "")
             charactersId.add(mapper.mapURLtoId(characterUrl))
         }
         return characterInfoDao.getSelectedCharacterInfoList(charactersId).map{
