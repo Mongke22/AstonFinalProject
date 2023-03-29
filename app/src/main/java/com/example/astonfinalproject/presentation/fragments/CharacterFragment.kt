@@ -1,12 +1,14 @@
 package com.example.astonfinalproject.presentation.fragments
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.core.widget.doOnTextChanged
 import com.example.astonfinalproject.databinding.FragmentCharacterBinding
 import com.example.astonfinalproject.domain.Model.CharacterInfo
+import com.example.astonfinalproject.presentation.AstonApp
 import com.example.astonfinalproject.presentation.viewModel.MainViewModel
 import com.example.astonfinalproject.presentation.filter.CharacterFilterDialog
 import com.example.astonfinalproject.presentation.filter.model.CharacterFilter
@@ -14,6 +16,7 @@ import com.example.astonfinalproject.presentation.recyclerView.adapters.Characte
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.PublishSubject
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
 
 class CharacterFragment : BaseFragment<FragmentCharacterBinding>() {
@@ -25,10 +28,19 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>() {
         }
     }
 
-    private lateinit var charactersListAdapter: CharactersListAdapter
+    @Inject
+    lateinit var charactersListAdapter: CharactersListAdapter
     private var filter = CharacterFilter("", "", "")
     private var itemsList: List<CharacterInfo> = listOf()
     private val editTextSubject = PublishSubject.create<String>()
+    private val component by lazy{
+        (requireActivity().application as AstonApp).component
+    }
+
+    override fun onAttach(context: Context) {
+        component.inject(this)
+        super.onAttach(context)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -90,7 +102,6 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>() {
     private fun setupRecyclerView() {
         val rvCharactersList = binding.rvCharacters
         with(rvCharactersList) {
-            charactersListAdapter = CharactersListAdapter()
             adapter = charactersListAdapter
         }
 

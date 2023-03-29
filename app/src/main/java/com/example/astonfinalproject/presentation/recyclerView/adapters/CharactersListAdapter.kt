@@ -7,8 +7,9 @@ import com.example.astonfinalproject.R
 import com.example.astonfinalproject.domain.Model.CharacterInfo
 import com.example.astonfinalproject.presentation.recyclerView.DiffCallBack
 import com.example.astonfinalproject.presentation.recyclerView.holders.CharacterViewHolder
+import javax.inject.Inject
 
-class CharactersListAdapter :
+class CharactersListAdapter @Inject constructor() :
     ListAdapter<CharacterInfo, CharacterViewHolder>(DiffCallBack<CharacterInfo>()) {
 
     var characterClickListener: ((CharacterInfo) -> Unit)? = null

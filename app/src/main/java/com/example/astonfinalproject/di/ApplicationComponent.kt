@@ -2,6 +2,7 @@ package com.example.astonfinalproject.di
 
 import android.app.Application
 import com.example.astonfinalproject.presentation.MainActivity
+import com.example.astonfinalproject.presentation.fragments.CharacterFragment
 import dagger.BindsInstance
 import dagger.Component
 
@@ -14,6 +15,8 @@ import dagger.Component
 interface ApplicationComponent {
 
     fun inject(activity: MainActivity)
+
+    fun inject(fragment: CharacterFragment)
 
     @Component.Factory
     interface Factory{
