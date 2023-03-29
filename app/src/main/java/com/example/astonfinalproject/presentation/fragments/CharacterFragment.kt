@@ -15,6 +15,7 @@ import com.example.astonfinalproject.presentation.filter.model.CharacterFilter
 import com.example.astonfinalproject.presentation.recyclerView.adapters.CharactersListAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.PublishSubject
+import java.lang.annotation.Inherited
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -32,6 +33,8 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>() {
     lateinit var charactersListAdapter: CharactersListAdapter
     @Inject
     lateinit var filter: CharacterFilter
+    @Inject
+    lateinit var myDialogFragment: CharacterFilterDialog
 
     private var itemsList: List<CharacterInfo> = listOf()
     private val editTextSubject = PublishSubject.create<String>()
@@ -135,15 +138,13 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>() {
             viewModel.moveToScreen(MainViewModel.Companion.Screen.CHARACTER_DETAIL, it.id)
         }
         binding.searchField.ivFilter.setOnClickListener {
-            val myDialogFragment = CharacterFilterDialog()
             myDialogFragment.initCharacterFilter = {
                 viewModel.filterCharacter.value ?: CharacterFilter("", "", "")
             }
             myDialogFragment.onApplyFunc = {
                 viewModel.setFilter(myDialogFragment.filter)
             }
-            val manager = childFragmentManager
-            myDialogFragment.show(manager, "dialog")
+            myDialogFragment.show(childFragmentManager, "dialog")
         }
     }
 

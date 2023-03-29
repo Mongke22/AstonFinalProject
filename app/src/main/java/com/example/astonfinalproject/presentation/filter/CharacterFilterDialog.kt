@@ -3,8 +3,9 @@ package com.example.astonfinalproject.presentation.filter
 import android.widget.RadioButton
 import com.example.astonfinalproject.databinding.FilterCharactersBinding
 import com.example.astonfinalproject.presentation.filter.model.CharacterFilter
+import javax.inject.Inject
 
-class CharacterFilterDialog: FilterDialog<FilterCharactersBinding>() {
+class CharacterFilterDialog @Inject constructor(): FilterDialog<FilterCharactersBinding>() {
 
     var initCharacterFilter: (() -> CharacterFilter)? = null
 

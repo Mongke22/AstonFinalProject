@@ -33,6 +33,9 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>() {
     @Inject
     lateinit var filter: LocationFilter
 
+    @Inject
+    lateinit var myDialogFragment: LocationFilterDialog
+
     private var itemsList: List<LocationInfo> = listOf()
     private val editTextSubject = PublishSubject.create<String>()
 
@@ -113,15 +116,13 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>() {
             viewModel.moveToScreen(MainViewModel.Companion.Screen.LOCATION_DETAIL, it.id)
         }
         binding.searchField.ivFilter.setOnClickListener {
-            val myDialogFragment = LocationFilterDialog()
             myDialogFragment.initLocationFilter = {
                 viewModel.filterLocation.value ?: LocationFilter("", "")
             }
             myDialogFragment.onApplyFunc = {
                 viewModel.setFilter(myDialogFragment.filter)
             }
-            val manager = childFragmentManager
-            myDialogFragment.show(manager, "dialog")
+            myDialogFragment.show(childFragmentManager, "dialog")
         }
     }
 

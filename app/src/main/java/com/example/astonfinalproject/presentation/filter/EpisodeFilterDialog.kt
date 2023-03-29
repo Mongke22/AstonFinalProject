@@ -4,8 +4,9 @@ import android.icu.util.Calendar
 import com.example.astonfinalproject.databinding.FilterEpisodesBinding
 import com.example.astonfinalproject.presentation.filter.model.CharacterFilter
 import com.example.astonfinalproject.presentation.filter.model.EpisodeFilter
+import javax.inject.Inject
 
-class EpisodeFilterDialog: FilterDialog<FilterEpisodesBinding>() {
+class EpisodeFilterDialog @Inject constructor(): FilterDialog<FilterEpisodesBinding>() {
 
     var initEpisodeFilter: (() -> EpisodeFilter)? = null
 

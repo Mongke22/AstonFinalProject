@@ -4,8 +4,9 @@ import android.widget.RadioButton
 import com.example.astonfinalproject.databinding.FilterLocationsBinding
 import com.example.astonfinalproject.presentation.filter.model.CharacterFilter
 import com.example.astonfinalproject.presentation.filter.model.LocationFilter
+import javax.inject.Inject
 
-class LocationFilterDialog : FilterDialog<FilterLocationsBinding>() {
+class LocationFilterDialog @Inject constructor() : FilterDialog<FilterLocationsBinding>() {
 
     var initLocationFilter: (() -> LocationFilter)? = null
 

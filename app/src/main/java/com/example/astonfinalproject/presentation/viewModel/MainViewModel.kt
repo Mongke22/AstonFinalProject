@@ -42,9 +42,6 @@ class MainViewModel @Inject constructor(
 
     lateinit var navigator: Navigator
 
-
-
-
     private var _characterList = getCharactersListUseCase()
     val characterList: LiveData<List<CharacterInfo>>
         get() = _characterList

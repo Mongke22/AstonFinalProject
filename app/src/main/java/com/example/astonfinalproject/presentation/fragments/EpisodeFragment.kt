@@ -33,6 +33,9 @@ class EpisodeFragment : BaseFragment<FragmentEpisodeBinding>() {
     @Inject
     lateinit var filter: EpisodeFilter
 
+    @Inject
+    lateinit var myDialogFragment: EpisodeFilterDialog
+
     private var itemsList: List<EpisodeInfo> = listOf()
     private val editTextSubject = PublishSubject.create<String>()
 
@@ -114,15 +117,13 @@ class EpisodeFragment : BaseFragment<FragmentEpisodeBinding>() {
             viewModel.moveToScreen(MainViewModel.Companion.Screen.EPISODE_DETAIL, it.id)
         }
         binding.searchField.ivFilter.setOnClickListener {
-            val myDialogFragment = EpisodeFilterDialog()
             myDialogFragment.initEpisodeFilter = {
                 viewModel.filterEpisode.value ?: EpisodeFilter("", "")
             }
             myDialogFragment.onApplyFunc = {
                 viewModel.setFilter(myDialogFragment.filter)
             }
-            val manager = childFragmentManager
-            myDialogFragment.show(manager, "dialog")
+            myDialogFragment.show(childFragmentManager, "dialog")
         }
     }
 
