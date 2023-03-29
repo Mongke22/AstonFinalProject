@@ -9,7 +9,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/actionBar"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="@dimen/appbar_height"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 

@@ -15,6 +15,7 @@ class Navigator @Inject constructor() {
         setToolBarTitle("О персонаже")
         activity!!.supportFragmentManager
             .beginTransaction()
+            .addToBackStack(null)
             .replace(R.id.fragmentContainer, SingleCharacterFragment.newInstance(viewModel, characterId))
             .commit()
     }

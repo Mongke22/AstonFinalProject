@@ -80,7 +80,7 @@ class CharacterViewHolder(
     }
 
     private fun loadImage(src: String, url: String, id: Int) {
-        if (url.isEmpty()) {
+        if (url.isEmpty() && src == "unknown") {
             image.setImageResource(R.drawable.default_picture)
             return
         }

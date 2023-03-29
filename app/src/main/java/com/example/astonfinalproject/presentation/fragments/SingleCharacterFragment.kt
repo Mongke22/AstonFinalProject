@@ -128,63 +128,9 @@ class SingleCharacterFragment : BaseFragment<FragmentSingleCharacterBinding>() {
             tvCharacterGenderInside.text = character.gender
             tvCharacterNameInside.text = character.name
             tvCharacterSpeciesInside.text = character.species
-            loadImage(character.imgSrc, character.imgUrl, characterId, ivSingleCharacterImage)
+            ivSingleCharacterImage.setImageURI(Uri.parse(character.imgSrc))
         }
 
-    }
-    private fun loadImage(src: String, url: String, id: Int, image: ImageView) {
-        if (url.isEmpty()) {
-            image.setImageResource(R.drawable.default_picture)
-            return
-        }
-        if(src != "unknown"){
-            image.setImageURI(Uri.parse(src))
-            return
-        }
-        val uiHandler = Handler(Looper.getMainLooper())
-        uiHandler.post {
-            Picasso.with(context)
-                .load(url)
-                .into(object : com.squareup.picasso.Target {
-                    override fun onBitmapLoaded(bitmap: Bitmap, from: Picasso.LoadedFrom?) {
-                        image.setImageBitmap(bitmap)
-                        val path = saveImageToPhone(bitmap, "character$id")
-                        viewModel.updateImagePath(id, path)
-                    }
-
-                    override fun onBitmapFailed(errorDrawable: Drawable?) {
-                        if(src.isEmpty()){
-                            image.setImageResource(R.drawable.default_picture)
-                        }else{
-                            image.setImageURI(Uri.parse(src))
-                        }
-                    }
-
-                    override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
-
-                    }
-
-                })
-        }
-
-
-    }
-
-    private fun saveImageToPhone(image: Bitmap, fileName: String): String {
-        val imagesFolder = File(context?.cacheDir, "images")
-        var path = ""
-        try {
-            imagesFolder.mkdirs()
-            val file = File(imagesFolder, fileName)
-            val stream = FileOutputStream(file)
-            image.compress(Bitmap.CompressFormat.PNG, 90, stream)
-            stream.flush()
-            stream.close()
-            path = file.absolutePath
-        } catch (e: IOException) {
-            Log.i("IOException", "${e.message}")
-        }
-        return path
     }
 
 }
