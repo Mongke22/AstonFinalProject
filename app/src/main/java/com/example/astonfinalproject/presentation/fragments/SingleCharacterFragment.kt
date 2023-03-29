@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import com.example.astonfinalproject.R
 import com.example.astonfinalproject.databinding.FragmentSingleCharacterBinding
 import com.example.astonfinalproject.domain.Model.CharacterInfo
 import com.example.astonfinalproject.presentation.AstonApp
@@ -96,14 +97,14 @@ class SingleCharacterFragment : BaseFragment<FragmentSingleCharacterBinding>() {
     private fun setupClickListeners() {
         binding.llOrigin.setOnClickListener {
             val placeName = binding.tvCharacterOriginInside.text.toString()
-            if (placeName != "unknown")
+            if (placeName != requireActivity().getString(R.string.string_unknown))
                 viewModel.moveToScreen(MainViewModel.Companion.Screen.LOCATION_DETAIL,
                     place = placeName)
         }
 
         binding.llCurrentLocation.setOnClickListener {
             val placeName = binding.tvCharacterCurrentLocationInside.text.toString()
-            if (placeName != "unknown")
+            if (placeName != requireActivity().getString(R.string.string_unknown))
                 viewModel.moveToScreen(MainViewModel.Companion.Screen.LOCATION_DETAIL,
                     place = placeName)
         }

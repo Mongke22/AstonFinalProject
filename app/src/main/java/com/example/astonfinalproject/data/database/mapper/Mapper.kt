@@ -1,6 +1,7 @@
 package com.example.astonfinalproject.data.database.mapper
 
 import android.app.Application
+import com.example.astonfinalproject.R
 import com.example.astonfinalproject.data.database.dbModels.CharacterInfoDbModel
 import com.example.astonfinalproject.data.database.dbModels.EpisodeInfoDbModel
 import com.example.astonfinalproject.data.database.dbModels.LocationInfoDbModel
@@ -13,48 +14,44 @@ import com.example.astonfinalproject.domain.Model.LocationInfo
 import com.squareup.picasso.Picasso
 import javax.inject.Inject
 
-class Mapper @Inject constructor(application: Application){
-
-    companion object {
-        private const val UNKNOWN_STRING = "unknown"
-    }
+class Mapper @Inject constructor(val application: Application){
 
     fun mapCharacterDtoToDbModel(characterDto: CharactersResultDto): CharacterInfoDbModel {
         return CharacterInfoDbModel(
-            characterDto.url?.lowercase() ?: UNKNOWN_STRING,
+            characterDto.url?.lowercase() ?: application.getString(R.string.string_unknown),
             characterDto.id,
-            characterDto.name ?: UNKNOWN_STRING,
-            characterDto.species?.lowercase() ?: UNKNOWN_STRING,
-            characterDto.status?.lowercase() ?: UNKNOWN_STRING,
-            characterDto.gender?.lowercase() ?: UNKNOWN_STRING,
-            UNKNOWN_STRING,
-            characterDto.image?.lowercase() ?: UNKNOWN_STRING,
-            characterDto.origin?.name?.lowercase() ?: UNKNOWN_STRING,
-            characterDto.origin?.url?.lowercase() ?: UNKNOWN_STRING,
-            characterDto.location?.name?.lowercase() ?: UNKNOWN_STRING,
-            characterDto.location?.url?.lowercase() ?: UNKNOWN_STRING,
+            characterDto.name ?: application.getString(R.string.string_unknown),
+            characterDto.species?.lowercase() ?: application.getString(R.string.string_unknown),
+            characterDto.status?.lowercase() ?: application.getString(R.string.string_unknown),
+            characterDto.gender?.lowercase() ?: application.getString(R.string.string_unknown),
+            application.getString(R.string.string_unknown),
+            characterDto.image?.lowercase() ?: application.getString(R.string.string_unknown),
+            characterDto.origin?.name?.lowercase() ?: application.getString(R.string.string_unknown),
+            characterDto.origin?.url?.lowercase() ?: application.getString(R.string.string_unknown),
+            characterDto.location?.name?.lowercase() ?: application.getString(R.string.string_unknown),
+            characterDto.location?.url?.lowercase() ?: application.getString(R.string.string_unknown),
             characterDto.episode
         )
     }
 
     fun mapEpisodeDtoToDbModel(episodeDto: EpisodesResultDto): EpisodeInfoDbModel {
         return EpisodeInfoDbModel(
-            episodeDto.url?.lowercase() ?: UNKNOWN_STRING,
+            episodeDto.url?.lowercase() ?: application.getString(R.string.string_unknown),
             episodeDto.id,
-            episodeDto.name?.lowercase() ?: UNKNOWN_STRING,
-            episodeDto.air_date?.lowercase() ?: UNKNOWN_STRING,
-            episodeDto.episode?.lowercase() ?: UNKNOWN_STRING,
+            episodeDto.name?.lowercase() ?: application.getString(R.string.string_unknown),
+            episodeDto.air_date?.lowercase() ?: application.getString(R.string.string_unknown),
+            episodeDto.episode?.lowercase() ?: application.getString(R.string.string_unknown),
             episodeDto.characters
         )
     }
 
     fun mapLocationDtoToDbModel(locationDto: LocationsResultDto): LocationInfoDbModel {
         return LocationInfoDbModel(
-            locationDto.url?.lowercase() ?: UNKNOWN_STRING,
+            locationDto.url?.lowercase() ?: application.getString(R.string.string_unknown),
             locationDto.id,
-            locationDto.name?.lowercase() ?: UNKNOWN_STRING,
-            locationDto.type?.lowercase() ?: UNKNOWN_STRING,
-            locationDto.dimension?.lowercase() ?: UNKNOWN_STRING,
+            locationDto.name?.lowercase() ?: application.getString(R.string.string_unknown),
+            locationDto.type?.lowercase() ?: application.getString(R.string.string_unknown),
+            locationDto.dimension?.lowercase() ?: application.getString(R.string.string_unknown),
             locationDto.characters
         )
     }
