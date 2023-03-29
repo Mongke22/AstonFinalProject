@@ -15,13 +15,14 @@ interface LogicRepository {
 
     suspend fun getEpisodesByCharacter(episodesUrl: List<String>): List<EpisodeInfo>
 
-    suspend fun getCharactersByEpisode(episodesUrl: List<String>): List<CharacterInfo>
+    suspend fun getCharactersByUrlList(charactersUrl: List<String>): List<CharacterInfo>
 
     suspend fun getEpisodeInfo(id: Int): EpisodeInfo
 
     fun getLocationsList(): LiveData<List<LocationInfo>>
 
     suspend fun getLocationInfo(id: Int): LocationInfo
+    suspend fun getLocationInfo(place: String): LocationInfo
 
     suspend fun updateCharacterImagePath(id: Int, path: String)
 

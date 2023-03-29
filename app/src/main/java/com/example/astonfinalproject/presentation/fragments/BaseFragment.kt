@@ -16,6 +16,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
     companion object{
         const val ID = "id"
         const val UNDEFINED = -1
+        const val UNKNOWN = ""
         lateinit var viewModel: MainViewModel
     }
 

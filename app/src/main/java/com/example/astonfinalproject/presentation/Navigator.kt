@@ -27,13 +27,21 @@ class Navigator {
             .commit()
     }
 
-    fun moveToLocationDetailScreen(viewModel: MainViewModel, locationId: Int){
+    fun moveToLocationDetailScreen(viewModel: MainViewModel, locationId: Int, place: String){
         setupBackButton()
         setToolBarTitle("О локации")
-        activity!!.supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.fragmentContainer, SingleLocationFragment.newInstance(viewModel, locationId))
-            .commit()
+        if(place != ""){
+            activity!!.supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.fragmentContainer, SingleLocationFragment.newInstance(viewModel, place))
+                .commit()
+        }
+        else{
+            activity!!.supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.fragmentContainer, SingleLocationFragment.newInstance(viewModel, locationId))
+                .commit()
+        }
     }
 
     fun moveToCharactersScreen(viewModel: MainViewModel){

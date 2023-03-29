@@ -84,7 +84,7 @@ class LogicRepositoryImpl(application: Application): LogicRepository {
 
     }
 
-    override suspend fun getCharactersByEpisode(charactersUrl: List<String>): List<CharacterInfo> {
+    override suspend fun getCharactersByUrlList(charactersUrl: List<String>): List<CharacterInfo> {
         val charactersId: ArrayList<Int> = ArrayList()
         for(characterUrl in charactersUrl){
             charactersId.add(mapper.mapURLtoId(characterUrl))
@@ -96,6 +96,11 @@ class LogicRepositoryImpl(application: Application): LogicRepository {
 
     override suspend fun getLocationInfo(id: Int): LocationInfo {
         return mapper.mapLocationDbModelToEntity(locationInfoDao.getLocationInfo(id))
+    }
+
+    override suspend fun getLocationInfo(place: String): LocationInfo {
+        val a = 123
+        return mapper.mapLocationDbModelToEntity(locationInfoDao.getLocationInfo(place))
     }
 
     override suspend fun updateCharacterImagePath(id: Int, path: String) {

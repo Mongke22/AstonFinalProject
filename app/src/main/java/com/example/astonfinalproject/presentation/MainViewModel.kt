@@ -33,7 +33,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val getEpisodeInfoUseCase = GetEpisodeInfoUseCase(repository)
     private val getEpisodesListUseCase = GetEpisodesListUseCase(repository)
     private val getEpisodesByCharacterUseCase = GetEpisodesByCharacterUseCase(repository)
-    private val getCharactersByEpisodeUseCase = GetCharactersByEpisodeUseCase(repository)
+    private val getCharactersByUrlListUseCase = GetCharactersByUrlListUseCase(repository)
     private val getLocationInfoUseCase = GetLocationInfoUseCase(repository)
     private val getLocationsListUseCase = GetLocationsListUseCase(repository)
     private val updateImagePathUseCase = UpdateImagePathUseCase(repository)
@@ -72,6 +72,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val episodeCharacterList: LiveData<List<CharacterInfo>>
         get() = _episodeCharacterList
 
+    private var _locationCharacterList = MutableLiveData<List<CharacterInfo>>()
+    val locationCharacterList: LiveData<List<CharacterInfo>>
+        get() = _locationCharacterList
+
     private val _dataAvailable = MutableLiveData<Boolean>()
     val dataAvailable: LiveData<Boolean>
         get() = _dataAvailable
@@ -96,6 +100,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         loadDataUseCase.loadEpisode(id)
     }
 
+    fun loadLocation(id: Int, place: String = ""){
+        if(place == ""){
+            loadDataUseCase.loadLocation(id)
+        }
+    }
+
     fun getCharacter(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             val item: CharacterInfo = getCharacterInfoUseCase(id)
@@ -108,9 +118,22 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun getEpisode(id: Int){
         viewModelScope.launch(Dispatchers.IO) {
             val item: EpisodeInfo = getEpisodeInfoUseCase(id)
-            val characterList: List<CharacterInfo> = getCharactersByEpisodeUseCase(item.characters)
+            val characterList: List<CharacterInfo> = getCharactersByUrlListUseCase(item.characters)
             _episodeCharacterList.postValue(characterList)
             _episodeInfo.postValue(item)
+        }
+    }
+
+    fun getLocation(id: Int, place: String){
+        viewModelScope.launch(Dispatchers.IO) {
+            var item: LocationInfo = if(place == ""){
+                getLocationInfoUseCase(id)
+            } else{
+                getLocationInfoUseCase(place)
+            }
+            val characterList: List<CharacterInfo> = getCharactersByUrlListUseCase(item.residents)
+            _locationCharacterList.postValue(characterList)
+            _locationInfo.postValue(item)
         }
     }
 
@@ -123,7 +146,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun moveToScreen(moveToScreen: Screen, id: Int = UNKNOWN_INT, place: String = "") {
         when(moveToScreen){
             Screen.LOCATION_DETAIL -> {
-                navigator.moveToLocationDetailScreen(this, id)
+                navigator.moveToLocationDetailScreen(this, id, place)
             }
             Screen.CHARACTER_DETAIL -> {
                 navigator.moveToCharacterDetailScreen(this, id)

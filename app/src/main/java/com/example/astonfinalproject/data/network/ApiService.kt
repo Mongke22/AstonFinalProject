@@ -33,14 +33,14 @@ interface ApiService {
         @Path("characterId") charId: Int
     ): Single<CharactersResultDto>
 
-    @GET("character/{characterId}")
+    @GET("episode/{episodeId}")
     fun getEpisode(
-        @Path("characterId") charId: Int
+        @Path("episodeId") charId: Int
     ): Single<EpisodesResultDto>
 
-    @GET("character/{characterId}")
+    @GET("location/{locationId}")
     fun getLocation(
-        @Path("characterId") charId: Int
+        @Path("locationId") charId: Int
     ): Single<LocationsResultDto>
 
     companion object {

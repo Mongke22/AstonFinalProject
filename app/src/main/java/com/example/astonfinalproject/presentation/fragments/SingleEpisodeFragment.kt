@@ -11,6 +11,7 @@ import com.example.astonfinalproject.R
 import com.example.astonfinalproject.databinding.FragmentSingleCharacterBinding
 import com.example.astonfinalproject.databinding.FragmentSingleEpisodeBinding
 import com.example.astonfinalproject.domain.Model.CharacterInfo
+import com.example.astonfinalproject.domain.Model.EpisodeInfo
 import com.example.astonfinalproject.presentation.MainViewModel
 import com.example.astonfinalproject.presentation.recyclerView.adapters.CharactersListAdapter
 import com.example.astonfinalproject.presentation.recyclerView.adapters.EpisodesListAdapter
@@ -29,6 +30,7 @@ class SingleEpisodeFragment : BaseFragment<FragmentSingleEpisodeBinding>() {
 
     private lateinit var characterListAdapter: CharactersListAdapter
     private var episodeId = UNDEFINED
+    private lateinit var episode: EpisodeInfo
 
     override fun loadData() {
         parseParams()
@@ -55,12 +57,20 @@ class SingleEpisodeFragment : BaseFragment<FragmentSingleEpisodeBinding>() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         viewModel.getEpisode(episodeId)
-
         viewModel.episodeCharacterList.observe(viewLifecycleOwner){
-            for(item in it){
-                Log.i("singleEpisode", item.toString())
-            }
             characterListAdapter.submitList(it)
+        }
+        viewModel.episodeInfo.observe(viewLifecycleOwner) {
+            episode = it
+            setupInfo()
+        }
+    }
+
+    private fun setupInfo(){
+        with(binding){
+            tvSingleEpisodeDate.text = episode.date
+            tvSingleEpisodeNumber.text = episode.number
+            tvSingleEpisodeName.text = episode.name
         }
     }
 
@@ -75,7 +85,6 @@ class SingleEpisodeFragment : BaseFragment<FragmentSingleEpisodeBinding>() {
 
     private fun setupListeners(){
         characterListAdapter.characterClickListener = {
-            Toast.makeText(requireContext(),"Персонаж: ${it.name}", Toast.LENGTH_SHORT).show()
             viewModel.moveToScreen(MainViewModel.Companion.Screen.CHARACTER_DETAIL, it.id)
         }
         characterListAdapter.characterSavePictureFunc = { id, path ->
