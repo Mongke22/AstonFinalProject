@@ -7,6 +7,10 @@ import androidx.core.widget.doOnTextChanged
 import com.example.astonfinalproject.databinding.FragmentLocationBinding
 import com.example.astonfinalproject.domain.Model.LocationInfo
 import com.example.astonfinalproject.presentation.MainViewModel
+import com.example.astonfinalproject.presentation.filter.EpisodeFilterDialog
+import com.example.astonfinalproject.presentation.filter.LocationFilterDialog
+import com.example.astonfinalproject.presentation.filter.model.EpisodeFilter
+import com.example.astonfinalproject.presentation.filter.model.LocationFilter
 import com.example.astonfinalproject.presentation.recyclerView.adapters.LocationsListAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.PublishSubject
@@ -25,12 +29,18 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>() {
     private lateinit var locationsListAdapter: LocationsListAdapter
     private var itemsList: List<LocationInfo> = listOf()
     private val editTextSubject = PublishSubject.create<String>()
+    private var filter = LocationFilter("", "")
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         setNoDataTextView()
         setupRecyclerView()
+        setupObserver()
+
+    }
+
+    private fun setupObserver(){
         viewModel.locationsList.observe(viewLifecycleOwner) { locations ->
             viewModel.hideFragmentIfNoAvailableData(locations.isNullOrEmpty())
 
@@ -38,6 +48,11 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>() {
                 itemsList = locations
                 locationsListAdapter.submitList(locations)
             }
+        }
+
+        viewModel.filterLocation.observe(viewLifecycleOwner){ newFilter ->
+            filter = newFilter
+            applyFilter(binding.searchField.etSearch.text.toString())
         }
     }
 
@@ -70,6 +85,17 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>() {
         locationsListAdapter.locationClickListener = {
             viewModel.moveToScreen(MainViewModel.Companion.Screen.LOCATION_DETAIL, it.id)
         }
+        binding.searchField.ivFilter.setOnClickListener {
+            val myDialogFragment = LocationFilterDialog()
+            myDialogFragment.initLocationFilter = {
+                viewModel.filterLocation.value ?: LocationFilter("", "")
+            }
+            myDialogFragment.onApplyFunc = {
+                viewModel.setFilter(myDialogFragment.filter)
+            }
+            val manager = childFragmentManager
+            myDialogFragment.show(manager, "dialog")
+        }
     }
 
 
@@ -86,13 +112,13 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>() {
     }
 
     private fun applyFilter(text: String){
-        var locationListToShow: ArrayList<LocationInfo> = ArrayList()
-        locationListToShow.clear()
-        for (location in itemsList) {
-            if (location.name.contains(text)) {
-                locationListToShow.add(location)
-            }
+        var locationListToShow = itemsList.filter { location ->
+            location.name.contains(text)
+                    && location.type.contains(filter.type)
+                    && location.dimension.contains(filter.dimension)
         }
+
+
         viewModel.hideFragmentIfNoAvailableData(locationListToShow.isEmpty())
 
         locationsListAdapter.submitList(locationListToShow)

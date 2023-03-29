@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="cronenberged dimension" />
+            android:text="cronenberged" />
 
         <RadioButton
             android:id="@+id/rbC137"
@@ -37,13 +37,6 @@
             android:text="dimension c-137" />
 
         <RadioButton
-            android:id="@+id/rbCFC"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="central finite curve" />
-
-        <RadioButton
             android:id="@+id/rbc131"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -51,30 +44,17 @@
             android:text="dimension c-131" />
 
         <RadioButton
-            android:id="@+id/rbParmesan"
+            android:id="@+id/rbReplacement"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="parmesan dimension" />
-        <RadioButton
-            android:id="@+id/rbNarnia"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="narnia dimension" />
-
+            android:text="replacement dimension" />
         <RadioButton
             android:id="@+id/rbMultiverse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="multiverse" />
-        <RadioButton
-            android:id="@+id/rbOriginal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="jerry's original dimension" />
         <RadioButton
             android:id="@+id/rbDimensionUnknown"
             android:layout_width="wrap_content"
@@ -132,13 +112,6 @@
                 android:text="microverse" />
 
             <RadioButton
-                android:id="@+id/rbTV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="TV" />
-
-            <RadioButton
                 android:id="@+id/rbResort"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -151,6 +124,13 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="dream" />
+
+            <RadioButton
+                android:id="@+id/rbTypeUnknown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="unknown" />
 
             <RadioButton
                 android:id="@+id/rbTypeAll"

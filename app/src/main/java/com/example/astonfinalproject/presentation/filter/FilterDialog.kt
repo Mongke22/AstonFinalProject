@@ -31,7 +31,7 @@ abstract class FilterDialog<VB: ViewBinding> : DialogFragment() {
             initFilter()
             filterLogic()
 
-            builder.setTitle("Фильтр персонажей")
+            builder
                 .setView(binding.root)
                 .setPositiveButton("Применить"
                 ) { dialog, id ->
