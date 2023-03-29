@@ -109,6 +109,7 @@ class Navigator @Inject constructor() {
                 activity!!.findViewById<BottomNavigationView>(R.id.bottomNavigationView).menu
                     .findItem(R.id.characters_fragment).isChecked = true
                 activity!!.findViewById<MaterialToolbar>(R.id.toolBar).title = "Персонажи"
+                activity!!.findViewById<MaterialToolbar>(R.id.toolBar).navigationIcon = null
             }
             "episodes" -> {
                 activity!!.findViewById<BottomNavigationView>(R.id.bottomNavigationView).menu
