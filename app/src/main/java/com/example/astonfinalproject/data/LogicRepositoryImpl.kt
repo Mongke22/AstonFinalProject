@@ -31,6 +31,7 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 
+import kotlin.concurrent.thread
 
 class LogicRepositoryImpl(application: Application): LogicRepository {
 
@@ -105,7 +106,6 @@ class LogicRepositoryImpl(application: Application): LogicRepository {
     }
 
     override suspend fun getLocationInfo(place: String): LocationInfo {
-        val a = 123
         return mapper.mapLocationDbModelToEntity(locationInfoDao.getLocationInfo(place))
     }
 
@@ -133,7 +133,9 @@ class LogicRepositoryImpl(application: Application): LogicRepository {
 
 
     override fun loadCharactersInfo(page: Int) {
-        dataStateDao.insertDataState(DataStateDbModel("characters",false))
+        thread{
+            dataStateDao.insertDataState(DataStateDbModel("characters",false))
+        }
         apiService.getCharacters(page)
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
@@ -192,7 +194,9 @@ class LogicRepositoryImpl(application: Application): LogicRepository {
     }
 
     override fun loadEpisodesInfo(page: Int) {
-        dataStateDao.insertDataState(DataStateDbModel("episodes",false))
+        thread{
+            dataStateDao.insertDataState(DataStateDbModel("episodes",false))
+        }
         apiService.getEpisodes(page)
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
@@ -241,7 +245,9 @@ class LogicRepositoryImpl(application: Application): LogicRepository {
     }
 
     override fun loadLocationsInfo(page: Int) {
-        dataStateDao.insertDataState(DataStateDbModel("locations",false))
+        thread{
+            dataStateDao.insertDataState(DataStateDbModel("locations",false))
+        }
         apiService.getLocations(page)
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())

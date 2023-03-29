@@ -7,5 +7,5 @@ import androidx.room.PrimaryKey
 data class DataStateDbModel (
     @PrimaryKey
     var screen: String,
-    var dataIsRead: Boolean
+    var dataIsReady: Boolean
 )

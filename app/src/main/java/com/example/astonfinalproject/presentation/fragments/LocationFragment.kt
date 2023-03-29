@@ -49,7 +49,13 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>() {
                 locationsListAdapter.submitList(locations)
             }
         }
-
+        viewModel.stateList.observe(viewLifecycleOwner){
+            for(state in it){
+                if(state.screen == "locations" && state.dataIsReady){
+                    binding.swipeRefreshLayoutLocations.isRefreshing = false
+                }
+            }
+        }
         viewModel.filterLocation.observe(viewLifecycleOwner){ newFilter ->
             filter = newFilter
             applyFilter(binding.searchField.etSearch.text.toString())
@@ -79,6 +85,13 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>() {
     private fun setupListeners() {
         setupOnClickListener()
         setupTextChangedListener()
+        setupSwipeListener()
+    }
+
+    private fun setupSwipeListener(){
+        binding.swipeRefreshLayoutLocations.setOnRefreshListener {
+            viewModel.loadLocations()
+        }
     }
 
     private fun setupOnClickListener(){

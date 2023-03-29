@@ -38,6 +38,7 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.swipeRefreshLayoutCharacters.isRefreshing = true
         setNoDataTextView()
         setupRecyclerView()
         setupObserver()
@@ -52,6 +53,14 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>() {
             if (itemsList.size != characters.size) {
                 itemsList = characters
                 charactersListAdapter.submitList(characters)
+            }
+        }
+
+        viewModel.stateList.observe(viewLifecycleOwner){
+            for(state in it){
+                if(state.screen == "characters" && state.dataIsReady){
+                    binding.swipeRefreshLayoutCharacters.isRefreshing = false
+                }
             }
         }
 
@@ -97,6 +106,13 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>() {
         setupImageLoadingListener()
         setupClickListener()
         setupTextChangedListener()
+        setupSwipeListener()
+    }
+
+    private fun setupSwipeListener(){
+        binding.swipeRefreshLayoutCharacters.setOnRefreshListener {
+            viewModel.loadCharacters()
+        }
     }
 
     private fun setupImageLoadingListener() {

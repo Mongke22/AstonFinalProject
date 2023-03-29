@@ -55,6 +55,14 @@ class EpisodeFragment : BaseFragment<FragmentEpisodeBinding>() {
             }
         }
 
+        viewModel.stateList.observe(viewLifecycleOwner){
+            for(state in it){
+                if(state.screen == "episodes" && state.dataIsReady){
+                    binding.swipeRefreshLayoutEpisodes.isRefreshing = false
+                }
+            }
+        }
+
         viewModel.filterEpisode.observe(viewLifecycleOwner) { newFilter ->
             filter = newFilter
             applyFilter(binding.searchField.etSearch.text.toString())
@@ -85,6 +93,13 @@ class EpisodeFragment : BaseFragment<FragmentEpisodeBinding>() {
     private fun setupListeners() {
         setupOnClickListener()
         setupTextChangedListener()
+        setupSwipeListener()
+    }
+
+    private fun setupSwipeListener(){
+        binding.swipeRefreshLayoutEpisodes.setOnRefreshListener {
+            viewModel.loadEpisodes()
+        }
     }
 
     private fun setupOnClickListener() {
