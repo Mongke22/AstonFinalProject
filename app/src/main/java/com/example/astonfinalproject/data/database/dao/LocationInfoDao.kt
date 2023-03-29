@@ -14,10 +14,10 @@ interface LocationInfoDao {
     fun getLocationInfoList(): LiveData<List<LocationInfoDbModel>>
 
     @Query("SELECT * FROM locations WHERE id == :getId LIMIT 1")
-    fun getLocationInfo(getId: Int): LocationInfoDbModel
+    suspend fun getLocationInfo(getId: Int): LocationInfoDbModel
 
     @Query("SELECT * FROM locations WHERE name == :placeName LIMIT 1")
-    fun getLocationInfo(placeName: String): LocationInfoDbModel
+    suspend fun getLocationInfo(placeName: String): LocationInfoDbModel
 
     @Query("SELECT COUNT(*) FROM locations where id == :getId")
     fun checkLocationExists(getId: Int): Int

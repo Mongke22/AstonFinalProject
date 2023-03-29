@@ -81,7 +81,6 @@ class SingleCharacterFragment : BaseFragment<FragmentSingleCharacterBinding>() {
 
     private fun setupListeners() {
         episodesListAdapter.episodeClickListener = {
-            Toast.makeText(requireContext(), "Эпизод: ${it.name}", Toast.LENGTH_LONG).show()
             viewModel.moveToScreen(MainViewModel.Companion.Screen.EPISODE_DETAIL, it.id)
         }
         setupClickListeners()
@@ -89,15 +88,17 @@ class SingleCharacterFragment : BaseFragment<FragmentSingleCharacterBinding>() {
 
     private fun setupClickListeners() {
         binding.llOrigin.setOnClickListener {
-            Toast.makeText(requireContext(), "Происхождение", Toast.LENGTH_LONG).show()
-            viewModel.moveToScreen(MainViewModel.Companion.Screen.LOCATION_DETAIL,
-                place = binding.tvCharacterOriginInside.text.toString())
+            val placeName = binding.tvCharacterOriginInside.text.toString()
+            if (placeName != "unknown")
+                viewModel.moveToScreen(MainViewModel.Companion.Screen.LOCATION_DETAIL,
+                    place = placeName)
         }
 
         binding.llCurrentLocation.setOnClickListener {
-            Toast.makeText(requireContext(), "Текущая локация", Toast.LENGTH_LONG).show()
-            viewModel.moveToScreen(MainViewModel.Companion.Screen.LOCATION_DETAIL,
-                place = binding.tvCharacterCurrentLocationInside.text.toString())
+            val placeName = binding.tvCharacterCurrentLocationInside.text.toString()
+            if (placeName != "unknown")
+                viewModel.moveToScreen(MainViewModel.Companion.Screen.LOCATION_DETAIL,
+                    place = placeName)
         }
     }
 
@@ -110,7 +111,7 @@ class SingleCharacterFragment : BaseFragment<FragmentSingleCharacterBinding>() {
             tvCharacterGenderInside.text = character.gender
             tvCharacterNameInside.text = character.name
             tvCharacterSpeciesInside.text = character.species
-            Log.i("uriImage",character.imgSrc)
+            Log.i("uriImage", character.imgSrc)
             ivSingleCharacterImage.setImageURI(Uri.parse(character.imgSrc))
         }
 

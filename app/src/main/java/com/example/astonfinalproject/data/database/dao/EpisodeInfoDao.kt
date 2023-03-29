@@ -17,7 +17,7 @@ interface EpisodeInfoDao {
     suspend fun getSelectedEpisodeInfoList(ids: List<Int>): List<EpisodeInfoDbModel>
 
     @Query("SELECT * FROM episodes WHERE id == :getId LIMIT 1")
-    fun getEpisodeInfo(getId: Int): EpisodeInfoDbModel
+    suspend fun getEpisodeInfo(getId: Int): EpisodeInfoDbModel
 
     @Query("SELECT COUNT(*) FROM episodes where id == :getId")
     fun checkEpisodeExists(getId: Int): Int

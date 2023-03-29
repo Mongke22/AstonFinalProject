@@ -6,15 +6,17 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.astonfinalproject.data.database.dao.CharacterInfoDao
+import com.example.astonfinalproject.data.database.dao.DataStateDao
 import com.example.astonfinalproject.data.database.dao.EpisodeInfoDao
 import com.example.astonfinalproject.data.database.dao.LocationInfoDao
 import com.example.astonfinalproject.data.database.dbModels.CharacterInfoDbModel
+import com.example.astonfinalproject.data.database.dbModels.DataStateDbModel
 import com.example.astonfinalproject.data.database.dbModels.EpisodeInfoDbModel
 import com.example.astonfinalproject.data.database.dbModels.LocationInfoDbModel
 
 @Database(
-    entities = [CharacterInfoDbModel::class, EpisodeInfoDbModel::class, LocationInfoDbModel::class],
-    version = 7, exportSchema = false
+    entities = [CharacterInfoDbModel::class, EpisodeInfoDbModel::class, LocationInfoDbModel::class, DataStateDbModel::class],
+    version = 8, exportSchema = false
 )
 @TypeConverters(StringListConverter::class)
 abstract class AppDatabase : RoomDatabase() {
@@ -47,4 +49,5 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun characterInfoDao(): CharacterInfoDao
     abstract fun episodeInfoDao(): EpisodeInfoDao
     abstract fun locationInfoDao(): LocationInfoDao
+    abstract fun dataStateDao(): DataStateDao
 }
