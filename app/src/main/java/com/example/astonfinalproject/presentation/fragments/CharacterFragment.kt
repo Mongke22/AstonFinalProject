@@ -92,6 +92,7 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>() {
             viewLifecycleOwner,
             object : OnBackPressedCallback(false) {
                 override fun handleOnBackPressed() {
+                    requireActivity().finish()
                 }
             })
     }

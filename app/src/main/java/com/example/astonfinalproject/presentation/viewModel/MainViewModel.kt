@@ -204,6 +204,11 @@ class MainViewModel @Inject constructor(
         _filterLocation.value = filter
     }
 
+    fun updateMenu(){
+        navigator.popLocalBackStack()
+        navigator.displayCurrentMenuPosition()
+    }
+
     override fun onCleared() {
         Log.i("viewModel", "cleared")
         super.onCleared()

@@ -42,7 +42,9 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
             viewLifecycleOwner,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    viewModel.navigator.moveToCharactersScreen(viewModel)
+                    requireActivity().supportFragmentManager.popBackStack()
+                    viewModel.updateMenu()
+                    //viewModel.navigator.moveToCharactersScreen(viewModel)
                 }
             })
     }
