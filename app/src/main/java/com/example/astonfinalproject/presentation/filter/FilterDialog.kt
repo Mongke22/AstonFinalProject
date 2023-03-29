@@ -38,10 +38,6 @@ abstract class FilterDialog<VB: ViewBinding> : DialogFragment() {
                     onApplyFunc?.invoke()
                     dialog.cancel()
                 }
-                .setNegativeButton("Отмена") {
-                        dialog, id ->
-                    dialog.cancel()
-                }
 
             builder.create()
         } ?: throw IllegalStateException("Activity cannot be null")

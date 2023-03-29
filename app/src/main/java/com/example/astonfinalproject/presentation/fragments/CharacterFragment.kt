@@ -135,7 +135,7 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>() {
     }
 
     private fun applyFilter(text: String) {
-        var characterListToShow = itemsList.filter { character ->
+        val characterListToShow = itemsList.filter { character ->
             character.name.contains(text)
                     && character.gender.indexOf(filter.gender) == 0
                     && character.status.contains(filter.status)
