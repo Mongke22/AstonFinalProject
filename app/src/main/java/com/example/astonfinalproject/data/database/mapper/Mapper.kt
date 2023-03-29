@@ -10,8 +10,9 @@ import com.example.astonfinalproject.domain.Model.CharacterInfo
 import com.example.astonfinalproject.domain.Model.EpisodeInfo
 import com.example.astonfinalproject.domain.Model.LocationInfo
 import com.squareup.picasso.Picasso
+import javax.inject.Inject
 
-class Mapper {
+class Mapper @Inject constructor(){
 
     companion object {
         private const val UNKNOWN_STRING = "unknown"

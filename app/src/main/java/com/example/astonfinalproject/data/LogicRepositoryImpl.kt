@@ -11,6 +11,10 @@ import androidx.core.content.FileProvider
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.example.astonfinalproject.data.database.AppDatabase
+import com.example.astonfinalproject.data.database.dao.CharacterInfoDao
+import com.example.astonfinalproject.data.database.dao.DataStateDao
+import com.example.astonfinalproject.data.database.dao.EpisodeInfoDao
+import com.example.astonfinalproject.data.database.dao.LocationInfoDao
 import com.example.astonfinalproject.data.database.dbModels.DataStateDbModel
 import com.example.astonfinalproject.data.database.mapper.Mapper
 import com.example.astonfinalproject.data.network.ApiFactory
@@ -30,17 +34,19 @@ import io.reactivex.schedulers.Schedulers
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import javax.inject.Inject
 
 import kotlin.concurrent.thread
 
-class LogicRepositoryImpl(application: Application): LogicRepository {
+class LogicRepositoryImpl @Inject constructor(
+    private val mapper: Mapper,
+    private val characterInfoDao: CharacterInfoDao,
+    private val episodeInfoDao: EpisodeInfoDao,
+    private val locationInfoDao: LocationInfoDao,
+    private val dataStateDao: DataStateDao): LogicRepository {
 
-    private val characterInfoDao = AppDatabase.getInstance(application).characterInfoDao()
-    private val episodeInfoDao = AppDatabase.getInstance(application).episodeInfoDao()
-    private val locationInfoDao = AppDatabase.getInstance(application).locationInfoDao()
-    private val dataStateDao = AppDatabase.getInstance(application).dataStateDao()
+
     private val apiService = ApiFactory.apiService
-    private val mapper = Mapper()
 
     override fun getCharactersList(): LiveData<List<CharacterInfo>> {
         return Transformations.map(characterInfoDao.getCharacterInfoList()){

@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.astonfinalproject.data.LogicRepositoryImpl
 import com.example.astonfinalproject.data.database.dbModels.DataStateDbModel
@@ -17,8 +18,20 @@ import com.example.astonfinalproject.presentation.filter.model.EpisodeFilter
 import com.example.astonfinalproject.presentation.filter.model.LocationFilter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MainViewModel(application: Application) : AndroidViewModel(application) {
+class MainViewModel @Inject constructor(
+            private val getCharacterInfoUseCase: GetCharacterInfoUseCase,
+            private val getCharactersListUseCase: GetCharactersListUseCase,
+            private val getEpisodeInfoUseCase: GetEpisodeInfoUseCase,
+            private val getEpisodesListUseCase: GetEpisodesListUseCase,
+            private val getEpisodesByCharacterUseCase: GetEpisodesByCharacterUseCase,
+            private val getCharactersByUrlListUseCase: GetCharactersByUrlListUseCase,
+            private val getLocationInfoUseCase: GetLocationInfoUseCase,
+            private val getLocationsListUseCase: GetLocationsListUseCase,
+            private val updateImagePathUseCase: UpdateImagePathUseCase,
+            private val loadDataUseCase: LoadDataUseCase
+) : ViewModel() {
 
     companion object {
 
@@ -31,17 +44,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     lateinit var navigator: Navigator
 
-    private val repository = LogicRepositoryImpl(application)
-    private val getCharacterInfoUseCase = GetCharacterInfoUseCase(repository)
-    private val getCharactersListUseCase = GetCharactersListUseCase(repository)
-    private val getEpisodeInfoUseCase = GetEpisodeInfoUseCase(repository)
-    private val getEpisodesListUseCase = GetEpisodesListUseCase(repository)
-    private val getEpisodesByCharacterUseCase = GetEpisodesByCharacterUseCase(repository)
-    private val getCharactersByUrlListUseCase = GetCharactersByUrlListUseCase(repository)
-    private val getLocationInfoUseCase = GetLocationInfoUseCase(repository)
-    private val getLocationsListUseCase = GetLocationsListUseCase(repository)
-    private val updateImagePathUseCase = UpdateImagePathUseCase(repository)
-    private val loadDataUseCase = LoadDataUseCase(repository)
+
 
 
     private var _characterList = getCharactersListUseCase()

@@ -5,8 +5,9 @@ import com.example.astonfinalproject.R
 import com.example.astonfinalproject.presentation.fragments.*
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import javax.inject.Inject
 
-class Navigator {
+class Navigator @Inject constructor() {
     var activity: MainActivity? = null
 
     fun moveToCharacterDetailScreen(viewModel: MainViewModel, characterId: Int){

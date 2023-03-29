@@ -3,8 +3,9 @@ package com.example.astonfinalproject.domain.usecase
 import androidx.lifecycle.LiveData
 import com.example.astonfinalproject.data.database.dbModels.DataStateDbModel
 import com.example.astonfinalproject.domain.LogicRepository
+import javax.inject.Inject
 
-class LoadDataUseCase(
+class LoadDataUseCase @Inject constructor(
     private val repository: LogicRepository
 ) {
     fun loadCharactersList(page: Int){
