@@ -25,13 +25,13 @@
             android:id="@+id/rgGender"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:gravity="center"
+            android:orientation="vertical">
 
             <RadioButton
                 android:id="@+id/rbMale"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
                 android:layout_weight="1"
                 android:text="male" />
 
@@ -39,7 +39,6 @@
                 android:id="@+id/rbFemale"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
                 android:layout_weight="1"
                 android:text="female" />
 
@@ -47,7 +46,6 @@
                 android:id="@+id/rbGenderless"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
                 android:layout_weight="1"
                 android:text="genderless" />
 
@@ -55,14 +53,12 @@
                 android:id="@+id/rbGenderUnknown"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
                 android:layout_weight="1"
                 android:text="unknown" />
 
             <RadioButton
                 android:id="@+id/rbGenderAll"
                 android:layout_width="wrap_content"
-                android:textSize="12sp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="all" />
