@@ -21,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Название:"
-            android:textSize="18sp" />
+            android:textSize="@dimen/detail_info_title_text_size" />
 
         <TextView
             android:id="@+id/tvLocationName"
@@ -34,7 +34,7 @@
             android:maxLines="2"
             android:text="Abadango"
             android:textColor="@color/black"
-            android:textSize="24sp"
+            android:textSize="@dimen/detail_info_text_size"
             android:textStyle="bold" />
 
         <LinearLayout
@@ -47,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Тип:"
-                android:textSize="18sp" />
+                android:textSize="@dimen/detail_info_title_text_size" />
 
             <TextView
                 android:id="@+id/tvType"
@@ -60,7 +60,7 @@
                 android:maxLines="2"
                 android:text="Cluster"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="@dimen/detail_info_result_text_size"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -75,7 +75,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Измерение:"
-                android:textSize="18sp" />
+                android:textSize="@dimen/detail_info_title_text_size" />
 
             <TextView
                 android:id="@+id/tvDimension"
@@ -88,7 +88,7 @@
                 android:maxLines="2"
                 android:text="unknown"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="@dimen/detail_info_result_text_size"
                 android:textStyle="bold" />
         </LinearLayout>
         <TextView
@@ -96,7 +96,7 @@
             android:layout_height="wrap_content"
             android:text="Персонажи на локации:"
             android:textStyle="bold"
-            android:textSize="24sp" />
+            android:textSize="@dimen/detail_info_text_size" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

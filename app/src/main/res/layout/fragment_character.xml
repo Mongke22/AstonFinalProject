@@ -38,7 +38,7 @@
             android:gravity="center"
             android:text="Нет данных"
             android:textColor="@color/black"
-            android:textSize="30sp"
+            android:textSize="@dimen/main_text_size"
             android:visibility="gone" />
 
         <androidx.recyclerview.widget.RecyclerView

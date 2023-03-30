@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Название:"
-            android:textSize="18sp"
+            android:textSize="@dimen/detail_info_title_text_size"
             />
         <TextView
             android:id="@+id/tvSingleEpisodeName"
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Pilot and some very long name"
-            android:textSize="24sp"
+            android:textSize="@dimen/detail_info_text_size"
             android:textStyle="bold"
             android:textColor="@color/black"
             />
@@ -37,7 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Номер эпизода:"
-            android:textSize="18sp"
+            android:textSize="@dimen/detail_info_title_text_size"
             />
 
         <TextView
@@ -45,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="S01E24"
-            android:textSize="20sp"
+            android:textSize="@dimen/detail_info_result_text_size"
             android:textStyle="bold"
             android:textColor="@color/black"
             />
@@ -54,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Дата релиза:"
-            android:textSize="18sp"
+            android:textSize="@dimen/detail_info_title_text_size"
             />
 
         <TextView
@@ -62,7 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="December 21, 2013"
-            android:textSize="20sp"
+            android:textSize="@dimen/detail_info_result_text_size"
             android:textStyle="bold"
             android:textColor="@color/black"
             />
@@ -70,7 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Персонажи эпизода:"
-            android:textSize="24sp"
+            android:textSize="@dimen/detail_info_text_size"
             android:textStyle="bold"
             />
     </LinearLayout>

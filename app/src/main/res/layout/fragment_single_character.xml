@@ -36,11 +36,11 @@
                         android:id="@+id/tvCharacterIdText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
+                        android:layout_marginStart="@dimen/element_margin_top"
                         android:gravity="center"
                         android:text="Досье №"
                         android:textColor="@color/white"
-                        android:textSize="24sp" />
+                        android:textSize="@dimen/detail_info_text_size" />
 
                     <TextView
                         android:id="@+id/tvSingleCharacterId"
@@ -49,7 +49,7 @@
                         android:gravity="center"
                         android:text="123"
                         android:textColor="@color/white"
-                        android:textSize="24sp" />
+                        android:textSize="@dimen/detail_info_text_size" />
                 </LinearLayout>
 
 
@@ -61,7 +61,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/element_margin_top"
                 android:layout_marginEnd="5dp"
                 android:background="@drawable/single_character_background"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -72,7 +72,7 @@
                     android:id="@+id/ivSingleCharacterImage"
                     android:layout_width="280dp"
                     android:layout_height="280dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="@dimen/element_margin_top"
                     android:background="@drawable/single_character_background"
                     android:padding="2dp"
                     android:scaleType="fitCenter"
@@ -85,7 +85,7 @@
                     android:id="@+id/llName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="@dimen/element_margin_top"
                     android:gravity="center"
                     android:orientation="vertical"
                     app:layout_constraintEnd_toEndOf="@id/guideline"
@@ -108,7 +108,7 @@
                     android:id="@+id/llGender"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="@dimen/element_margin_top"
                     android:gravity="center"
                     android:orientation="vertical"
                     app:layout_constraintEnd_toEndOf="@id/guideline"
@@ -131,7 +131,7 @@
                     android:id="@+id/llSpecies"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="@dimen/element_margin_top"
                     android:gravity="center"
                     android:orientation="vertical"
                     app:layout_constraintEnd_toEndOf="@id/guideline"
@@ -161,7 +161,7 @@
                     android:id="@+id/llOrigin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="@dimen/element_margin_top"
                     android:gravity="center"
                     android:orientation="vertical"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -184,7 +184,7 @@
                     android:id="@+id/llCurrentLocation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="@dimen/element_margin_top"
                     android:gravity="center"
                     android:orientation="vertical"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -214,7 +214,7 @@
                     android:id="@+id/llEpisodes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="@dimen/element_margin_top"
                     android:orientation="vertical"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

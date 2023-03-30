@@ -23,48 +23,34 @@
 
         <RadioButton
             android:id="@+id/rbCronenberged"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            style="@style/defaultRadioButton"
             android:text="cronenberged" />
 
         <RadioButton
             android:id="@+id/rbC137"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            style="@style/defaultRadioButton"
             android:text="dimension c-137" />
 
         <RadioButton
             android:id="@+id/rbc131"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            style="@style/defaultRadioButton"
             android:text="dimension c-131" />
 
         <RadioButton
             android:id="@+id/rbReplacement"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            style="@style/defaultRadioButton"
             android:text="replacement dimension" />
         <RadioButton
             android:id="@+id/rbMultiverse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            style="@style/defaultRadioButton"
             android:text="multiverse" />
         <RadioButton
             android:id="@+id/rbDimensionUnknown"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            style="@style/defaultRadioButton"
             android:text="unknown" />
         <RadioButton
             android:id="@+id/rbDimensionAll"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            style="@style/defaultRadioButton"
             android:text="all" />
     </RadioGroup>
 
@@ -83,58 +69,42 @@
 
             <RadioButton
                 android:id="@+id/rbPlanet"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                style="@style/defaultRadioButton"
                 android:text="planet" />
 
             <RadioButton
                 android:id="@+id/rbCluster"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                style="@style/defaultRadioButton"
                 android:text="cluster" />
 
             <RadioButton
                 android:id="@+id/rbStation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                style="@style/defaultRadioButton"
                 android:text="space station" />
 
             <RadioButton
                 android:id="@+id/rbTypeMicroverse"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                style="@style/defaultRadioButton"
                 android:text="microverse" />
 
             <RadioButton
                 android:id="@+id/rbResort"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                style="@style/defaultRadioButton"
                 android:text="resort" />
 
             <RadioButton
                 android:id="@+id/rbDream"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                style="@style/defaultRadioButton"
                 android:text="dream" />
 
             <RadioButton
                 android:id="@+id/rbTypeUnknown"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                style="@style/defaultRadioButton"
                 android:text="unknown" />
 
             <RadioButton
                 android:id="@+id/rbTypeAll"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                style="@style/defaultRadioButton"
                 android:text="all" />
         </RadioGroup>
     </LinearLayout>

@@ -2,4 +2,10 @@
 <resources>
     <dimen name="iconCornerRadius">50dp</dimen>
     <dimen name="appbar_height">55dp</dimen>
+    <dimen name="default_margin">20dp</dimen>
+    <dimen name="main_text_size">30sp</dimen>
+    <dimen name="element_margin_top">10dp</dimen>
+    <dimen name="detail_info_text_size">24sp</dimen>
+    <dimen name="detail_info_title_text_size">18sp</dimen>
+    <dimen name="detail_info_result_text_size">20sp</dimen>
 </resources>

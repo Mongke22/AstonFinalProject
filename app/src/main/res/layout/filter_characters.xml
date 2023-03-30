@@ -27,37 +27,27 @@
 
             <RadioButton
                 android:id="@+id/rbMale"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                style="@style/defaultRadioButton"
                 android:text="male" />
 
             <RadioButton
                 android:id="@+id/rbFemale"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                style="@style/defaultRadioButton"
                 android:text="female" />
 
             <RadioButton
                 android:id="@+id/rbGenderless"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                style="@style/defaultRadioButton"
                 android:text="genderless" />
 
             <RadioButton
                 android:id="@+id/rbGenderUnknown"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                style="@style/defaultRadioButton"
                 android:text="@string/string_unknown" />
 
             <RadioButton
                 android:id="@+id/rbGenderAll"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                style="@style/defaultRadioButton"
                 android:text="all" />
 
         </RadioGroup>
@@ -76,30 +66,22 @@
 
             <RadioButton
                 android:id="@+id/rbAlien"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                style="@style/defaultRadioButton"
                 android:text="alien" />
 
             <RadioButton
                 android:id="@+id/rbHuman"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                style="@style/defaultRadioButton"
                 android:text="human" />
 
             <RadioButton
                 android:id="@+id/rbSpeciesUnknown"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                style="@style/defaultRadioButton"
                 android:text="unknown" />
 
             <RadioButton
                 android:id="@+id/rbSpeciesAll"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                style="@style/defaultRadioButton"
                 android:text="all" />
         </RadioGroup>
 
@@ -117,30 +99,22 @@
 
             <RadioButton
                 android:id="@+id/rbAlive"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                style="@style/defaultRadioButton"
                 android:text="alive" />
 
             <RadioButton
                 android:id="@+id/rbDead"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                style="@style/defaultRadioButton"
                 android:text="dead" />
 
             <RadioButton
                 android:id="@+id/rbStatusUnknown"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                style="@style/defaultRadioButton"
                 android:text="unknown" />
 
             <RadioButton
                 android:id="@+id/rbStatusAll"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                style="@style/defaultRadioButton"
                 android:text="all" />
 
         </RadioGroup>
