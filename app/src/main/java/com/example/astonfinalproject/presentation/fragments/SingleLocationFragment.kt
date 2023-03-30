@@ -14,12 +14,12 @@ import javax.inject.Inject
 
 class SingleLocationFragment : BaseFragment<FragmentSingleLocationBinding>() {
 
-    companion object{
+    companion object {
 
         private const val LOCATION = "location"
 
-        fun newInstance(vm: MainViewModel, getId: Int): SingleLocationFragment{
-           viewModel = vm
+        fun newInstance(vm: MainViewModel, getId: Int): SingleLocationFragment {
+            viewModel = vm
             return SingleLocationFragment().apply {
                 arguments = Bundle().apply {
                     putInt(ID, getId)
@@ -27,7 +27,7 @@ class SingleLocationFragment : BaseFragment<FragmentSingleLocationBinding>() {
             }
         }
 
-        fun newInstance(vm: MainViewModel, placeName: String): SingleLocationFragment{
+        fun newInstance(vm: MainViewModel, placeName: String): SingleLocationFragment {
             viewModel = vm
             return SingleLocationFragment().apply {
                 arguments = Bundle().apply {
@@ -45,7 +45,7 @@ class SingleLocationFragment : BaseFragment<FragmentSingleLocationBinding>() {
     private var locationName = UNKNOWN
     private lateinit var location: LocationInfo
 
-    private val component by lazy{
+    private val component by lazy {
         (requireActivity().application as AstonApp).component
     }
 
@@ -56,21 +56,20 @@ class SingleLocationFragment : BaseFragment<FragmentSingleLocationBinding>() {
 
     override fun loadData() {
         parseParams()
-        if(locationId != UNDEFINED)
-        viewModel.loadLocation(locationId)
+        if (locationId != UNDEFINED)
+            viewModel.loadLocation(locationId)
     }
 
-    private fun parseParams(){
+    private fun parseParams() {
         val args = arguments
-        if(args == null){
-            Toast.makeText(requireContext(),"no params", Toast.LENGTH_SHORT).show()
-        }
-        else{
+        if (args == null) {
+            Toast.makeText(requireContext(), "no params", Toast.LENGTH_SHORT).show()
+        } else {
             if (args.containsKey(ID)) {
                 locationId = args.getInt(ID)
             }
             if (args.containsKey(LOCATION)) {
-                locationName = args.getString(LOCATION)?: ""
+                locationName = args.getString(LOCATION) ?: ""
             }
         }
     }
@@ -83,7 +82,7 @@ class SingleLocationFragment : BaseFragment<FragmentSingleLocationBinding>() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         viewModel.getLocation(locationId, locationName)
-        viewModel.locationCharacterList.observe(viewLifecycleOwner){
+        viewModel.locationCharacterList.observe(viewLifecycleOwner) {
             characterListAdapter.submitList(it)
         }
         viewModel.locationInfo.observe(viewLifecycleOwner) {
@@ -92,7 +91,7 @@ class SingleLocationFragment : BaseFragment<FragmentSingleLocationBinding>() {
         }
     }
 
-    private fun setupRecyclerView(){
+    private fun setupRecyclerView() {
         val rvEpisodesList = binding.rvSingleEpisodeCharacters
         with(rvEpisodesList) {
             characterListAdapter = CharactersListAdapter()
@@ -101,7 +100,7 @@ class SingleLocationFragment : BaseFragment<FragmentSingleLocationBinding>() {
         setupListeners()
     }
 
-    private fun setupListeners(){
+    private fun setupListeners() {
         characterListAdapter.characterClickListener = {
             viewModel.moveToScreen(MainViewModel.Companion.Screen.CHARACTER_DETAIL, it.id)
         }
@@ -110,8 +109,8 @@ class SingleLocationFragment : BaseFragment<FragmentSingleLocationBinding>() {
         }
     }
 
-    private fun setupInfo(){
-        with(binding){
+    private fun setupInfo() {
+        with(binding) {
             tvType.text = location.type
             tvDimension.text = location.dimension
             tvLocationName.text = location.name

@@ -27,7 +27,7 @@ class LocationsListAdapter @Inject constructor() :
         holder.type.text = location.type
         holder.dimension.text = location.dimension
 
-        holder.view.setOnClickListener{
+        holder.view.setOnClickListener {
             locationClickListener?.invoke(location)
         }
     }

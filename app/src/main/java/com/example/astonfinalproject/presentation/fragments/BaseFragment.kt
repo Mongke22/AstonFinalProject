@@ -12,7 +12,7 @@ import com.example.astonfinalproject.presentation.viewModel.MainViewModel
 
 abstract class BaseFragment<VB : ViewBinding> : Fragment() {
 
-    companion object{
+    companion object {
         const val ID = "id"
         const val UNDEFINED = -1
         const val UNKNOWN = ""
@@ -21,14 +21,14 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
 
     private var _binding: VB? = null
     val binding
-        get() = _binding ?:throw RuntimeException("FragmentBinding is null")
+        get() = _binding ?: throw RuntimeException("FragmentBinding is null")
 
     protected var noAvailableDataText: TextView? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         _binding = getViewBinding()
         loadData()
@@ -37,7 +37,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
         return binding.root
     }
 
-    protected open fun setUpOnBackPressed(){
+    protected open fun setUpOnBackPressed() {
         requireActivity().onBackPressedDispatcher.addCallback(
             viewLifecycleOwner,
             object : OnBackPressedCallback(true) {
@@ -49,11 +49,11 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
             })
     }
 
-    private fun setAvailableDataListener(){
-        viewModel.dataAvailable.observe(viewLifecycleOwner){ dataAvailable ->
-            if(dataAvailable){
+    private fun setAvailableDataListener() {
+        viewModel.dataAvailable.observe(viewLifecycleOwner) { dataAvailable ->
+            if (dataAvailable) {
                 noAvailableDataText?.visibility = View.GONE
-            }else{
+            } else {
                 noAvailableDataText?.visibility = View.VISIBLE
             }
 
@@ -61,7 +61,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
     }
 
 
-    protected abstract  fun loadData()
+    protected abstract fun loadData()
 
     protected abstract fun getViewBinding(): VB
 }

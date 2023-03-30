@@ -13,7 +13,7 @@ class CharactersListAdapter @Inject constructor() :
     ListAdapter<CharacterInfo, CharacterViewHolder>(DiffCallBack<CharacterInfo>()) {
 
     var characterClickListener: ((CharacterInfo) -> Unit)? = null
-    var characterSavePictureFunc: ((Int, String)-> Unit)? = null
+    var characterSavePictureFunc: ((Int, String) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -28,7 +28,7 @@ class CharactersListAdapter @Inject constructor() :
         holder.setName(character.name)
         holder.setSpecies(character.species)
         holder.setStatus(character.status)
-        holder.view.setOnClickListener{
+        holder.view.setOnClickListener {
             characterClickListener?.invoke(character)
         }
     }

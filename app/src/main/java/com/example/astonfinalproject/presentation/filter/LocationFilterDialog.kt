@@ -87,9 +87,9 @@ class LocationFilterDialog @Inject constructor() : FilterDialog<FilterLocationsB
         setupTypeRadioGroupListener()
     }
 
-    private fun setupTypeRadioGroupListener(){
-        binding.rgType.setOnCheckedChangeListener{ _, buttonId ->
-            when(binding.rgType.findViewById<RadioButton>(buttonId).text.toString()){
+    private fun setupTypeRadioGroupListener() {
+        binding.rgType.setOnCheckedChangeListener { _, buttonId ->
+            when (binding.rgType.findViewById<RadioButton>(buttonId).text.toString()) {
                 "all" -> filter.type = ""
                 else -> {
                     filter.type = binding.rgType.findViewById<RadioButton>(buttonId).text.toString()
@@ -98,12 +98,13 @@ class LocationFilterDialog @Inject constructor() : FilterDialog<FilterLocationsB
         }
     }
 
-    private fun setupDimensionRadioGroupListener(){
-        binding.rgDimension.setOnCheckedChangeListener{ _, buttonId ->
-            when(binding.rgDimension.findViewById<RadioButton>(buttonId).text.toString()){
+    private fun setupDimensionRadioGroupListener() {
+        binding.rgDimension.setOnCheckedChangeListener { _, buttonId ->
+            when (binding.rgDimension.findViewById<RadioButton>(buttonId).text.toString()) {
                 "all" -> filter.dimension = ""
                 else -> {
-                    filter.dimension = binding.rgDimension.findViewById<RadioButton>(buttonId).text.toString()
+                    filter.dimension =
+                        binding.rgDimension.findViewById<RadioButton>(buttonId).text.toString()
                 }
             }
         }

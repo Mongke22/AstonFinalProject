@@ -39,7 +39,7 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>() {
     private var itemsList: List<LocationInfo> = listOf()
     private val editTextSubject = PublishSubject.create<String>()
 
-    private val component by lazy{
+    private val component by lazy {
         (requireActivity().application as AstonApp).component
     }
 
@@ -57,7 +57,7 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>() {
 
     }
 
-    private fun setupObserver(){
+    private fun setupObserver() {
         viewModel.locationsList.observe(viewLifecycleOwner) { locations ->
             viewModel.hideFragmentIfNoAvailableData(locations.isNullOrEmpty())
 
@@ -66,22 +66,23 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>() {
                 locationsListAdapter.submitList(locations)
             }
         }
-        viewModel.stateList.observe(viewLifecycleOwner){
-            for(state in it){
-                if(state.screen == "locations" && state.dataIsReady){
+        viewModel.stateList.observe(viewLifecycleOwner) {
+            for (state in it) {
+                if (state.screen == "locations" && state.dataIsReady) {
                     binding.swipeRefreshLayoutLocations.isRefreshing = false
                 }
             }
         }
-        viewModel.filterLocation.observe(viewLifecycleOwner){ newFilter ->
+        viewModel.filterLocation.observe(viewLifecycleOwner) { newFilter ->
             filter = newFilter
             applyFilter(binding.searchField.etSearch.text.toString())
         }
     }
 
-    private fun setNoDataTextView(){
+    private fun setNoDataTextView() {
         noAvailableDataText = binding.tvNoData
     }
+
     override fun loadData() {
     }
 
@@ -104,13 +105,13 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>() {
         setupSwipeListener()
     }
 
-    private fun setupSwipeListener(){
+    private fun setupSwipeListener() {
         binding.swipeRefreshLayoutLocations.setOnRefreshListener {
             viewModel.loadLocations()
         }
     }
 
-    private fun setupOnClickListener(){
+    private fun setupOnClickListener() {
         locationsListAdapter.locationClickListener = {
             viewModel.moveToScreen(MainViewModel.Companion.Screen.LOCATION_DETAIL, it.id)
         }
@@ -138,7 +139,7 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>() {
             }
     }
 
-    private fun applyFilter(text: String){
+    private fun applyFilter(text: String) {
         var locationListToShow = itemsList.filter { location ->
             location.name.contains(text)
                     && location.type.contains(filter.type)

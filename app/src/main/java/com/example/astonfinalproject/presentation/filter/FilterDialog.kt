@@ -8,13 +8,13 @@ import androidx.viewbinding.ViewBinding
 import com.example.astonfinalproject.R
 import com.example.astonfinalproject.databinding.FilterCharactersBinding
 
-abstract class FilterDialog<VB: ViewBinding> : DialogFragment() {
+abstract class FilterDialog<VB : ViewBinding> : DialogFragment() {
 
     var onApplyFunc: (() -> Unit)? = null
 
     private var _binding: VB? = null
     val binding
-        get() = _binding ?:throw RuntimeException("FragmentBinding is null")
+        get() = _binding ?: throw RuntimeException("FragmentBinding is null")
 
     abstract fun getViewBinding(): VB
 

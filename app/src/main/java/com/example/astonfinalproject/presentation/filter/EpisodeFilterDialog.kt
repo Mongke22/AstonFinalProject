@@ -6,11 +6,11 @@ import com.example.astonfinalproject.presentation.filter.model.CharacterFilter
 import com.example.astonfinalproject.presentation.filter.model.EpisodeFilter
 import javax.inject.Inject
 
-class EpisodeFilterDialog @Inject constructor(): FilterDialog<FilterEpisodesBinding>() {
+class EpisodeFilterDialog @Inject constructor() : FilterDialog<FilterEpisodesBinding>() {
 
     var initEpisodeFilter: (() -> EpisodeFilter)? = null
 
-    var filter = EpisodeFilter("","")
+    var filter = EpisodeFilter("", "")
 
     override fun getViewBinding(): FilterEpisodesBinding {
         return FilterEpisodesBinding.inflate(layoutInflater)
@@ -25,16 +25,15 @@ class EpisodeFilterDialog @Inject constructor(): FilterDialog<FilterEpisodesBind
         binding.npYearsNumber.minValue = 2013
         binding.npYearsNumber.maxValue = Calendar.getInstance().get(Calendar.YEAR)
 
-        if(filter.seasonNumber == ""){
+        if (filter.seasonNumber == "") {
             binding.cbSeasonsAll.isChecked = true
-        }else{
+        } else {
             binding.npSeasonNumber.value = filter.seasonNumber.toInt()
         }
 
-        if(filter.yearNumber == ""){
+        if (filter.yearNumber == "") {
             binding.cbYearsAll.isChecked = true
-        }
-        else{
+        } else {
             binding.npYearsNumber.value = filter.yearNumber.toInt()
         }
     }
@@ -46,36 +45,37 @@ class EpisodeFilterDialog @Inject constructor(): FilterDialog<FilterEpisodesBind
         setupSeasonsNumberPickerListener()
     }
 
-    private fun setupSeasonsCheckBoxListener(){
-        binding.cbSeasonsAll.setOnCheckedChangeListener{ _, isChecked ->
-            if(isChecked){
+    private fun setupSeasonsCheckBoxListener() {
+        binding.cbSeasonsAll.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
                 filter.seasonNumber = ""
-            }else{
+            } else {
                 filter.seasonNumber = binding.npSeasonNumber.value.toString()
             }
         }
     }
 
-    private fun setupYearsCheckBoxListener(){
-        binding.cbYearsAll.setOnCheckedChangeListener{ _, isChecked ->
-            if(isChecked){
+    private fun setupYearsCheckBoxListener() {
+        binding.cbYearsAll.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
                 filter.yearNumber = ""
-            }else{
+            } else {
                 filter.yearNumber = binding.npYearsNumber.value.toString()
             }
         }
     }
 
-    private fun setupYearsNumberPickerListener(){
-        binding.npYearsNumber.setOnValueChangedListener{ picker, oldVal, newVal ->
-            if(!binding.cbYearsAll.isChecked){
+    private fun setupYearsNumberPickerListener() {
+        binding.npYearsNumber.setOnValueChangedListener { picker, oldVal, newVal ->
+            if (!binding.cbYearsAll.isChecked) {
                 filter.yearNumber = newVal.toString()
             }
         }
     }
-    private fun setupSeasonsNumberPickerListener(){
-        binding.npSeasonNumber.setOnValueChangedListener{ picker, oldVal, newVal ->
-            if(!binding.cbSeasonsAll.isChecked){
+
+    private fun setupSeasonsNumberPickerListener() {
+        binding.npSeasonNumber.setOnValueChangedListener { picker, oldVal, newVal ->
+            if (!binding.cbSeasonsAll.isChecked) {
                 filter.seasonNumber = newVal.toString()
             }
         }

@@ -44,7 +44,7 @@ class SingleCharacterFragment : BaseFragment<FragmentSingleCharacterBinding>() {
     private lateinit var character: CharacterInfo
     private var characterId = UNDEFINED
 
-    private val component by lazy{
+    private val component by lazy {
         (requireActivity().application as AstonApp).component
     }
 

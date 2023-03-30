@@ -39,7 +39,7 @@ class EpisodeFragment : BaseFragment<FragmentEpisodeBinding>() {
     private var itemsList: List<EpisodeInfo> = listOf()
     private val editTextSubject = PublishSubject.create<String>()
 
-    private val component by lazy{
+    private val component by lazy {
         (requireActivity().application as AstonApp).component
     }
 
@@ -65,9 +65,9 @@ class EpisodeFragment : BaseFragment<FragmentEpisodeBinding>() {
             }
         }
 
-        viewModel.stateList.observe(viewLifecycleOwner){
-            for(state in it){
-                if(state.screen == "episodes" && state.dataIsReady){
+        viewModel.stateList.observe(viewLifecycleOwner) {
+            for (state in it) {
+                if (state.screen == "episodes" && state.dataIsReady) {
                     binding.swipeRefreshLayoutEpisodes.isRefreshing = false
                 }
             }
@@ -105,7 +105,7 @@ class EpisodeFragment : BaseFragment<FragmentEpisodeBinding>() {
         setupSwipeListener()
     }
 
-    private fun setupSwipeListener(){
+    private fun setupSwipeListener() {
         binding.swipeRefreshLayoutEpisodes.setOnRefreshListener {
             viewModel.loadEpisodes()
         }

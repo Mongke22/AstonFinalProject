@@ -49,7 +49,7 @@ class CharacterViewHolder(
         )
     }
 
-    fun setImage(imageSource: String, imageUrl: String, id: Int){
+    fun setImage(imageSource: String, imageUrl: String, id: Int) {
         loadImage(imageSource, imageUrl, id)
     }
 
@@ -84,7 +84,7 @@ class CharacterViewHolder(
             image.setImageResource(R.drawable.default_picture)
             return
         }
-        if(src != "unknown"){
+        if (src != "unknown") {
             image.setImageURI(Uri.parse(src))
             return
         }
@@ -100,9 +100,9 @@ class CharacterViewHolder(
                     }
 
                     override fun onBitmapFailed(errorDrawable: Drawable?) {
-                        if(src.isEmpty()){
+                        if (src.isEmpty()) {
                             image.setImageResource(R.drawable.default_picture)
-                        }else{
+                        } else {
                             image.setImageURI(Uri.parse(src))
                         }
                     }

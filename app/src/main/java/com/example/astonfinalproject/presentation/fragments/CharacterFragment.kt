@@ -31,15 +31,17 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>() {
 
     @Inject
     lateinit var charactersListAdapter: CharactersListAdapter
+
     @Inject
     lateinit var filter: CharacterFilter
+
     @Inject
     lateinit var myDialogFragment: CharacterFilterDialog
 
     private var itemsList: List<CharacterInfo> = listOf()
     private val editTextSubject = PublishSubject.create<String>()
 
-    private val component by lazy{
+    private val component by lazy {
         (requireActivity().application as AstonApp).component
     }
 
@@ -69,9 +71,9 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>() {
             }
         }
 
-        viewModel.stateList.observe(viewLifecycleOwner){
-            for(state in it){
-                if(state.screen == "characters" && state.dataIsReady){
+        viewModel.stateList.observe(viewLifecycleOwner) {
+            for (state in it) {
+                if (state.screen == "characters" && state.dataIsReady) {
                     binding.swipeRefreshLayoutCharacters.isRefreshing = false
                 }
             }
@@ -121,7 +123,7 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>() {
         setupSwipeListener()
     }
 
-    private fun setupSwipeListener(){
+    private fun setupSwipeListener() {
         binding.swipeRefreshLayoutCharacters.setOnRefreshListener {
             viewModel.loadCharacters()
         }

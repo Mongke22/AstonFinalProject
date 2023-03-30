@@ -28,7 +28,7 @@ class SingleEpisodeFragment : BaseFragment<FragmentSingleEpisodeBinding>() {
     private var episodeId = UNDEFINED
     private lateinit var episode: EpisodeInfo
 
-    private val component by lazy{
+    private val component by lazy {
         (requireActivity().application as AstonApp).component
     }
 
@@ -44,10 +44,9 @@ class SingleEpisodeFragment : BaseFragment<FragmentSingleEpisodeBinding>() {
 
     private fun parseParams() {
         val args = arguments
-        if(args == null){
-            Toast.makeText(requireContext(),"no params", Toast.LENGTH_SHORT).show()
-        }
-        else{
+        if (args == null) {
+            Toast.makeText(requireContext(), "no params", Toast.LENGTH_SHORT).show()
+        } else {
             if (args.containsKey(ID)) {
                 episodeId = args.getInt(ID)
             }
@@ -62,7 +61,7 @@ class SingleEpisodeFragment : BaseFragment<FragmentSingleEpisodeBinding>() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         viewModel.getEpisode(episodeId)
-        viewModel.episodeCharacterList.observe(viewLifecycleOwner){
+        viewModel.episodeCharacterList.observe(viewLifecycleOwner) {
             characterListAdapter.submitList(it)
         }
         viewModel.episodeInfo.observe(viewLifecycleOwner) {
@@ -71,15 +70,15 @@ class SingleEpisodeFragment : BaseFragment<FragmentSingleEpisodeBinding>() {
         }
     }
 
-    private fun setupInfo(){
-        with(binding){
+    private fun setupInfo() {
+        with(binding) {
             tvSingleEpisodeDate.text = episode.date
             tvSingleEpisodeNumber.text = episode.number
             tvSingleEpisodeName.text = episode.name
         }
     }
 
-    private fun setupRecyclerView(){
+    private fun setupRecyclerView() {
         val rvEpisodesList = binding.rvSingleEpisodeCharacters
         with(rvEpisodesList) {
             characterListAdapter = CharactersListAdapter()
@@ -88,7 +87,7 @@ class SingleEpisodeFragment : BaseFragment<FragmentSingleEpisodeBinding>() {
         setupListeners()
     }
 
-    private fun setupListeners(){
+    private fun setupListeners() {
         characterListAdapter.characterClickListener = {
             viewModel.moveToScreen(MainViewModel.Companion.Screen.CHARACTER_DETAIL, it.id)
         }

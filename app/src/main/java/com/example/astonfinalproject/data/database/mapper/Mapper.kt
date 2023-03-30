@@ -14,7 +14,7 @@ import com.example.astonfinalproject.domain.Model.LocationInfo
 import com.squareup.picasso.Picasso
 import javax.inject.Inject
 
-class Mapper @Inject constructor(val application: Application){
+class Mapper @Inject constructor(val application: Application) {
 
     fun mapCharacterDtoToDbModel(characterDto: CharactersResultDto): CharacterInfoDbModel {
         return CharacterInfoDbModel(
@@ -26,10 +26,13 @@ class Mapper @Inject constructor(val application: Application){
             characterDto.gender?.lowercase() ?: application.getString(R.string.string_unknown),
             application.getString(R.string.string_unknown),
             characterDto.image?.lowercase() ?: application.getString(R.string.string_unknown),
-            characterDto.origin?.name?.lowercase() ?: application.getString(R.string.string_unknown),
+            characterDto.origin?.name?.lowercase()
+                ?: application.getString(R.string.string_unknown),
             characterDto.origin?.url?.lowercase() ?: application.getString(R.string.string_unknown),
-            characterDto.location?.name?.lowercase() ?: application.getString(R.string.string_unknown),
-            characterDto.location?.url?.lowercase() ?: application.getString(R.string.string_unknown),
+            characterDto.location?.name?.lowercase()
+                ?: application.getString(R.string.string_unknown),
+            characterDto.location?.url?.lowercase()
+                ?: application.getString(R.string.string_unknown),
             characterDto.episode
         )
     }
@@ -66,7 +69,7 @@ class Mapper @Inject constructor(val application: Application){
             characterDb.status,
             characterDb.gender,
             characterDb.species,
-            characterDb.episodeList?: listOf(),
+            characterDb.episodeList ?: listOf(),
             characterDb.currentLocationName,
             characterDb.originLocationName
 
@@ -79,7 +82,7 @@ class Mapper @Inject constructor(val application: Application){
             episodeDb.name,
             episodeDb.episodeNumber,
             episodeDb.airDate,
-            episodeDb.characters?: listOf()
+            episodeDb.characters ?: listOf()
         )
     }
 

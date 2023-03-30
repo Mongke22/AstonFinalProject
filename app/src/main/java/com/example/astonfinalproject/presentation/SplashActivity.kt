@@ -23,9 +23,10 @@ class SplashActivity : AppCompatActivity() {
         }, 4000)
     }
 
-    private fun makeFullScreen(){
+    private fun makeFullScreen() {
         requestWindowFeature(Window.FEATURE_NO_TITLE)
-        WindowCompat.getInsetsController(window, window.decorView).hide(WindowInsetsCompat.Type.systemBars())
+        WindowCompat.getInsetsController(window, window.decorView)
+            .hide(WindowInsetsCompat.Type.systemBars())
         supportActionBar?.hide()
     }
 }

@@ -19,16 +19,16 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
-            private val getCharacterInfoUseCase: GetCharacterInfoUseCase,
-            private val getCharactersListUseCase: GetCharactersListUseCase,
-            private val getEpisodeInfoUseCase: GetEpisodeInfoUseCase,
-            private val getEpisodesListUseCase: GetEpisodesListUseCase,
-            private val getEpisodesByCharacterUseCase: GetEpisodesByCharacterUseCase,
-            private val getCharactersByUrlListUseCase: GetCharactersByUrlListUseCase,
-            private val getLocationInfoUseCase: GetLocationInfoUseCase,
-            private val getLocationsListUseCase: GetLocationsListUseCase,
-            private val updateImagePathUseCase: UpdateImagePathUseCase,
-            private val loadDataUseCase: LoadDataUseCase
+    private val getCharacterInfoUseCase: GetCharacterInfoUseCase,
+    private val getCharactersListUseCase: GetCharactersListUseCase,
+    private val getEpisodeInfoUseCase: GetEpisodeInfoUseCase,
+    private val getEpisodesListUseCase: GetEpisodesListUseCase,
+    private val getEpisodesByCharacterUseCase: GetEpisodesByCharacterUseCase,
+    private val getCharactersByUrlListUseCase: GetCharactersByUrlListUseCase,
+    private val getLocationInfoUseCase: GetLocationInfoUseCase,
+    private val getLocationsListUseCase: GetLocationsListUseCase,
+    private val updateImagePathUseCase: UpdateImagePathUseCase,
+    private val loadDataUseCase: LoadDataUseCase,
 ) : ViewModel() {
 
     companion object {
@@ -114,12 +114,12 @@ class MainViewModel @Inject constructor(
         loadDataUseCase.loadCharacter(id)
     }
 
-    fun loadEpisode(id: Int){
+    fun loadEpisode(id: Int) {
         loadDataUseCase.loadEpisode(id)
     }
 
-    fun loadLocation(id: Int, place: String = ""){
-        if(place == ""){
+    fun loadLocation(id: Int, place: String = "") {
+        if (place == "") {
             loadDataUseCase.loadLocation(id)
         }
     }
@@ -133,7 +133,7 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun getEpisode(id: Int){
+    fun getEpisode(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             val item: EpisodeInfo = getEpisodeInfoUseCase(id)
             val characterList: List<CharacterInfo> = getCharactersByUrlListUseCase(item.characters)
@@ -142,11 +142,11 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun getLocation(id: Int, place: String){
+    fun getLocation(id: Int, place: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            var item: LocationInfo = if(place == ""){
+            var item: LocationInfo = if (place == "") {
                 getLocationInfoUseCase(id)
-            } else{
+            } else {
                 getLocationInfoUseCase(place)
             }
             Log.i("getLocation", item.residents.toString())
@@ -163,7 +163,7 @@ class MainViewModel @Inject constructor(
     }
 
     fun moveToScreen(moveToScreen: Screen, id: Int = UNKNOWN_INT, place: String = "") {
-        when(moveToScreen){
+        when (moveToScreen) {
             Screen.LOCATION_DETAIL -> {
                 navigator.moveToLocationDetailScreen(this, id, place)
             }
@@ -188,23 +188,23 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun hideFragmentIfNoAvailableData(noAvailableData: Boolean){
+    fun hideFragmentIfNoAvailableData(noAvailableData: Boolean) {
         _dataAvailable.value = !noAvailableData
     }
 
-    fun setFilter(filter: CharacterFilter){
+    fun setFilter(filter: CharacterFilter) {
         _filterCharacter.value = filter
     }
 
-    fun setFilter(filter: EpisodeFilter){
+    fun setFilter(filter: EpisodeFilter) {
         _filterEpisode.value = filter
     }
 
-    fun setFilter(filter: LocationFilter){
+    fun setFilter(filter: LocationFilter) {
         _filterLocation.value = filter
     }
 
-    fun updateMenu(){
+    fun updateMenu() {
         navigator.popLocalBackStack()
         navigator.displayCurrentMenuPosition()
     }

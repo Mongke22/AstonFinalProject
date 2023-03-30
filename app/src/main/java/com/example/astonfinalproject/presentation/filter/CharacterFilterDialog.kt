@@ -5,20 +5,21 @@ import com.example.astonfinalproject.databinding.FilterCharactersBinding
 import com.example.astonfinalproject.presentation.filter.model.CharacterFilter
 import javax.inject.Inject
 
-class CharacterFilterDialog @Inject constructor(): FilterDialog<FilterCharactersBinding>() {
+class CharacterFilterDialog @Inject constructor() : FilterDialog<FilterCharactersBinding>() {
 
     var initCharacterFilter: (() -> CharacterFilter)? = null
 
-    var filter: CharacterFilter = CharacterFilter("","","")
+    var filter: CharacterFilter = CharacterFilter("", "", "")
 
     override fun getViewBinding(): FilterCharactersBinding {
         return FilterCharactersBinding.inflate(layoutInflater)
     }
 
     override fun initFilter() {
-        filter = initCharacterFilter?.invoke() ?: throw RuntimeException("Определите запись фильтра")
+        filter =
+            initCharacterFilter?.invoke() ?: throw RuntimeException("Определите запись фильтра")
 
-        when(filter.gender){
+        when (filter.gender) {
             "male" -> {
                 binding.rbMale.isChecked = true
             }
@@ -39,7 +40,7 @@ class CharacterFilterDialog @Inject constructor(): FilterDialog<FilterCharacters
                 binding.rbGenderAll.isChecked = true
             }
         }
-        when(filter.species){
+        when (filter.species) {
             "human" -> {
                 binding.rbHuman.isChecked = true
             }
@@ -53,7 +54,7 @@ class CharacterFilterDialog @Inject constructor(): FilterDialog<FilterCharacters
                 binding.rbSpeciesAll.isChecked = true
             }
         }
-        when(filter.status){
+        when (filter.status) {
             "alive" -> {
                 binding.rbAlive.isChecked = true
             }
@@ -75,39 +76,43 @@ class CharacterFilterDialog @Inject constructor(): FilterDialog<FilterCharacters
         setupSpeciesRadioGroupListener()
     }
 
-    private fun setupGenderRadioGroupListener(){
-        binding.rgGender.setOnCheckedChangeListener{_, buttonId ->
-            when(binding.rgGender.findViewById<RadioButton>(buttonId).text.toString()){
+    private fun setupGenderRadioGroupListener() {
+        binding.rgGender.setOnCheckedChangeListener { _, buttonId ->
+            when (binding.rgGender.findViewById<RadioButton>(buttonId).text.toString()) {
                 "all" -> {
                     filter.gender = ""
                 }
                 else -> {
-                    filter.gender = binding.rgGender.findViewById<RadioButton>(buttonId).text.toString()
-                }
-            }
-        }
-    }
-    private fun setupSpeciesRadioGroupListener(){
-        binding.rgSpecies.setOnCheckedChangeListener{_, buttonId ->
-            when(binding.rgSpecies.findViewById<RadioButton>(buttonId).text.toString()){
-                "all" -> {
-                    filter.species = ""
-                }
-                else -> {
-                    filter.species = binding.rgSpecies.findViewById<RadioButton>(buttonId).text.toString()
+                    filter.gender =
+                        binding.rgGender.findViewById<RadioButton>(buttonId).text.toString()
                 }
             }
         }
     }
 
-    private fun setupStatusRadioGroupListener(){
-        binding.rgStatus.setOnCheckedChangeListener{_, buttonId ->
-            when(binding.rgStatus.findViewById<RadioButton>(buttonId).text.toString()){
+    private fun setupSpeciesRadioGroupListener() {
+        binding.rgSpecies.setOnCheckedChangeListener { _, buttonId ->
+            when (binding.rgSpecies.findViewById<RadioButton>(buttonId).text.toString()) {
+                "all" -> {
+                    filter.species = ""
+                }
+                else -> {
+                    filter.species =
+                        binding.rgSpecies.findViewById<RadioButton>(buttonId).text.toString()
+                }
+            }
+        }
+    }
+
+    private fun setupStatusRadioGroupListener() {
+        binding.rgStatus.setOnCheckedChangeListener { _, buttonId ->
+            when (binding.rgStatus.findViewById<RadioButton>(buttonId).text.toString()) {
                 "all" -> {
                     filter.status = ""
                 }
                 else -> {
-                    filter.status = binding.rgStatus.findViewById<RadioButton>(buttonId).text.toString()
+                    filter.status =
+                        binding.rgStatus.findViewById<RadioButton>(buttonId).text.toString()
                 }
             }
         }

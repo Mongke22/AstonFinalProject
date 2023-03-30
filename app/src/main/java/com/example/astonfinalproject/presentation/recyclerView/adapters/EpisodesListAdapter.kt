@@ -9,7 +9,7 @@ import com.example.astonfinalproject.presentation.recyclerView.DiffCallBack
 import com.example.astonfinalproject.presentation.recyclerView.holders.EpisodeViewHolder
 import javax.inject.Inject
 
-class EpisodesListAdapter @Inject constructor():
+class EpisodesListAdapter @Inject constructor() :
     ListAdapter<EpisodeInfo, EpisodeViewHolder>(DiffCallBack<EpisodeInfo>()) {
 
     var episodeClickListener: ((EpisodeInfo) -> Unit)? = null
@@ -27,7 +27,7 @@ class EpisodesListAdapter @Inject constructor():
         holder.number.text = episode.number
         holder.date.text = episode.date
 
-        holder.view.setOnClickListener{
+        holder.view.setOnClickListener {
             episodeClickListener?.invoke(episode)
         }
     }

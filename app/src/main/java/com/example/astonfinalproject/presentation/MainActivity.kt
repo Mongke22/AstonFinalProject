@@ -17,13 +17,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     private lateinit var viewModel: MainViewModel
+
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
     @Inject
     lateinit var navigator: Navigator
 
-    private val component by lazy{
+    private val component by lazy {
         (application as AstonApp).component
     }
 

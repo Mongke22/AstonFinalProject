@@ -43,14 +43,15 @@ class LogicRepositoryImpl @Inject constructor(
     private val characterInfoDao: CharacterInfoDao,
     private val episodeInfoDao: EpisodeInfoDao,
     private val locationInfoDao: LocationInfoDao,
-    private val dataStateDao: DataStateDao): LogicRepository {
+    private val dataStateDao: DataStateDao,
+) : LogicRepository {
 
 
     private val apiService = ApiFactory.apiService
 
     override fun getCharactersList(): LiveData<List<CharacterInfo>> {
-        return Transformations.map(characterInfoDao.getCharacterInfoList()){
-            it.map{ character ->
+        return Transformations.map(characterInfoDao.getCharacterInfoList()) {
+            it.map { character ->
                 mapper.mapCharacterDbModelToEntity(character)
             }
         }
@@ -78,8 +79,8 @@ class LogicRepositoryImpl @Inject constructor(
     }
 
     override fun getLocationsList(): LiveData<List<LocationInfo>> {
-        return Transformations.map(locationInfoDao.getLocationInfoList()){
-            it.map{ location ->
+        return Transformations.map(locationInfoDao.getLocationInfoList()) {
+            it.map { location ->
                 mapper.mapLocationDbModelToEntity(location)
             }
         }
@@ -88,10 +89,10 @@ class LogicRepositoryImpl @Inject constructor(
 
     override suspend fun getEpisodesByCharacter(episodesUrl: List<String>): List<EpisodeInfo> {
         val episodesId: ArrayList<Int> = ArrayList()
-        for(episodeUrl in episodesUrl){
+        for (episodeUrl in episodesUrl) {
             episodesId.add(mapper.mapURLtoId(episodeUrl))
         }
-        return episodeInfoDao.getSelectedEpisodeInfoList(episodesId).map{
+        return episodeInfoDao.getSelectedEpisodeInfoList(episodesId).map {
             mapper.mapEpisodeDbModelToEntity(it)
         }
 
@@ -99,11 +100,11 @@ class LogicRepositoryImpl @Inject constructor(
 
     override suspend fun getCharactersByUrlList(charactersUrl: List<String>): List<CharacterInfo> {
         val charactersId: ArrayList<Int> = ArrayList()
-        for(characterUrl in charactersUrl){
-            if(characterUrl != "")
-            charactersId.add(mapper.mapURLtoId(characterUrl))
+        for (characterUrl in charactersUrl) {
+            if (characterUrl != "")
+                charactersId.add(mapper.mapURLtoId(characterUrl))
         }
-        return characterInfoDao.getSelectedCharacterInfoList(charactersId).map{
+        return characterInfoDao.getSelectedCharacterInfoList(charactersId).map {
             mapper.mapCharacterDbModelToEntity(it)
         }
     }
@@ -117,7 +118,7 @@ class LogicRepositoryImpl @Inject constructor(
     }
 
     override suspend fun updateCharacterImagePath(id: Int, path: String) {
-        characterInfoDao.updateImagePath(path,id)
+        characterInfoDao.updateImagePath(path, id)
     }
 
     override fun loadSingleCharacterInfo(id: Int) {
@@ -140,8 +141,8 @@ class LogicRepositoryImpl @Inject constructor(
 
 
     override fun loadCharactersInfo(page: Int) {
-        thread{
-            dataStateDao.insertDataState(DataStateDbModel("characters",false))
+        thread {
+            dataStateDao.insertDataState(DataStateDbModel("characters", false))
         }
         apiService.getCharacters(page)
             .subscribeOn(Schedulers.io())
@@ -149,16 +150,15 @@ class LogicRepositoryImpl @Inject constructor(
             .subscribe(object : DisposableSingleObserver<Any?>() {
                 override fun onSuccess(obj: Any) {
                     val response = obj as CharactersPageResultDto
-                    if(response.results != null){
-                        for(characterDto in response.results) {
+                    if (response.results != null) {
+                        for (characterDto in response.results) {
                             insertOrUpdateCharacter(characterDto)
                         }
                     }
-                    if(response.info?.next != null){
+                    if (response.info?.next != null) {
                         loadCharactersInfo(page + 1)
-                    }
-                    else{
-                        dataStateDao.insertDataState(DataStateDbModel("characters",true))
+                    } else {
+                        dataStateDao.insertDataState(DataStateDbModel("characters", true))
                     }
                     dispose()
                 }
@@ -170,12 +170,12 @@ class LogicRepositoryImpl @Inject constructor(
             })
     }
 
-    private fun insertOrUpdateCharacter(characterDto: CharactersResultDto){
+    private fun insertOrUpdateCharacter(characterDto: CharactersResultDto) {
         val character = mapper.mapCharacterDtoToDbModel(characterDto)
-        if(characterInfoDao.checkCharacterExists(character.id) == 1){
+        if (characterInfoDao.checkCharacterExists(character.id) == 1) {
             val dbCharacter = characterInfoDao.getCharacterInfo(character.id)
             character.imageSrc = dbCharacter.imageSrc
-            if(character == dbCharacter) return
+            if (character == dbCharacter) return
         }
         Log.i("insertion", character.toString())
         characterInfoDao.insertCharacterInfo(character)
@@ -201,8 +201,8 @@ class LogicRepositoryImpl @Inject constructor(
     }
 
     override fun loadEpisodesInfo(page: Int) {
-        thread{
-            dataStateDao.insertDataState(DataStateDbModel("episodes",false))
+        thread {
+            dataStateDao.insertDataState(DataStateDbModel("episodes", false))
         }
         apiService.getEpisodes(page)
             .subscribeOn(Schedulers.io())
@@ -210,18 +210,17 @@ class LogicRepositoryImpl @Inject constructor(
             .subscribe(object : DisposableSingleObserver<Any?>() {
                 override fun onSuccess(obj: Any) {
                     val response = obj as EpisodesPageResultDto
-                    if(response.results != null){
-                        for(episodeDto in response.results) {
+                    if (response.results != null) {
+                        for (episodeDto in response.results) {
                             episodeInfoDao.insertEpisodeInfo(
                                 mapper.mapEpisodeDtoToDbModel(episodeDto)
                             )
                         }
                     }
-                    if(response.info?.next != null){
+                    if (response.info?.next != null) {
                         loadEpisodesInfo(page + 1)
-                    }
-                    else{
-                        dataStateDao.insertDataState(DataStateDbModel("episodes",true))
+                    } else {
+                        dataStateDao.insertDataState(DataStateDbModel("episodes", true))
                     }
                     dispose()
                 }
@@ -252,8 +251,8 @@ class LogicRepositoryImpl @Inject constructor(
     }
 
     override fun loadLocationsInfo(page: Int) {
-        thread{
-            dataStateDao.insertDataState(DataStateDbModel("locations",false))
+        thread {
+            dataStateDao.insertDataState(DataStateDbModel("locations", false))
         }
         apiService.getLocations(page)
             .subscribeOn(Schedulers.io())
@@ -261,14 +260,13 @@ class LogicRepositoryImpl @Inject constructor(
             .subscribe(object : DisposableSingleObserver<Any?>() {
                 override fun onSuccess(obj: Any) {
                     val response = obj as LocationsPageResultDto
-                    if(response.info?.next != null){
+                    if (response.info?.next != null) {
                         loadLocationsInfo(page + 1)
+                    } else {
+                        dataStateDao.insertDataState(DataStateDbModel("locations", true))
                     }
-                    else{
-                        dataStateDao.insertDataState(DataStateDbModel("locations",true))
-                    }
-                    if(response.results != null){
-                        for(locationDto in response.results) {
+                    if (response.results != null) {
+                        for (locationDto in response.results) {
                             locationInfoDao.insertLocationInfo(
                                 mapper.mapLocationDtoToDbModel(locationDto)
                             )
